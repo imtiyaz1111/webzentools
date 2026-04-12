@@ -1,0 +1,384 @@
+/* ===== HERO SECTION ===== */
+.hero-section {
+  position: relative;
+  padding: 120px 20px;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+
+  /* Premium gradient background */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* ===== GRID OVERLAY (PREMIUM TOUCH) ===== */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+  opacity: 0.3;
+}
+
+/* Ensure content stays above overlay */
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 20px;
+  margin-bottom: 30px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+.breadcrumb-pill .active {
+  color: #38bdf8;
+  font-weight: 500;
+}
+
+.separator {
+  opacity: 0.6;
+}
+
+/* ===== TITLE ===== */
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+/* Gradient text */
+.hero-title span {
+  background: linear-gradient(90deg, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== SUBTITLE ===== */
+.hero-subtitle {
+  max-width: 700px;
+  margin: 0 auto;
+
+  font-size: 18px;
+  line-height: 1.7;
+  color: #cbd5f5;
+}
+
+/* ===== TRUST LINE ===== */
+.hero-trust {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* Optional: better gradient for THIS tool */
+.hero-section {
+  background: linear-gradient(135deg, #0f172a, #1e293b, #0ea5e9);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+  }
+}
+
+/* ===== TOP BANNER ===== */
+.banner-ad img {
+  border-radius: 12px;
+}
+
+
+.glass-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.upload-box-premium {
+  border: 2px dashed rgba(255,255,255,0.2);
+  padding: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-box-premium:hover {
+  border-color: #6c63ff;
+  background: rgba(108,99,255,0.1);
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #6c63ff, #8e7dff);
+  border: none;
+  padding: 12px 25px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.result-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 10px;
+}
+
+.ad-box {
+  height: 250px;
+  background: #111;
+  border-radius: 10px;
+}
+
+/* Section */
+.how-section {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+/* Heading */
+.how-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.how-subtitle {
+  color: #64748b;
+  max-width: 600px;
+  margin: auto;
+  font-size: 15px;
+}
+
+/* Card */
+.how-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: 0.3s;
+  position: relative;
+  height: 100%;
+}
+
+/* Hover */
+.how-card:hover {
+  transform: translateY(-6px);
+  border-color: #6c63ff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Icon */
+.how-icon {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c63ff, #8e7dff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 30px;
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+}
+
+/* Text */
+.how-card h5 {
+  color: #0f172a;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.how-card p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Optional: Step Number Badge */
+.how-card::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  background: #6c63ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section */
+.features-section {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+/* Heading */
+.features-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.features-subtitle {
+  color: #64748b;
+  max-width: 600px;
+  margin: auto;
+  font-size: 15px;
+}
+
+/* Card */
+.feature-card {
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  transition: 0.3s;
+  height: 100%;
+}
+
+/* Hover */
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: #6c63ff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Icon */
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  color: #6c63ff;
+}
+
+/* Title */
+.feature-card h5 {
+  color: #0f172a;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Text */
+.feature-card p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Hover icon effect */
+.feature-card:hover .feature-icon {
+  color: #8e7dff;
+}
+
+/* Section */
+.faq-section {
+  background: #e2e8f0;
+  padding: 80px 0;
+}
+
+/* Heading */
+.faq-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.faq-subtitle {
+  color: #475569;
+  max-width: 600px;
+  margin: auto;
+  font-size: 15px;
+}
+
+/* Wrapper */
+.faq-wrapper {
+  max-width: 750px;
+}
+
+/* Item */
+.faq-item {
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  transition: 0.3s;
+}
+
+/* Question */
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  cursor: pointer;
+}
+
+.faq-question h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Icon */
+.faq-icon {
+  font-size: 20px;
+  color: #6c63ff;
+  transition: 0.3s;
+}
+
+/* Answer */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0 20px;
+}
+
+.faq-answer p {
+  font-size: 14px;
+  color: #475569;
+  padding-bottom: 15px;
+}
+
+/* Active State */
+.faq-item.active .faq-answer {
+  max-height: 200px;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}

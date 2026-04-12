@@ -1,0 +1,643 @@
+/* ==========================================================================
+   WEBZENTOOLS - CONTACT PAGE HERO SECTION
+   ========================================================================== */
+
+.wt-contact-hero {
+    background-color: #030712;
+    /* Deep midnight base */
+    min-height: 60vh;
+    /* Gives the hero section plenty of breathing room */
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- 1. The Subtle Tech Grid Overlay --- */
+.wt-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Fades the grid out at the edges so it doesn't abruptly cut off */
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    z-index: 1;
+}
+
+/* --- 2. Ambient Background Glows --- */
+.wt-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 2;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: heroGlow Breathe 10s ease-in-out infinite alternate;
+}
+
+.wt-glow-left {
+    background: #00e5ff;
+    top: -20%;
+    left: -10%;
+}
+
+.wt-glow-right {
+    background: #3b82f6;
+    bottom: -20%;
+    right: -10%;
+}
+
+@keyframes heroGlow {
+    0% {
+        transform: scale(1);
+        opacity: 0.15;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.25;
+    }
+}
+
+/* --- Typography & Utilities --- */
+.wt-tracking-tight {
+    letter-spacing: -1.5px;
+}
+
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   THE BREADCRUMB PILL
+   ========================================================================== */
+
+.wt-breadcrumb-pill {
+    background: rgba(9, 14, 23, 0.6);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 50px;
+    padding: 10px 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-breadcrumb-pill:hover {
+    border-color: rgba(0, 229, 255, 0.4);
+    background: rgba(9, 14, 23, 0.8);
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15) !important;
+    transform: translateY(-2px);
+}
+
+.wt-cyan-accent {
+    color: #00e5ff;
+}
+
+.wt-breadcrumb-link {
+    color: #00e5ff;
+    transition: all 0.2s ease;
+}
+
+.wt-breadcrumb-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+}
+
+.wt-breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- The Active Pulse Dot --- */
+.wt-active-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00e5ff;
+    animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(0, 229, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+    }
+}
+
+/* ==========================================================================
+   STAGGERED ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+.wt-fade-in-1,
+.wt-fade-in-2,
+.wt-fade-in-3 {
+    opacity: 0;
+    animation: wtSlideUpHero 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-fade-in-1 {
+    animation-delay: 0.1s;
+}
+
+.wt-fade-in-2 {
+    animation-delay: 0.2s;
+}
+
+.wt-fade-in-3 {
+    animation-delay: 0.3s;
+}
+
+@keyframes wtSlideUpHero {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 576px) {
+    .wt-contact-hero {
+        min-height: 50vh;
+        padding: 2rem 0;
+    }
+
+    .wt-breadcrumb-pill {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - CONTACT CORE (PREMIUM LIGHT EDITION)
+   ========================================================================== */
+
+.wt-contact-core-section {
+    /* Premium Whitish Background */
+    background-color: #f8fafc;
+    background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #f1f5f9 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- LIGHT MODE OVERRIDES --- */
+/* This forces your React "text-white" classes to become dark slate so you don't have to edit JSX */
+.wt-contact-core-section .text-white {
+    color: #0f172a !important;
+}
+
+.wt-contact-core-section .text-muted {
+    color: #64748b !important;
+}
+
+/* Keep the icons and button text pure white */
+.wt-channel-icon-box .wt-cyan-accent,
+.wt-channel-icon-box .text-blue-400,
+.wt-btn-submit {
+    color: #ffffff !important;
+}
+
+/* Faint dark grid for light mode */
+.wt-contact-bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 1;
+}
+
+/* --- Shared Utilities --- */
+.wt-tracking-tight {
+    letter-spacing: -1px;
+}
+
+.text-blue-400 {
+    color: #3b82f6;
+}
+
+.wt-cyan-accent {
+    color: #0ea5e9;
+}
+
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   LEFT SIDE: CHANNEL CARDS (LIGHT AIRY CARDS)
+   ========================================================================== */
+
+.wt-channel-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-channel-card:hover {
+    transform: translateX(5px);
+}
+
+/* Theme specific hover glows */
+.wt-channel-card.theme-cyan:hover {
+    border-color: rgba(14, 165, 233, 0.2);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 5px 15px rgba(14, 165, 233, 0.05);
+}
+
+.wt-channel-card.theme-blue:hover {
+    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 5px 15px rgba(59, 130, 246, 0.05);
+}
+
+.wt-channel-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.wt-channel-card:hover .wt-channel-icon-box {
+    transform: scale(1.1);
+}
+
+.wt-channel-link {
+    color: #0ea5e9;
+    transition: all 0.2s ease;
+}
+
+.wt-channel-link:hover {
+    color: #3b82f6;
+    text-shadow: 0 0 8px rgba(14, 165, 233, 0.2);
+}
+
+/* ==========================================================================
+   RIGHT SIDE: PREMIUM SMART FORM (LIGHT THEME)
+   ========================================================================== */
+
+.wt-contact-form-wrapper {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+/* Form Labels */
+.wt-form-label {
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+/* Inputs, Selects, and Textareas */
+.wt-premium-input,
+.wt-premium-select,
+.wt-premium-textarea {
+    background: #f8fafc !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    color: #0f172a !important;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.wt-premium-select {
+    cursor: pointer;
+    /* Custom dark arrow for select */
+}
+
+.wt-premium-input::placeholder,
+.wt-premium-textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* Focus Glow States */
+.wt-premium-input:focus,
+.wt-premium-select:focus,
+.wt-premium-textarea:focus {
+    background: #ffffff !important;
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+    outline: none;
+}
+
+/* --- Submit Button --- */
+.wt-btn-submit {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.25);
+    cursor: pointer;
+}
+
+.wt-btn-submit:hover {
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.wt-send-icon {
+    transition: transform 0.3s ease;
+}
+
+.wt-btn-submit:hover .wt-send-icon {
+    transform: translateX(4px) translateY(-4px);
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+.wt-fade-in-left {
+    opacity: 0;
+    animation: wtSlideInLeft 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-fade-in-right {
+    opacity: 0;
+    animation: wtSlideInRight 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    animation-delay: 0.2s;
+}
+
+@keyframes wtSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes wtSlideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 992px) {
+    .wt-fade-in-right {
+        animation: wtSlideInUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes wtSlideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - PREMIUM BOTTOM CTA (LIGHT THEME)
+   ========================================================================== */
+
+.wt-cta-section {
+    background-color: #f8fafc;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Shared Typography & Utilities --- */
+.text-dark-slate {
+    color: #0f172a !important;
+}
+
+.wt-tracking-tight {
+    letter-spacing: -1.5px;
+}
+
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   THE FLOATING CTA ISLAND
+   ========================================================================== */
+
+.wt-cta-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 32px;
+    /* Very soft, massive rounded corners */
+    box-shadow: 0 25px 50px rgba(15, 23, 42, 0.04), 0 5px 15px rgba(15, 23, 42, 0.02);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wt-cta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.06), 0 10px 20px rgba(14, 165, 233, 0.05);
+}
+
+/* --- Internal Glowing Orbs --- */
+/* These create beautiful, diffuse color washes in the corners of the white card */
+.wt-cta-orb {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.orb-top-left {
+    background: #0ea5e9;
+    top: -150px;
+    left: -150px;
+}
+
+.orb-bottom-right {
+    background: #3b82f6;
+    bottom: -150px;
+    right: -150px;
+}
+
+/* --- The Rocket Badge --- */
+.wt-cta-icon-badge {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    /* Bouncing hover animation */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-cta-card:hover .wt-cta-icon-badge {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* ==========================================================================
+   BUTTON STYLES (PRIMARY & SECONDARY)
+   ========================================================================== */
+
+/* --- Primary Button (Solid Gradient) --- */
+.wt-btn-cta-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff;
+    padding: 16px 36px;
+    border-radius: 50px;
+    /* Pill shape */
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.25);
+}
+
+.wt-btn-cta-primary:hover {
+    color: #ffffff;
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+    transform: translateY(-3px);
+}
+
+.wt-arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+.wt-btn-cta-primary:hover .wt-arrow-icon {
+    transform: translateX(6px);
+    /* Arrow slides right */
+}
+
+/* --- Secondary Button (Glass/Outline) --- */
+.wt-btn-cta-secondary {
+    background: #ffffff;
+    color: #334155;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.02);
+}
+
+.wt-btn-cta-secondary:hover {
+    background: #f8fafc;
+    color: #0ea5e9;
+    /* Text turns cyan on hover */
+    border-color: rgba(14, 165, 233, 0.3);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05);
+    transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATION
+   ========================================================================== */
+
+.wt-fade-in-up {
+    opacity: 0;
+    animation: wtCtaSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wtCtaSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS
+   ========================================================================== */
+
+@media (max-width: 576px) {
+    .wt-cta-card {
+        padding: 3rem 1.5rem !important;
+        border-radius: 24px;
+    }
+
+    .wt-btn-cta-primary,
+    .wt-btn-cta-secondary {
+        width: 100%;
+        /* Buttons go full width and stack */
+        padding: 14px 20px;
+        font-size: 1.05rem;
+    }
+
+    .wt-cta-orb {
+        width: 250px;
+        height: 250px;
+    }
+}

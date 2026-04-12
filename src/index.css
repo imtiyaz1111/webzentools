@@ -1,0 +1,850 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --primary: #2563EB;
+  --primary-light: #3B82F6;
+  --secondary: #7C3AED;
+  --secondary-light: #8B5CF6;
+  --accent: #38BDF8;
+  --accent-soft: #60A5FA;
+  --dark: #0F172A;
+  --text: #1E293B;
+  --muted: #64748B;
+  --background: #F1F5F9;
+}
+
+body {
+  background-color: var(--background);
+  height: 2000px;
+  /* Increased for testing scroll */
+  /* ADDED: Padding to prevent layout jumping when navbar becomes fixed */
+  padding-top: 100px;
+}
+
+
+/* ==========================================================================
+   WEBZENTOOLS - FLOATING PREMIUM NAVBAR
+   ========================================================================== */
+
+/* --- The Wrapper & Scroll State --- */
+.wt-navbar-wrapper {
+  position: fixed;
+  top: 20px;
+  /* Floats 20px down from the top of the browser */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 1200px;
+  /* Constrains width so it looks like an island */
+  z-index: 1050;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-navbar-wrapper.wt-scrolled {
+  top: 10px;
+  width: 98%;
+  max-width: 1400px;
+}
+
+/* --- The Floating Glass Island --- */
+.wt-floating-navbar {
+  background: rgba(255, 255, 255, 0.65);
+  /* Deep midnight glass */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  /* Fully rounded pill shape */
+  padding: 8px 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+}
+
+.wt-scrolled .wt-floating-navbar {
+  background: rgba(255, 255, 255, 0.85);
+  /* Gets darker when scrolling */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.05);
+  border-color: rgba(0, 229, 255, 0.15);
+  /* Subtle cyan glow on scroll */
+}
+
+/* --- Logo --- */
+.wt-nav-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.wt-nav-logo:hover {
+  transform: scale(1.05);
+}
+
+/* --- Nav Links --- */
+.wt-nav-link,
+.nav-link {
+  color: #000000 !important;
+  /* Muted slate */
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 16px !important;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.wt-nav-link:hover,
+.nav-link:hover {
+  color: #006eff !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* The Active Link */
+.wt-nav-link.active {
+  color: #00e5ff !important;
+  background: rgba(0, 229, 255, 0.1);
+}
+
+/* ==========================================================================
+   PREMIUM DROPDOWNS & MEGA MENU
+   ========================================================================== */
+
+.wt-glass-dropdown .dropdown-menu {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  margin-top: 15px;
+  /* Detaches it slightly from the navbar */
+  padding: 10px;
+
+  /* Animation */
+  animation: dropdownFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top center;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Dropdown Items */
+.wt-glass-dropdown .dropdown-item {
+  color: #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.wt-glass-dropdown .dropdown-item:hover {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+}
+
+.dropdown-divider {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.wt-cyan-accent {
+  color: #00e5ff;
+}
+
+/* --- Specific Mega Menu Styles --- */
+.wt-mega-menu {
+  position: static !important;
+  /* Allows mega menu to span width */
+}
+
+.wt-mega-menu .dropdown-menu {
+  width: 90%;
+  max-width: 900px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 0;
+}
+
+/* Only run the keyframe override if it's open */
+.wt-mega-menu.show .dropdown-menu {
+  animation: megaMenuFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes megaMenuFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+/* Mega Menu Typography */
+.wt-mega-title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.wt-mega-title.highlight {
+  color: #00e5ff;
+  /* Cyan accent title */
+}
+
+.wt-mega-list li {
+  margin-bottom: 8px;
+}
+
+.wt-mega-list a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.wt-mega-list a:hover {
+  color: #00e5ff;
+}
+
+.wt-mega-divider {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+  margin: 0 20px;
+}
+
+.wt-view-all-link {
+  color: #3b82f6;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wt-view-all-link:hover {
+  color: #00e5ff !important;
+  text-decoration: underline;
+}
+
+/* Mega Menu Image Cards */
+.wt-mega-img-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.wt-mega-img-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 229, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+.wt-mega-img-card img {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.wt-mega-img-card:hover img {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   SEARCH BAR
+   ========================================================================== */
+
+.wt-search-icon {
+  color: #64748b;
+  transition: color 0.3s ease;
+}
+
+.wt-premium-search {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(247, 0, 255, 0.493) !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  /* Pill shape search */
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 220px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-premium-search::placeholder {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.wt-premium-search:focus {
+  width: 260px;
+  /* Expands smoothly on click */
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #00e5ff !important;
+  box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.15) !important;
+  outline: none;
+}
+
+/* Light up the icon when input is focused */
+.wt-premium-search:focus+.wt-search-icon,
+.d-flex:focus-within .wt-search-icon {
+  color: #00e5ff;
+}
+
+/* ==========================================================================
+   MOBILE OVERRIDES
+   ========================================================================== */
+
+/* The hamburger toggle icon in dark mode */
+.wt-nav-toggle {
+  border: none !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.wt-nav-toggle:focus {
+  box-shadow: none !important;
+}
+
+@media (max-width: 991px) {
+  .wt-floating-navbar {
+    border-radius: 20px;
+    /* Less rounded on mobile so menu looks right */
+    padding: 15px;
+  }
+
+  .wt-premium-search {
+    width: 100%;
+  }
+
+  .wt-premium-search:focus {
+    width: 100%;
+  }
+
+  .wt-glass-dropdown .dropdown-menu {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 15px;
+    animation: none;
+  }
+
+  .wt-mega-menu .dropdown-menu {
+    transform: none !important;
+    left: 0 !important;
+    width: 100%;
+  }
+}
+
+
+
+/* ==========================================================================
+   Premium Hero Section Styles
+   ========================================================================== */
+
+.premium-hero-section {
+  position: relative;
+  background-color: #f8fafc;
+  /* Very soft slate/off-white background */
+  overflow: hidden;
+  /* Push down slightly so it doesn't hide behind your fixed navbar */
+  padding-top: 80px;
+}
+
+/* --- Decorative Background Glows --- */
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glow-left {
+  top: -100px;
+  left: -200px;
+}
+
+.glow-right {
+  bottom: -100px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.z-index-2 {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Typography --- */
+.hero-headline {
+  color: #0f172a;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+/* Beautiful Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subheadline {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* --- Premium Badge --- */
+.hero-badge {
+  background-color: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.badge-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  /* Success green */
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* --- Buttons --- */
+.hero-btn-primary,
+.hero-btn-secondary {
+  border-radius: 50px !important;
+  padding: 0.8rem 1.8rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.hero-btn-primary {
+  background-color: #2563eb !important;
+  border: none !important;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2) !important;
+}
+
+.hero-btn-primary:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3) !important;
+}
+
+.hero-btn-secondary {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.hero-btn-secondary:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  transform: translateY(-3px);
+}
+
+/* --- Right Side Visuals & Animation --- */
+.hero-image-wrapper {
+  position: relative;
+  /* Gentle floating animation applied to the whole right side */
+  animation: float-image 6s ease-in-out infinite;
+}
+
+.hero-main-image {
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* The small floating stats card overlay */
+.hero-floating-card {
+  position: absolute;
+  bottom: -20px;
+  left: -30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  /* Slightly offset animation timing for a layered feel */
+  animation: float-image 7s ease-in-out infinite reverse;
+}
+
+.card-icon-box {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes float-image {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 991px) {
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+
+  .hero-floating-card {
+    left: 10px;
+    bottom: -10px;
+    padding: 1rem;
+  }
+
+  .hero-trust-indicators {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   Premium Footer Styles
+   ========================================================================== */
+
+.premium-footer {
+  background-color: var(--dark, #0F172A);
+  /* Deep slate/navy background */
+  color: #94a3b8;
+  /* Muted slate text */
+  padding-top: 5rem;
+  font-family: inherit;
+  margin-top: auto;
+  /* Pushes footer to bottom if container is flex */
+}
+
+/* Top Section Spacing */
+.footer-top-section {
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /* Very subtle divider line */
+}
+
+/* Brand & Description */
+.footer-logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  /* Makes a dark logo white. Remove if your logo is already white/colored */
+}
+
+.footer-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* Typography */
+.footer-heading {
+  color: #f8fafc;
+  /* Bright white/slate for headings */
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Links */
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+/* Premium hover effect: slightly shifts right and turns primary color */
+.footer-links a:hover {
+  color: var(--accent, #38BDF8);
+  transform: translateX(4px);
+}
+
+/* Social Icons */
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background-color: var(--primary, #2563EB);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+}
+
+/* Newsletter Input */
+.footer-newsletter {
+  width: 100%;
+}
+
+.newsletter-icon {
+  color: #64748b;
+  z-index: 10;
+}
+
+.newsletter-input {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+  border-radius: 50px !important;
+  padding: 0.75rem 1.5rem 0.75rem 3rem !important;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.newsletter-input::placeholder {
+  color: #64748b;
+}
+
+.newsletter-input:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--accent, #38BDF8) !important;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1) !important;
+}
+
+/* Embedded button inside input */
+.newsletter-btn {
+  right: 6px;
+  border-radius: 50px !important;
+  padding: 0.4rem 0.8rem !important;
+  background-color: var(--primary, #2563EB) !important;
+  border: none !important;
+  transition: all 0.2s ease;
+}
+
+.newsletter-btn:hover {
+  background-color: var(--primary-light, #3B82F6) !important;
+  transform: scale(1.05);
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  padding: 1.5rem 0;
+}
+
+.footer-bottom-links a {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-bottom-links a:hover {
+  color: #f8fafc !important;
+}
+
+/* ==========================================================================
+   Mobile Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .premium-footer {
+    padding-top: 3rem;
+  }
+
+  .footer-heading {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-top-section {
+    padding-bottom: 2rem;
+  }
+}
+
+/* ===== SECTION ===== */
+.related-section {
+  background: #020617; /* 🔥 MATCH YOUR DARK BG */
+  padding: 80px 0;
+}
+
+/* ===== TITLE ===== */
+.related-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+/* ===== SUBTITLE ===== */
+.related-subtitle {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* ===== TOOL CARD ===== */
+.tool-card {
+  background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(2,6,23,0.9));
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 25px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  height: 100%;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* GLOW BORDER */
+.tool-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(120deg, #4facfe, #00f2fe, #6366f1);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* HOVER */
+.tool-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* ===== ICON ===== */
+.tool-icon {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  margin-bottom: 15px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #000;
+  box-shadow: 0 0 20px rgba(79, 172, 254, 0.6);
+}
+
+/* ===== TITLE ===== */
+.tool-card h6 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+/* ===== TEXT ===== */
+.tool-card p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+
+/* ===== LINK ===== */
+.tool-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #38bdf8;
+  transition: 0.2s;
+}
+
+/* LINK HOVER */
+.tool-card:hover .tool-link {
+  color: #00f2fe;
+}

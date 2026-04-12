@@ -1,0 +1,1524 @@
+/* ==========================================================================
+   WEBZENTOOLS - ALL CATEGORIES HERO
+   ========================================================================== */
+
+.wt-all-categories-hero {
+    background-color: #030712;
+    /* Deep midnight base */
+    min-height: 45vh;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+    /* Accounts for the floating navbar */
+}
+
+/* --- 1. The Subtle Tech Grid Overlay --- */
+.wt-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+    z-index: 1;
+}
+
+/* --- 2. Ambient Background Glows --- */
+.wt-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 2;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: heroGlow Breathe 10s ease-in-out infinite alternate;
+}
+
+.wt-glow-left {
+    background: #00e5ff;
+    top: -20%;
+    left: -10%;
+}
+
+.wt-glow-right {
+    background: #3b82f6;
+    bottom: -20%;
+    right: -10%;
+}
+
+@keyframes heroGlow {
+    0% {
+        transform: scale(1);
+        opacity: 0.15;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.25;
+    }
+}
+
+/* --- Typography & Utilities --- */
+.wt-tracking-tight {
+    letter-spacing: -1.5px;
+}
+
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   THE BREADCRUMB PILL
+   ========================================================================== */
+
+.wt-breadcrumb-pill {
+    background: rgba(9, 14, 23, 0.6);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 50px;
+    padding: 10px 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-breadcrumb-pill:hover {
+    border-color: rgba(0, 229, 255, 0.4);
+    background: rgba(9, 14, 23, 0.8);
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15) !important;
+    transform: translateY(-2px);
+}
+
+.wt-cyan-accent {
+    color: #00e5ff;
+}
+
+.wt-breadcrumb-link {
+    color: #00e5ff;
+    transition: all 0.2s ease;
+}
+
+.wt-breadcrumb-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+}
+
+.wt-breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- The Active Pulse Dot --- */
+.wt-active-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00e5ff;
+    animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(0, 229, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+    }
+}
+
+/* ==========================================================================
+   STAGGERED ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+.wt-fade-in-1,
+.wt-fade-in-2,
+.wt-fade-in-3 {
+    opacity: 0;
+    animation: wtSlideUpHero 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-fade-in-1 {
+    animation-delay: 0.1s;
+}
+
+.wt-fade-in-2 {
+    animation-delay: 0.2s;
+}
+
+.wt-fade-in-3 {
+    animation-delay: 0.3s;
+}
+
+@keyframes wtSlideUpHero {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 576px) {
+    .wt-all-categories-hero {
+        min-height: 35vh;
+        padding: 3rem 0;
+    }
+
+    .wt-breadcrumb-pill {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+    }
+}
+
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - CATEGORY COMMAND CENTER & GRID (HIGH-VISIBILITY LIGHT)
+   ========================================================================== */
+
+.wt-category-grid-section {
+    /* Slightly darker cool-gray background so the white cards pop */
+    background-color: #f1f5f9;
+    min-height: 50vh;
+}
+
+/* Faint dot pattern */
+.wt-grid-bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   COMMAND CENTER (SEARCH & FILTERS)
+   ========================================================================== */
+
+.wt-command-center {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+}
+
+/* --- Filter Pills --- */
+.wt-filter-pill {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.wt-filter-pill:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.wt-filter-pill.active {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff !important;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25);
+}
+
+/* --- Search Input --- */
+.wt-grid-search-input {
+    background: #f8fafc !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    color: #0f172a !important;
+    border-radius: 50px !important;
+    padding: 10px 20px 10px 45px;
+    /* Room for icon */
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.wt-grid-search-input::placeholder {
+    color: #94a3b8;
+}
+
+.wt-grid-search-input:focus {
+    background: #ffffff !important;
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+    outline: none;
+}
+
+.wt-grid-search-icon {
+    color: #94a3b8;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    z-index: 5;
+    transition: color 0.3s ease;
+}
+
+.wt-grid-search-input:focus+.wt-grid-search-icon,
+.position-relative:focus-within .wt-grid-search-icon {
+    color: #0ea5e9;
+}
+
+/* ==========================================================================
+   TOOL CARDS (HIGH CONTRAST & VISIBILITY)
+   ========================================================================== */
+
+.wt-tool-card {
+    background: #ffffff;
+    /* Distinct, visible border so the card outline is always clear */
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    /* Permanent soft shadow to lift the card off the background */
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* The gradient top line is now permanently slightly visible to frame the card */
+.wt-card-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+    opacity: 0.3;
+    /* Always partially visible */
+    transition: opacity 0.4s ease, height 0.4s ease;
+}
+
+.wt-tool-card:hover {
+    border-color: #0ea5e9;
+    /* Border turns cyan on hover */
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 5px 15px rgba(14, 165, 233, 0.1);
+}
+
+.wt-tool-card:hover .wt-card-glow-line {
+    opacity: 1;
+    /* Glow line brightens on hover */
+    height: 4px;
+}
+
+/* --- Icon Box (Permanent colorful background for visibility) --- */
+.wt-tool-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    /* Permanent light-blue background so the icon stands out immediately */
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
+    color: #0284c7;
+    /* Deeper blue for contrast */
+    transition: all 0.3s ease;
+}
+
+.wt-tool-card:hover .wt-tool-icon-box {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff !important;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+    transform: scale(1.05);
+}
+
+/* --- Typography Overrides for Cards --- */
+.wt-tool-card h3 {
+    color: #0f172a !important;
+    /* Bold, high-contrast dark slate */
+}
+
+.wt-tool-card p {
+    color: #475569 !important;
+    /* Readable medium slate */
+}
+
+/* ==========================================================================
+   NEW BUTTONS (INNER CARD & LOAD MORE)
+   ========================================================================== */
+
+/* --- The highly visible button INSIDE the card --- */
+.wt-launch-btn {
+    background: #f1f5f9;
+    color: #0ea5e9;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+.wt-tool-card:hover .wt-launch-btn {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
+}
+
+.wt-launch-arrow {
+    transition: transform 0.3s ease;
+}
+
+.wt-tool-card:hover .wt-launch-arrow {
+    transform: translateX(4px);
+}
+
+/* --- The big "Load All Tools" button at the bottom --- */
+.wt-load-more-btn {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+    display: inline-flex;
+    align-items: center;
+}
+
+.wt-load-more-btn:hover {
+    background: #f8fafc;
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.15);
+}
+
+.wt-spin-on-hover {
+    transition: transform 0.5s ease;
+}
+
+.wt-load-more-btn:hover .wt-spin-on-hover {
+    transform: rotate(180deg);
+}
+
+/* --- Empty State --- */
+.wt-empty-state {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+}
+
+/* ==========================================================================
+   ANIMATIONS & RESPONSIVE
+   ========================================================================== */
+
+.wt-fade-in-up {
+    opacity: 0;
+    animation: wtCardSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-stagger-card {
+    opacity: 0;
+    animation: wtCardSlideUp 0.6s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wtCardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .wt-filter-pill {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - EXPLORE CATEGORIES SECTION
+   ========================================================================== */
+
+.wt-explore-section {
+    background-color: #ffffff;
+    /* Pure white contrast against the previous gray section */
+    border-top: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.wt-text-gradient {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   HORIZONTAL CARDS
+   ========================================================================== */
+
+.wt-explore-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-explore-card:hover {
+    background: #ffffff;
+    border-color: #0ea5e9;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.04), 0 5px 15px rgba(14, 165, 233, 0.08);
+}
+
+/* --- Left Icon Box --- */
+.wt-explore-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    background: #e0f2fe;
+    /* Light blue */
+    color: #0284c7;
+    /* Dark cyan/blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-explore-card:hover .wt-explore-icon-box {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+}
+
+/* ==========================================================================
+   VIEW ALL LINK
+   ========================================================================== */
+
+.wt-view-all-link {
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.wt-view-all-link:hover {
+    color: #0ea5e9;
+}
+
+.wt-arrow-hover {
+    transition: transform 0.3s ease;
+}
+
+.wt-view-all-link:hover .wt-arrow-hover {
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+.wt-fade-in {
+    opacity: 0;
+    animation: exploreSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-stagger-up {
+    opacity: 0;
+    animation: exploreSlideUp 0.6s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes exploreSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - PREMIUM NEWSLETTER CTA
+   ========================================================================== */
+
+.wt-newsletter-section {
+    background-color: #030712;
+    /* Deep midnight to seamlessly blend into the footer */
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Ambient Background Glows --- */
+.wt-news-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(150px);
+    z-index: 1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.wt-news-glow-left {
+    background: #00e5ff;
+    top: -20%;
+    left: -15%;
+}
+
+.wt-news-glow-right {
+    background: #3b82f6;
+    bottom: -20%;
+    right: -15%;
+}
+
+/* ==========================================================================
+   THE FLOATING GLASS CARD
+   ========================================================================== */
+
+.wt-newsletter-card {
+    background: rgba(15, 23, 42, 0.6);
+    /* Deep slate glass */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 5;
+}
+
+/* --- Floating Icon Badge --- */
+.wt-news-icon-badge {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00e5ff;
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.15);
+    transform: rotate(-5deg);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-newsletter-card:hover .wt-news-icon-badge {
+    transform: rotate(0deg) scale(1.05);
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.wt-paper-plane {
+    transition: transform 0.3s ease;
+}
+
+.wt-newsletter-card:hover .wt-paper-plane {
+    transform: translate(2px, -2px);
+}
+
+/* --- Typography --- */
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   PREMIUM INPUT GROUP (INSET BUTTON)
+   ========================================================================== */
+
+.wt-premium-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.wt-input-icon {
+    left: 20px;
+    color: #64748b;
+    z-index: 10;
+    transition: color 0.3s ease;
+}
+
+.wt-news-input {
+    background: rgba(3, 7, 18, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-radius: 50px !important;
+    padding: 16px 160px 16px 50px !important;
+    /* Huge right padding to fit the button inside */
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.wt-news-input::placeholder {
+    color: #475569;
+}
+
+.wt-news-input:focus {
+    background: rgba(3, 7, 18, 0.8) !important;
+    border-color: #00e5ff !important;
+    box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    outline: none;
+}
+
+.wt-news-input:focus+.wt-input-icon,
+.wt-premium-input-group:focus-within .wt-input-icon {
+    color: #00e5ff;
+}
+
+/* --- The Submit Button --- */
+.wt-news-submit-btn {
+    position: absolute;
+    right: 6px;
+    /* Sits perfectly inside the input */
+    top: 6px;
+    bottom: 6px;
+    background: #ffffff;
+    color: #0f172a;
+    border: none;
+    border-radius: 50px;
+    padding: 0 28px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+}
+
+.wt-news-submit-btn:hover {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+    transform: scale(1.02);
+}
+
+/* Success State Animation */
+.wt-news-submit-btn.success {
+    background: #10b981;
+    /* Emerald Green */
+    color: #ffffff;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   ANIMATIONS & MOBILE
+   ========================================================================== */
+
+.wt-fade-in-up {
+    opacity: 0;
+    animation: wtNewsSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wtNewsSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .wt-newsletter-card {
+        padding: 2rem 1.5rem !important;
+        border-radius: 20px;
+    }
+
+    .wt-news-input {
+        padding: 14px 14px 14px 45px !important;
+        border-radius: 12px !important;
+    }
+
+    .wt-news-submit-btn {
+        position: relative;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 10px;
+        padding: 14px;
+        border-radius: 12px;
+    }
+}
+
+
+
+
+
+/* ==========================================================================
+   HERO SECTION WRAPPER
+   ========================================================================== */
+
+.wt-hero-section {
+    background-color: #f8fafc;
+    /* Premium airy light background */
+    border-bottom: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   BACKGROUND ENHANCEMENTS (Grid & Glow)
+   ========================================================================== */
+
+/* The subtle dotted grid pattern */
+.wt-hero-grid-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* The ambient cyan/blue glow blob behind the text */
+.wt-hero-glow-blob {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(14, 165, 233, 0.12) 0%, transparent 60%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   PREMIUM GLASS BREADCRUMB
+   ========================================================================== */
+
+.wt-breadcrumb-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.65);
+    /* Translucent white base */
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 10px 24px;
+    border-radius: 50px;
+
+    /* The Glassmorphism Blur Effect */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    z-index: 5;
+}
+
+.wt-crumb-link {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.wt-crumb-link:hover {
+    color: #0ea5e9;
+    /* Bright cyan on hover */
+    transform: translateY(-1px);
+}
+
+.wt-crumb-separator {
+    color: #cbd5e1;
+}
+
+.wt-crumb-current {
+    color: #0f172a;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY & GRADIENTS
+   ========================================================================== */
+
+.fw-black {
+    font-weight: 900;
+}
+
+/* The beautiful Blue-to-Cyan gradient for the word "Suite" */
+.wt-text-gradient-cyan-blue {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+/* Breadcrumb slides down smoothly */
+.wt-animate-fade-down {
+    opacity: 0;
+    animation: heroFadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Title and description slide up smoothly */
+.wt-animate-fade-up {
+    opacity: 0;
+    animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+@keyframes heroFadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+
+@media (max-width: 576px) {
+    .wt-hero-section {
+        padding-top: 20px;
+    }
+
+    .wt-breadcrumb-pill {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .wt-hero-glow-blob {
+        width: 100%;
+    }
+}
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - ULTRA PREMIUM INVENTORY GRID
+   ========================================================================== */
+
+.wt-inventory-section {
+    position: relative;
+    z-index: 10;
+    background-color: #f8fafc;
+    /* Crisp, airy background */
+    margin-top: 50px !important;
+}
+
+/* ==========================================================================
+   COMMAND CENTER (Apple-Style Frosted Glass)
+   ========================================================================== */
+
+.wt-command-card {
+    /* Advanced Glassmorphism */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    /* Subtle inner glow + deep drop shadow */
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.9),
+        0 20px 40px rgba(15, 23, 42, 0.04),
+        0 4px 10px rgba(15, 23, 42, 0.02);
+
+    margin-top: -55px;
+    /* Deeper overlap into the hero section */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.wt-command-card:hover {
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.9),
+        0 30px 60px rgba(15, 23, 42, 0.06),
+        0 10px 20px rgba(14, 165, 233, 0.04);
+}
+
+/* --- Segmented Filter Pills --- */
+.wt-premium-pill {
+    background: transparent;
+    color: #64748b;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.wt-premium-pill:hover:not(.active) {
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.04);
+}
+
+.wt-premium-pill.active {
+    /* Premium Midnight Gradient */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   PREMIUM NEON PILL SEARCH BAR (Matches Uploaded Image)
+   ========================================================================== */
+
+.wt-neon-search-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+/* --- The Input Field --- */
+.wt-neon-search-input {
+    width: 100%;
+    background: #ffffff !important;
+
+    /* The exact thin magenta/pink border from the image */
+    border: 1px solid #f472b6 !important;
+    border-radius: 50px !important;
+
+    /* Spacing to perfectly align the text with the icon */
+    padding: 14px 60px 14px 45px;
+
+    font-size: 1rem;
+    font-weight: 500;
+    color: #334155 !important;
+
+    /* Premium touches: subtle inner shadow for depth, slight outer glow */
+    box-shadow:
+        inset 0 2px 4px rgba(15, 23, 42, 0.02),
+        0 4px 10px rgba(244, 114, 182, 0.1) !important;
+
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Placeholder styling exactly like the image */
+.wt-neon-search-input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* --- Premium Focus State --- */
+.wt-neon-search-input:focus {
+    /* Deepens the border color slightly */
+    border-color: #db2777 !important;
+
+    /* Creates the "Apple-style" glowing focus ring using the pink color */
+    box-shadow:
+        inset 0 2px 4px rgba(15, 23, 42, 0.02),
+        0 0 0 4px rgba(244, 114, 182, 0.2),
+        0 10px 20px rgba(244, 114, 182, 0.15) !important;
+
+    outline: none;
+}
+
+/* --- The Magnifying Glass Icon --- */
+.wt-neon-search-icon {
+    left: 18px;
+    color: #94a3b8;
+    /* Matches the placeholder text */
+    z-index: 5;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Icon lights up and scales slightly when user clicks the search bar */
+.wt-neon-search-input:focus+.wt-neon-search-icon,
+.wt-neon-search-wrapper:focus-within .wt-neon-search-icon {
+    color: #db2777;
+    /* Deep pink */
+    transform: scale(1.1);
+}
+
+/* --- The ⌘K Shortcut Badge --- */
+.wt-neon-search-shortcut {
+    right: 14px;
+    height: 26px;
+    min-width: 26px;
+    padding: 0 8px;
+    background: #fdf2f8;
+    /* Very faint pink background */
+    border: 1px solid #fbcfe8;
+    color: #db2777;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 6px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(219, 39, 119, 0.05);
+}
+
+
+
+/* ==========================================================================
+   THE TOOL GRID CARDS (Stripe-Style Elevation)
+   ========================================================================== */
+
+.wt-tool-card {
+    border-radius: 24px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    background: #ffffff;
+    /* Multi-layered soft shadow */
+    box-shadow:
+        0 4px 6px rgba(15, 23, 42, 0.02),
+        0 10px 15px rgba(15, 23, 42, 0.01);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Gradient Top Border Effect (Hidden by default) */
+.wt-tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00e5ff, #3b82f6);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+}
+
+.wt-tool-card:hover {
+    transform: translateY(-8px);
+    border-color: #cbd5e1;
+    /* Massive, buttery smooth shadow on hover */
+    box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.06),
+        0 12px 20px rgba(14, 165, 233, 0.04);
+}
+
+.wt-tool-card:hover::before {
+    opacity: 1;
+    /* Reveals the glowing top line */
+}
+
+/* --- Dynamic Icon Box --- */
+.wt-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: #f0f9ff;
+    color: #0284c7;
+    border: 1px solid #e0f2fe;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-tool-card:hover .wt-icon-box {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: #ffffff;
+    border-color: transparent;
+    transform: scale(1.08) rotate(-6deg);
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+}
+
+/* --- Clean Category Tag --- */
+.wt-card-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #475569;
+    background: #f8fafc;
+    padding: 6px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid #e2e8f0;
+}
+
+/* --- Launch Action --- */
+.wt-launch-text {
+    color: #3b82f6;
+    font-size: 0.95rem;
+    letter-spacing: -0.2px;
+    transition: color 0.3s ease;
+}
+
+.wt-tool-card:hover .wt-launch-text {
+    color: #0ea5e9;
+}
+
+.wt-arrow {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-tool-card:hover .wt-arrow {
+    transform: translateX(6px);
+}
+
+/* --- Ambient Card Glow --- */
+.wt-card-glow {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.06) 0%, transparent 60%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.wt-tool-card:hover .wt-card-glow {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   ANIMATIONS & RESPONSIVE
+   ========================================================================== */
+
+.wt-stagger-card {
+    opacity: 0;
+    animation: premiumFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes premiumFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 991px) {
+    .wt-command-card {
+        margin-top: -30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .wt-command-card {
+        margin-top: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: #ffffff;
+        /* Remove blur on mobile for performance */
+        backdrop-filter: none;
+    }
+
+    .wt-premium-pill {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   WEBZENTOOLS - PREMIUM PRIVACY & TRUST BANNER
+   ========================================================================== */
+
+.wt-privacy-section {
+    position: relative;
+    background-color: #030712;
+    /* Deep Midnight */
+    padding: 100px 20px;
+    overflow: hidden;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wt-privacy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- Ambient Background Glow --- */
+.wt-privacy-ambient-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   HEADER STYLES
+   ========================================================================== */
+
+.wt-privacy-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* Small premium badge above the title */
+.wt-privacy-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.wt-pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+    animation: privacyPulse 2s infinite;
+}
+
+@keyframes privacyPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(0, 229, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+    }
+}
+
+.wt-privacy-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.wt-text-gradient-cyan {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wt-privacy-subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   FEATURE GRID & CARDS (Glassmorphism)
+   ========================================================================== */
+
+.wt-privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.wt-privacy-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px 30px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle top border glow for the cards */
+.wt-privacy-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.wt-privacy-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(0, 229, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.05);
+}
+
+.wt-privacy-card:hover::before {
+    opacity: 1;
+}
+
+/* --- Icons --- */
+.wt-privacy-icon-box {
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 229, 255, 0.05);
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    color: #00e5ff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.wt-privacy-card:hover .wt-privacy-icon-box {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* Decorative slash for the "No Server" icon */
+.wt-icon-slash {
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background-color: currentColor;
+    transform: rotate(45deg);
+    opacity: 0.5;
+}
+
+/* --- Card Typography --- */
+.wt-privacy-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #f8fafc;
+}
+
+.wt-privacy-card-text {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .wt-privacy-section {
+        padding: 60px 20px;
+    }
+
+    .wt-privacy-title {
+        font-size: 2rem;
+    }
+
+    .wt-privacy-grid {
+        grid-template-columns: 1fr;
+    }
+}
