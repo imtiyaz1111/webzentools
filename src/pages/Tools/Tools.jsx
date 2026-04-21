@@ -1,235 +1,206 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FaHome, FaChevronRight } from 'react-icons/fa';
-import {
-    FaSearch, FaCode, FaDatabase, FaImage, FaSyncAlt,
-    FaLock, FaKey, FaFont, FaArrowRight
-} from 'react-icons/fa';
-import { FaPaperPlane } from 'react-icons/fa';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { Container, Row, Col, Form, Button, Badge } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import { FaChevronRight, FaSearch, FaArrowRight, FaSyncAlt } from 'react-icons/fa';
+import { Zap, Star, Filter } from 'lucide-react';
 
-import "./Tools.css";
+// Data & Hooks
+import { categories, allTools } from '../../data/toolsData';
+import useToolSearch from '../../hooks/useToolSearch';
 import SEO from '../../components/SEO';
 
+// Styles
+import "./Tools.css";
+
+/**
+ * Tools Component
+ * Catalog page displaying all available tools with filtering and search capabilities.
+ */
 const Tools = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    
+    // Phase 3: Centralized Search Logic
+    const { 
+        searchQuery, 
+        setSearchQuery, 
+        handleSearchSubmit 
+    } = useToolSearch(queryParams.get('q') || '');
 
-    // --- 1. State Management ---
-    const [searchQuery, setSearchQuery] = useState('');
-    const [activeCategory, setActiveCategory] = useState('All');
-
-    // Pagination States
-    const [visibleCount, setVisibleCount] = useState(6); // Show 6 tools initially
+    // Local State for categories and pagination
+    const [activeCategory, setActiveCategory] = useState(queryParams.get('category') || 'all');
+    const [visibleCount, setVisibleCount] = useState(12);
     const [isLoading, setIsLoading] = useState(false);
 
-    // --- 2. Master Tool Data (Expanded for testing) ---
-    const categories = ['All', 'Developer', 'Creator', 'Security', 'Text'];
-    const allTools = [
-        { id: 1, title: 'JSON Formatter', desc: 'Beautify, minify and validate JSON data structures.', icon: <FaCode size={20} />, category: 'Developer', url: '/tools/json' },
-        { id: 2, title: 'SQL Beautifier', desc: 'Format messy SQL queries for better readability.', icon: <FaDatabase size={20} />, category: 'Developer', url: '/tools/sql' },
-        { id: 3, title: 'Image Compressor', desc: 'Reduce image file sizes without quality loss.', icon: <FaImage size={20} />, category: 'Creator', url: '/tools/image-compressor' },
-        { id: 4, title: 'Password Generator', desc: 'Generate highly secure, randomized passwords.', icon: <FaLock size={20} />, category: 'Security', url: '/tools/password' },
-        { id: 5, title: 'JWT Decoder', desc: 'Inspect header and payload data for JWTs.', icon: <FaKey size={20} />, category: 'Security', url: '/tools/jwt' },
-        { id: 6, title: 'Word Counter', desc: 'Count words, characters, and reading time instantly.', icon: <FaFont size={20} />, category: 'Text', url: '/tools/word-counter' },
-        { id: 7, title: 'Base64 Encoder', desc: 'Quickly encode or decode Base64 strings.', icon: <FaCode size={20} />, category: 'Developer', url: '/tools/base64' },
-        { id: 8, title: 'Hash Generator', desc: 'Generate MD5, SHA-1, and SHA-256 hashes.', icon: <FaLock size={20} />, category: 'Security', url: '/tools/hash' },
-        { id: 9, title: 'Case Converter', desc: 'Convert text to UPPER, lower, camelCase, etc.', icon: <FaFont size={20} />, category: 'Text', url: '/tools/case' },
-    ];
-
-    // --- 3. Filter & Pagination Logic ---
-
-    // Reset visible count if user searches or changes category
+    // Sync state with URL params when they change
     useEffect(() => {
-        setVisibleCount(6);
+        const cat = queryParams.get('category') || 'all';
+        const q = queryParams.get('q') || '';
+        setActiveCategory(cat);
+        setSearchQuery(q);
+    }, [location.search, setSearchQuery]);
+
+    // Handle Pagination
+    const handleLoadMore = useCallback(() => {
+        setIsLoading(true);
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+            setVisibleCount(prev => prev + 12);
+            setIsLoading(false);
+        }, 600);
+    }, []);
+
+    // Filter Logic
+    const filteredTools = useMemo(() => {
+        return allTools.filter(tool => {
+            const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                tool.desc.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCat = activeCategory === 'all' || tool.category === activeCategory;
+            return matchesSearch && matchesCat;
+        });
     }, [searchQuery, activeCategory]);
 
-    const filteredTools = allTools.filter(tool => {
-        const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) || tool.desc.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCat = activeCategory === 'All' || tool.category === activeCategory;
-        return matchesSearch && matchesCat;
-    });
+    const displayedTools = useMemo(() => filteredTools.slice(0, visibleCount), [filteredTools, visibleCount]);
 
-    // Slice the array to only show the visible count
-    const displayedTools = filteredTools.slice(0, visibleCount);
-
-    // Fake network delay for premium feel
-    const handleLoadMore = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            setVisibleCount(prevCount => prevCount + 6); // Load 6 more
-            setIsLoading(false);
-        });
-    };
-
+    const clearFilters = useCallback(() => {
+        setSearchQuery('');
+        setActiveCategory('all');
+    }, [setSearchQuery]);
 
     return (
-        <>
-        <SEO
-            title={`Our Services | `}
-            description={`Explore  services by Webzenyx including modern, scalable, and high-performance solutions.`}
-            keywords="web development services, mobile app development, UI UX design, ecommerce solutions"
-            url={`https://www.webzenyx.com/contact`}
-        />
-            <section className="wt-page-hero position-relative text-center">
-
-                {/* Background Grid Pattern */}
-                <div className="wt-hero-grid"></div>
-
-                <Container className="position-relative z-3 pt-5 pb-5">
-
-                    {/* The Glassmorphism Breadcrumb Pill */}
+        <div className="tools-catalog-wrapper">
+            <SEO
+                title="Tools Catalog | WebzenTools"
+                description="Browse our massive collection of premium developer, writing, and finance tools."
+                keywords="online tools, json formatter, emi calculator, ai text generator, developer tools"
+                url="https://webzentools.com/tools"
+            />
+            
+            {/* HERO SECTION */}
+            <section className="tools-hero text-center py-5 position-relative overflow-hidden bg-dark text-white">
+                <div className="hero-glow"></div>
+                <Container className="position-relative z-2 py-5">
                     <div className="wt-glass-breadcrumb d-inline-flex align-items-center mb-4">
-                        <Link to="/" className="wt-crumb-link d-flex align-items-center">
-                            <FaHome className="me-2 mb-1" size={14} /> Home
-                        </Link>
-
-                        <FaChevronRight size={10} className="wt-crumb-separator mx-3" />
-
-                        <span className="wt-crumb-current fw-bold d-flex align-items-center">
-                            <span className="wt-active-dot me-2"></span>
-                            Tools
-                        </span>
+                        <Link to="/" className="text-white-50 text-decoration-none">Home</Link>
+                        <FaChevronRight size={10} className="mx-3 opacity-50" />
+                        <span className="fw-bold">Tools</span>
                     </div>
-
-                    {/* Hero Typography */}
-                    <h1 className="display-4 fw-bold text-white mb-4">
-                        All Usefull <span className="wt-text-blue">Tools</span>
-                    </h1>
-
-                    <p className="lead text-white-50 mx-auto" style={{ maxWidth: '750px', fontSize: '1.15rem', lineHeight: '1.8' }}>
-                        Explore our complete collection of high-performance formatters, encoders, and utilities designed to streamline your engineering workflow.
+                    <h1 className="display-4 fw-bold mb-3">All <span className="text-gradient">Premium Tools</span></h1>
+                    <p className="lead text-white-50 mx-auto pb-4" style={{ maxWidth: '700px' }}>
+                        Empower your workflow with our production-grade utility suite. 
+                        Zero costs, maximum performance.
                     </p>
-
+                    
+                    {/* TOP SEARCH BAR */}
+                    <div className="mx-auto" style={{ maxWidth: '600px' }}>
+                        <Form onSubmit={handleSearchSubmit}>
+                            <div className="glass-card p-2 rounded-pill d-flex align-items-center shadow-lg bg-white bg-opacity-10">
+                                <div className="px-3 text-primary"><FaSearch /></div>
+                                <Form.Control 
+                                    type="text" 
+                                    placeholder="Search among 100+ tools..." 
+                                    className="border-0 bg-transparent shadow-none text-white placeholder-white"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                        </Form>
+                    </div>
                 </Container>
             </section>
 
-            {/* =======================ALL TOOLS SECTION ====================== */}
-
-            <section className="wt-inventory-section py-5 bg-light">
+            {/* TOOLS EXPLORER */}
+            <section className="py-5 bg-light">
                 <Container>
-
-                    {/* COMMAND CENTER (Filters & Search) */}
-                    <div className="wt-command-card p-3 p-md-4 mb-5">
-                        <Row className="align-items-center gy-4">
-                            <Col lg={7} md={12}>
-                                <div className="d-flex flex-wrap gap-2">
-                                    {categories.map((cat) => (
-                                        <button key={cat} onClick={() => setActiveCategory(cat)} className={`wt-premium-pill ${activeCategory === cat ? 'active' : ''}`}>
-                                            {cat}
-                                        </button>
-                                    ))}
+                    <Row className="g-4">
+                        {/* FILTER SIDEBAR (Desktop) */}
+                        <Col lg={3}>
+                            <div className="filter-sidebar sticky-top" style={{ top: '100px' }}>
+                                <div className="d-flex align-items-center mb-4">
+                                    <Filter size={20} className="text-primary me-2" />
+                                    <h5 className="fw-bold mb-0 text-dark">Categories</h5>
                                 </div>
-                            </Col>
-                            <Col lg={5} md={12}>
-                                <div className="wt-neon-search-wrapper position-relative">
-                                    <FaSearch className="wt-neon-search-icon position-absolute" size={15} />
-                                    <Form.Control type="text" placeholder="Search all tools..." className="wt-neon-search-input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} spellCheck="false" />
-                                    <div className="wt-neon-search-shortcut d-none d-lg-flex position-absolute align-items-center justify-content-center">⌘K</div>
+                                <div className="category-list d-flex flex-column gap-1">
+                                    <button 
+                                        className={`category-filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
+                                        onClick={() => setActiveCategory('all')}
+                                    >
+                                        All Tools <span className="ms-auto badge rounded-pill bg-primary">{allTools.length}</span>
+                                    </button>
+                                    {categories.map(cat => {
+                                        const Icon = cat.icon;
+                                        return (
+                                            <button 
+                                                key={cat.id}
+                                                className={`category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                                                onClick={() => setActiveCategory(cat.id)}
+                                            >
+                                                <span className={cat.color + ' me-2'}><Icon size={18} /></span>
+                                                {cat.name}
+                                                <span className="ms-auto badge rounded-pill bg-light text-dark border">{cat.count}</span>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
-                            </Col>
-                        </Row>
-                    </div>
+                            </div>
+                        </Col>
 
-                    {/* TOOL CARDS GRID */}
-                    <Row className="g-4 mb-5">
-                        {displayedTools.length > 0 ? (
-                            displayedTools.map((tool, index) => (
-                                <Col lg={4} md={6} key={tool.id} style={{ animationDelay: `${(index % 6) * 0.05}s` }} className="wt-stagger-card">
-                                    <Link to={tool.url} className="wt-tool-card text-decoration-none d-flex flex-column h-100 p-4 bg-white position-relative overflow-hidden">
-                                        <div className="d-flex justify-content-between align-items-start mb-4 position-relative z-2">
-                                            <div className="wt-icon-box d-flex align-items-center justify-content-center">{tool.icon}</div>
-                                            <span className="wt-card-tag">{tool.category}</span>
-                                        </div>
-                                        <div className="position-relative z-2 flex-grow-1">
-                                            <h3 className="h5 fw-bold text-dark mb-2">{tool.title}</h3>
-                                            <p className="text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{tool.desc}</p>
-                                        </div>
-                                        <div className="mt-3 wt-launch-text fw-bold d-flex align-items-center position-relative z-2">
-                                            Launch Tool <FaArrowRight size={12} className="ms-2 wt-arrow" />
-                                        </div>
-                                    </Link>
-                                </Col>
-                            ))
-                        ) : (
-                            <Col xs={12} className="text-center py-5">
-                                <FaSearch size={40} className="text-muted opacity-30 mb-3" />
-                                <h4 className="text-dark fw-bold">No tools found</h4>
-                                <p className="text-muted mb-4">We couldn't find any tool matching "{searchQuery}".</p>
-                            </Col>
-                        )}
-                    </Row>
+                        {/* TOOLS GRID */}
+                        <Col lg={9}>
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <h6 className="text-muted mb-0">Found <strong>{filteredTools.length}</strong> tools</h6>
+                            </div>
 
-                    {/* =========================================
-            LOAD MORE BUTTON SECTION
-            ========================================= */}
-                    {filteredTools.length > visibleCount && (
-                        <div className="text-center mt-2">
-                            <button
-                                className="wt-load-more-btn"
-                                onClick={handleLoadMore}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <>
-                                        <FaSyncAlt className="wt-spin-icon me-2" /> Loading...
-                                    </>
+                            <Row className="g-4">
+                                {displayedTools.length > 0 ? (
+                                    displayedTools.map((tool) => (
+                                        <Col md={6} xl={4} key={tool.id}>
+                                            <Link to={`/tools/${tool.slug}`} className="text-decoration-none h-100 d-block">
+                                                <div className="tool-card-premium glass-card p-4 rounded-4 h-100 d-flex flex-column hover-glow transition-all bg-white">
+                                                    <div className="d-flex justify-content-between mb-4">
+                                                        <div className="tool-icon-sm p-2 bg-primary bg-opacity-10 rounded-3 text-primary">
+                                                            <Zap size={20} />
+                                                        </div>
+                                                        {tool.isPremium && <Badge bg="warning" className="rounded-pill"><Star size={10} /> PRO</Badge>}
+                                                    </div>
+                                                    <h5 className="fw-bold text-dark mb-2">{tool.name}</h5>
+                                                    <p className="text-muted small mb-4 flex-grow-1">{tool.desc}</p>
+                                                    <div className="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex align-items-center justify-content-between">
+                                                        <span className="small text-uppercase tracking-wider fw-bold text-muted" style={{ fontSize: '0.65rem' }}>{tool.category}</span>
+                                                        <FaArrowRight className="text-primary tool-arrow-icon" />
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </Col>
+                                    ))
                                 ) : (
-                                    "Load More Tools"
+                                    <Col xs={12}>
+                                        <div className="text-center py-5 glass-card rounded-4 bg-white">
+                                            <h3 className="fw-bold text-dark">No results found</h3>
+                                            <p className="text-muted">Try adjusting your filters or search query.</p>
+                                            <Button variant="primary" onClick={clearFilters}>Clear All Filters</Button>
+                                        </div>
+                                    </Col>
                                 )}
-                            </button>
-                        </div>
-                    )}
+                            </Row>
 
+                            {/* LOAD MORE */}
+                            {filteredTools.length > visibleCount && (
+                                <div className="text-center mt-5">
+                                    <button 
+                                        className="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg"
+                                        onClick={handleLoadMore}
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? <><FaSyncAlt className="fa-spin me-2" /> Loading...</> : 'Load More Tools'}
+                                    </button>
+                                </div>
+                            )}
+                        </Col>
+                    </Row>
                 </Container>
             </section>
-
-            {/* =======================CALL TO ACTION ========================= */}
-            <section className="ui-subscribe-section py-5">
-                <Container className="py-4">
-                    <div className="ui-subscribe-card p-4 p-md-5 position-relative overflow-hidden">
-
-                        {/* Abstract Background Shapes */}
-                        <div className="ui-bg-blob-1"></div>
-                        <div className="ui-bg-blob-2"></div>
-
-                        <Row className="align-items-center position-relative z-3">
-
-                            {/* Text Content */}
-                            <Col lg={6} className="text-center text-lg-start mb-4 mb-lg-0">
-                                <h2 className="h3 fw-bold text-dark mb-2">
-                                    Get new tools delivered weekly.
-                                </h2>
-                                <p className="text-muted mb-0" style={{ fontSize: '1.05rem' }}>
-                                    Join 5,000+ developers and creators. No spam, just high-performance utilities and platform updates.
-                                </p>
-                            </Col>
-
-                            {/* Input Form */}
-                            <Col lg={6}>
-                                <Form className="ui-subscribe-form ms-lg-auto" onSubmit={(e) => e.preventDefault()}>
-                                    <div className="position-relative d-flex align-items-center">
-                                        <Form.Control
-                                            type="email"
-                                            placeholder="Enter your email address..."
-                                            className="ui-subscribe-input pe-5"
-                                            required
-                                        />
-                                        <Button type="submit" className="ui-subscribe-btn d-flex align-items-center justify-content-center">
-                                            <FaPaperPlane size={14} />
-                                        </Button>
-                                    </div>
-                                    <div className="text-center text-lg-start mt-2">
-                                        <small className="text-muted opacity-75">
-                                            By subscribing, you agree to our Privacy Policy.
-                                        </small>
-                                    </div>
-                                </Form>
-                            </Col>
-
-                        </Row>
-                    </div>
-                </Container>
-            </section>
-        </>
+        </div>
     );
 };
 

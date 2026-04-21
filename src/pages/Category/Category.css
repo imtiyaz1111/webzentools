@@ -810,32 +810,136 @@
 
 
 /* ==========================================================================
-   HERO SECTION WRAPPER
+   PREMIUM CATEGORY DETAILS HERO (MATCHES ABOUT PAGE)
    ========================================================================== */
 
-.wt-hero-section {
-    background-color: #f8fafc;
-    /* Premium airy light background */
-    border-bottom: 1px solid #e2e8f0;
+.wt-category-details-hero {
+    min-height: 50vh;
+    width: 100%;
+    background-color: #090e17; /* Deep Navy Tech Base */
+    position: relative;
     overflow: hidden;
+    padding-top: 100px;
+    padding-bottom: 80px;
 }
 
-/* ==========================================================================
-   BACKGROUND ENHANCEMENTS (Grid & Glow)
-   ========================================================================== */
-
-/* The subtle dotted grid pattern */
-.wt-hero-grid-pattern {
+/* --- Layer 1: The Subtle Tech Grid --- */
+.wt-category-details-hero .wt-grid-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-    background-size: 24px 24px;
-    opacity: 0.5;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    z-index: 0;
+}
+
+/* --- Layer 2: Ambient Floating Glows --- */
+.wt-category-details-hero .wt-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
     z-index: 1;
+    opacity: 0.2;
     pointer-events: none;
+    animation: wtPulseGlow 8s infinite alternate ease-in-out;
+}
+
+.wt-category-details-hero .wt-glow-left {
+    background: #00e5ff; /* Cyan */
+    top: -200px;
+    left: -150px;
+}
+
+.wt-category-details-hero .wt-glow-right {
+    background: #3b82f6; /* Deep Blue */
+    bottom: -200px;
+    right: -150px;
+    animation-delay: -4s;
+}
+
+@keyframes wtPulseGlow {
+    0% { transform: scale(1); opacity: 0.15; }
+    100% { transform: scale(1.2); opacity: 0.35; }
+}
+
+/* --- Breadcrumb Pill (Dark Theme) --- */
+.wt-category-details-hero .wt-breadcrumb-pill {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    padding: 10px 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.wt-category-details-hero .wt-breadcrumb-pill:hover {
+    border-color: rgba(0, 229, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.wt-category-details-hero .wt-breadcrumb-link {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.wt-category-details-hero .wt-breadcrumb-link:hover {
+    color: #00e5ff;
+}
+
+.wt-category-details-hero .wt-breadcrumb-separator {
+    color: #475569;
+}
+
+.wt-category-details-hero .wt-active-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00e5ff, 0 0 12px rgba(0, 229, 255, 0.6);
+}
+
+/* --- Hero Icon Styling --- */
+.wt-category-details-hero .wt-hero-icon-wrapper {
+    z-index: 3;
+    position: relative;
+}
+
+.wt-category-details-hero .wt-category-icon-large {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #00e5ff !important;
+}
+
+/* --- Staggered Animations --- */
+.wt-category-details-hero .wt-fade-in-1,
+.wt-category-details-hero .wt-fade-in-2,
+.wt-category-details-hero .wt-fade-in-3 {
+    opacity: 0;
+    animation: wtSlideUpSnappy 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-category-details-hero .wt-glow-left { animation-delay: 0.1s; } /* Reusing glow left for stagger reference if needed, but classes below are cleaner */
+.wt-category-details-hero .wt-fade-in-1 { animation-delay: 0.1s; }
+.wt-category-details-hero .wt-fade-in-2 { animation-delay: 0.3s; }
+.wt-category-details-hero .wt-fade-in-3 { animation-delay: 0.5s; }
+
+@keyframes wtSlideUpSnappy {
+    from { opacity: 0; transform: translateY(30px); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 /* The ambient cyan/blue glow blob behind the text */

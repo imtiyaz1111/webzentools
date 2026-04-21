@@ -1,457 +1,103 @@
 /* ==========================================================================
-   HERO BACKGROUND & GRID (Matching your image)
+   TOOLS CATALOG PREMIUM STYLES
    ========================================================================== */
 
-.wt-page-hero {
-    /* The deep gradient from dark teal to navy blue */
-    background: linear-gradient(110deg, #033640 0%, #0a1f40 50%, #0d2149 100%);
-    padding-top: 80px;
-    padding-bottom: 100px;
-    overflow: hidden;
+.tools-catalog-wrapper {
+    background-color: var(--background);
 }
 
-/* The subtle engineering grid lines */
-.wt-hero-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* ==========================================================================
-   GLASSMORPHISM BREADCRUMB
-   ========================================================================== */
-
-.wt-glass-breadcrumb {
-    /* Gray/Silver frosted glass look */
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    padding: 8px 24px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-.wt-crumb-link {
-    color: #00e5ff;
-    /* Bright Cyan */
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.wt-crumb-link:hover {
-    color: #ffffff;
-}
-
-.wt-crumb-separator {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.wt-crumb-current {
-    color: #00e5ff;
-    /* Bright Cyan */
-    font-size: 0.95rem;
-}
-
-/* The glowing cyan dot next to "Tools" */
-.wt-active-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #00e5ff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
-}
-
-/* ==========================================================================
-   TYPOGRAPHY
-   ========================================================================== */
-
-.wt-text-blue {
-    color: #3b82f6;
-    /* The specific blue color for 'Tools' */
-}
-
-@media (max-width: 576px) {
-    .wt-page-hero {
-        padding-top: 50px;
-        padding-bottom: 60px;
-    }
-
-    .wt-glass-breadcrumb {
-        padding: 6px 16px;
-        font-size: 0.85rem;
-    }
-
-    .wt-page-hero .display-4 {
-        font-size: 2.5rem;
-    }
-}
-
-
-
-
-
-
-
-/* ==========================================================================
-   COMMAND CENTER
-   ========================================================================== */
-
-.wt-inventory-section {
+.tools-hero {
+    background: linear-gradient(110deg, #0f172a 0%, #1e293b 100%);
     position: relative;
-    z-index: 10;
 }
 
-.wt-command-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-radius: 24px;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.02);
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-}
-
-/* --- Filter Pills --- */
-.wt-premium-pill {
-    background: transparent;
-    color: #64748b;
-    border: none;
-    border-radius: 50px;
-    padding: 8px 22px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.wt-premium-pill:hover:not(.active) {
-    color: #0f172a;
-    background: rgba(15, 23, 42, 0.04);
-}
-
-.wt-premium-pill.active {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
-}
-
-/* --- Neon Search Bar --- */
-.wt-neon-search-input {
-    width: 100%;
-    background: #ffffff !important;
-    border: 1px solid #f472b6 !important;
-    border-radius: 50px !important;
-    padding: 14px 60px 14px 45px;
-    font-weight: 500;
-    color: #334155 !important;
-    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.02), 0 4px 10px rgba(244, 114, 182, 0.1) !important;
-    transition: all 0.3s ease;
-}
-
-.wt-neon-search-input:focus {
-    border-color: #db2777 !important;
-    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.02), 0 0 0 4px rgba(244, 114, 182, 0.2), 0 10px 20px rgba(244, 114, 182, 0.15) !important;
-    outline: none;
-}
-
-.wt-neon-search-icon {
-    left: 18px;
-    color: #94a3b8;
-    z-index: 5;
-    transition: all 0.3s ease;
-}
-
-.wt-neon-search-input:focus+.wt-neon-search-icon {
-    color: #db2777;
-    transform: scale(1.1);
-}
-
-.wt-neon-search-shortcut {
-    right: 14px;
-    height: 26px;
-    min-width: 26px;
-    padding: 0 8px;
-    background: #fdf2f8;
-    border: 1px solid #fbcfe8;
-    color: #db2777;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border-radius: 6px;
-}
-
-/* ==========================================================================
-   TOOL CARDS GRID
-   ========================================================================== */
-
-.wt-tool-card {
-    border-radius: 24px;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.02);
-    transition: all 0.4s ease;
-}
-
-.wt-tool-card::before {
-    content: '';
+.hero-glow {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0ea5e9, #3b82f6);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
 }
 
-.wt-tool-card:hover {
+.category-filter-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.category-filter-btn:hover {
+    background: rgba(37, 99, 235, 0.05);
+    color: var(--primary);
+}
+
+.category-filter-btn.active {
+    background: white;
+    color: var(--primary);
+    border-color: rgba(37, 99, 235, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.category-filter-btn .badge {
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+
+.category-filter-btn.active .badge {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+.tool-card-premium {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-card-premium:hover {
     transform: translateY(-8px);
-    border-color: #cbd5e1;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06), 0 12px 20px rgba(14, 165, 233, 0.04);
+    border-color: var(--primary-light);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1) !important;
 }
 
-.wt-tool-card:hover::before {
-    opacity: 1;
-}
-
-.wt-icon-box {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    background: #f0f9ff;
-    color: #0284c7;
-    border: 1px solid #e0f2fe;
-    transition: all 0.4s ease;
-}
-
-.wt-tool-card:hover .wt-icon-box {
-    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-    color: #ffffff;
-    border-color: transparent;
-    transform: scale(1.08) rotate(-6deg);
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
-}
-
-.wt-card-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #475569;
-    background: #f8fafc;
-    padding: 6px 14px;
-    border-radius: 50px;
-    border: 1px solid #e2e8f0;
-}
-
-.wt-launch-text {
-    color: #3b82f6;
-    transition: color 0.3s ease;
-}
-
-.wt-tool-card:hover .wt-launch-text {
-    color: #0ea5e9;
-}
-
-.wt-arrow {
+.tool-icon-sm {
     transition: transform 0.3s ease;
 }
 
-.wt-tool-card:hover .wt-arrow {
-    transform: translateX(6px);
+.tool-card-premium:hover .tool-icon-sm {
+    transform: scale(1.1) rotate(-5deg);
 }
 
-/* --- Animations & Responsive --- */
-.wt-stagger-card {
+.tool-arrow-icon {
     opacity: 0;
-    animation: gridFadeUp 0.6s ease forwards;
-}
-
-@keyframes gridFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 576px) {
-    .wt-command-card {
-        border-radius: 16px;
-        padding: 1rem !important;
-    }
-
-    .wt-premium-pill {
-        flex: 1 1 auto;
-        text-align: center;
-        font-size: 0.85rem;
-    }
-}
-
-
-
-/* ==========================================================================
-   LOAD MORE BUTTON (Premium SaaS Style)
-   ========================================================================== */
-
-.wt-load-more-btn {
-    background-color: #ffffff;
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 12px 32px;
-    border-radius: 50px;
-    border: 1px solid #cbd5e1;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.02);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 180px;
-}
-
-.wt-load-more-btn:hover:not(:disabled) {
-    background-color: #f8fafc;
-    border-color: #0ea5e9;
-    color: #0ea5e9;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.1);
-}
-
-.wt-load-more-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-/* Spinner Animation */
-.wt-spin-icon {
-    animation: wtSpin 1s linear infinite;
-    color: #0ea5e9;
-}
-
-@keyframes wtSpin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-
-/* ==========================================================================
-   NEWSLETTER / FINAL CTA
-   ========================================================================== */
-
-.ui-subscribe-section {
-    background-color: #f8fafc;
-    padding-bottom: 60px;
-}
-
-/* --- The Premium Card --- */
-.ui-subscribe-card {
-    background: #ffffff;
-    border-radius: 24px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
-    /* Subtle blue tint gradient */
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-}
-
-/* --- Abstract Background Shapes for visual interest --- */
-.ui-bg-blob-1 {
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: 1;
-}
-
-.ui-bg-blob-2 {
-    position: absolute;
-    bottom: -80px;
-    right: -20px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: 1;
-}
-
-/* ==========================================================================
-   THE INPUT FORM
-   ========================================================================== */
-
-.ui-subscribe-form {
-    max-width: 450px;
-    width: 100%;
-}
-
-.ui-subscribe-input {
-    width: 100%;
-    background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 50px !important;
-    padding: 16px 24px;
-    font-size: 1rem;
-    color: #0f172a !important;
-    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.02);
+    transform: translateX(-10px);
     transition: all 0.3s ease;
 }
 
-.ui-subscribe-input::placeholder {
-    color: #94a3b8;
+.tool-card-premium:hover .tool-arrow-icon {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-.ui-subscribe-input:focus {
-    border-color: #0ea5e9 !important;
-    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15), inset 0 2px 4px rgba(15, 23, 42, 0.02) !important;
-    outline: none;
+.placeholder-white::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* --- The Submit Button (Inside the Input) --- */
-.ui-subscribe-btn {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-    border: none;
-    color: #ffffff;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
-}
-
-.ui-subscribe-btn:hover {
-    background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 6px 15px rgba(14, 165, 233, 0.4);
-}
-
-.ui-subscribe-btn:active {
-    transform: translateY(-50%) scale(0.95);
-}
+@media (max-width: 991px) {
+    .filter-sidebar {
+        margin-bottom: 2rem;
+        position: static !important;
+    }
+}

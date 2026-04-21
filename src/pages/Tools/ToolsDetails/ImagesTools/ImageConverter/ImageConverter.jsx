@@ -1,613 +1,333 @@
-import { useState, useRef } from "react";
-import "./ImageConverter.css"
-import bannerImg1 from "../../../../../assets/img/adsbanner1.png"
-import bannerImg2 from "../../../../../assets/img/adsbanner2.png"
-import squreImg1 from "../../../../../assets/img/squareads1.png"
-import squreImg2 from "../../../../../assets/img/squareads2.png"
-import bannerImg3 from "../../../../../assets/img/adsbanner3.png"
-import { FaUpload, FaExchangeAlt, FaCog, FaDownload, FaBolt, FaImage, FaShieldAlt, FaLayerGroup, FaUserSlash, FaMobileAlt, FaUnlock, FaCheckCircle } from "react-icons/fa";
-import { Accordion} from "react-bootstrap";
-import RelatedTools from "../../../../../components/RelatedTools";
+import React, { useState, useEffect, useRef } from "react";
+import { toast } from "react-hot-toast";
+import { 
+  FaCloudUploadAlt, FaDownload, FaTrash, FaImage, FaExchangeAlt,
+  FaFileImage, FaArrowRight, FaCheckCircle, FaCogs, FaInfoCircle
+} from "react-icons/fa";
+import "./ImageConverter.css";
 
+const FORMATS = [
+    { id: "image/jpeg", label: "JPEG", ext: "jpg" },
+    { id: "image/png", label: "PNG", ext: "png" },
+    { id: "image/webp", label: "WebP", ext: "webp" },
+];
 
-export const ImageConverter = () => {
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [convertedUrl, setConvertedUrl] = useState(null);
-  const [toFormat, setToFormat] = useState("image/jpeg");
-  const [loading, setLoading] = useState(false);
+const ImageConverter = () => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [originalPreview, setOriginalPreview] = useState(null);
+    const [convertedPreview, setConvertedPreview] = useState(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+    
+    // Settings
+    const [targetFormat, setTargetFormat] = useState("image/png");
+    const [quality, setQuality] = useState(0.9);
+    const [bgColor, setBgColor] = useState("#ffffff");
+    const [isTransparent, setIsTransparent] = useState(true);
 
-  const fileRef = useRef();
+    const fileInputRef = useRef(null);
+    const canvasRef = useRef(null);
 
-  // HANDLE FILE
-  const handleFile = (e) => {
-    const selected = e.target.files[0];
-    if (selected) {
-      setFile(selected);
-      setPreview(URL.createObjectURL(selected));
-      setConvertedUrl(null);
-    }
-  };
-
-  // DRAG DROP
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) {
-      setFile(droppedFile);
-      setPreview(URL.createObjectURL(droppedFile));
-      setConvertedUrl(null);
-    }
-  };
-
-  // CONVERT FUNCTION (CANVAS)
-  const handleConvert = () => {
-    if (!file) return;
-
-    setLoading(true);
-
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      ctx.drawImage(img, 0, 0);
-
-      const output = canvas.toDataURL(toFormat, 0.9);
-
-      setConvertedUrl(output);
-      setLoading(false);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) processUpload(file);
     };
-  };
 
-  // DOWNLOAD
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = convertedUrl;
-    link.download = `converted.${toFormat.split("/")[1]}`;
-    link.click();
-  };
-  return (
-    <>
-      {/* ================= HERO ================= */}
-      <section className="hero-section">
-        <div className="container text-center">
+    const processUpload = (file) => {
+        if (!file.type.startsWith('image/')) {
+            toast.error("Please select a valid image file");
+            return;
+        }
 
-          <div className="breadcrumb-pill">
-            <span>🏠 Home</span>
-            <span className="separator">›</span>
-            <span className="active">Image Converter</span>
-          </div>
+        setSelectedFile(file);
+        setConvertedPreview(null);
+        
+        const url = URL.createObjectURL(file);
+        setOriginalPreview(url);
+        
+        // Auto-select a different target format than source
+        const otherFormat = FORMATS.find(f => f.id !== file.type);
+        if (otherFormat) setTargetFormat(otherFormat.id);
 
-          <h1 className="hero-title">
-            Convert Images <span>In Any Format Instantly</span>
-          </h1>
+        toast.success("Image uploaded!");
+    };
 
-          <p className="hero-subtitle">
-            Convert JPG, PNG, WebP, SVG and more formats online for free. Fast, secure, and high-quality image conversion in seconds.
-          </p>
+    const handleConvert = async () => {
+        if (!selectedFile) return;
+        setIsProcessing(true);
 
-          <div className="hero-trust">
-            ⚡ Fast • 🔄 Multi Format • 🔒 Secure • 📱 Mobile Friendly
-          </div>
+        const img = new Image();
+        img.src = originalPreview;
 
-        </div>
-      </section>
+        img.onload = () => {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext("2d");
 
-      {/* ================= TOP BANNER AD ================= */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img
-          src={bannerImg1}
-          alt="Ad Banner"
-          className="img-fluid rounded"
-        />
-      </div>
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-      {/* converter-wrapper */}
-      <section className="converter-wrapper">
-        <div className="container">
+            // Handle background for formats that don't support transparency (JPEG)
+            if (targetFormat === "image/jpeg" || !isTransparent) {
+                ctx.fillStyle = bgColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
 
-          <div className="row g-4 align-items-center">
+            ctx.drawImage(img, 0, 0);
 
-            {/* LEFT SIDE */}
-            <div className="col-lg-8">
+            const resultUrl = canvas.toDataURL(targetFormat, quality);
+            setConvertedPreview(resultUrl);
+            setIsProcessing(false);
+            toast.success("Conversion complete!");
+        };
 
-              <div className="converter-card">
+        img.onerror = () => {
+            toast.error("Failed to process image");
+            setIsProcessing(false);
+        };
+    };
 
-                <h5 className="converter-title text-center mb-4">
-                  Upload & Convert Image
-                </h5>
+    const handleDownload = () => {
+        if (!convertedPreview) return;
+        const link = document.createElement("a");
+        const format = FORMATS.find(f => f.id === targetFormat);
+        link.href = convertedPreview;
+        link.download = `converted_${selectedFile.name.split('.')[0]}.${format.ext}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
-                {/* UPLOAD BOX */}
-                <div
-                  className="converter-upload-box text-center"
-                  onClick={() => fileRef.current.click()}
-                  onDrop={handleDrop}
-                  onDragOver={(e) => e.preventDefault()}
-                >
-                  <div className="upload-icon">📁</div>
+    const reset = () => {
+        setSelectedFile(null);
+        setOriginalPreview(null);
+        setConvertedPreview(null);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
 
-                  <h6>
-                    {file ? file.name : "Drag & Drop Images Here"}
-                  </h6>
+    const formatSize = (bytes) => {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const sizes = ["Bytes", "KB", "MB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+    };
 
-                  <p className="text-muted">
-                    or browse files from your device
-                  </p>
+    return (
+        <div className="image-converter-tech">
+            <div className="container py-5">
+                <div className="row g-4">
+                    {/* LEFT: CONFIGURE */}
+                    <div className="col-lg-5">
+                        <div className="tech-card p-4">
+                            <div className="card-header-gradient mb-4">
+                                <h5 className="m-0 fw-bold d-flex align-items-center">
+                                    <FaCogs className="me-2 text-primary" /> CONVERSION PARAMS
+                                </h5>
+                                <p className="x-small text-muted mb-0 mt-1">Configure output encoding and substrate</p>
+                            </div>
 
-                  <button className="btn btn-primary-custom mt-2">
-                    Browse Files
-                  </button>
+                            {!selectedFile ? (
+                                <div className="tech-upload-zone mb-4" onClick={() => fileInputRef.current.click()}>
+                                    <input type="file" hidden ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+                                    <FaCloudUploadAlt className="display-4 text-primary mb-3" />
+                                    <h6 className="fw-bold">INITIALIZE SOURCE</h6>
+                                    <p className="x-small text-muted mb-0">Direct image payload injection</p>
+                                </div>
+                            ) : (
+                                <div className="tech-file-info mb-4">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div className="d-flex align-items-center">
+                                            <FaFileImage className="text-primary me-2" />
+                                            <span className="small fw-medium text-truncate" style={{ maxWidth: '180px' }}>{selectedFile.name}</span>
+                                        </div>
+                                        <button className="btn-icon text-danger" onClick={reset}><FaTrash /></button>
+                                    </div>
+                                    <div className="mt-2 pt-2 border-top border-white border-opacity-10 d-flex justify-content-between">
+                                        <span className="x-small text-muted">SOURCE FORMAT:</span>
+                                        <span className="x-small fw-bold text-primary">{selectedFile.type.split('/')[1].toUpperCase()}</span>
+                                    </div>
+                                </div>
+                            )}
 
-                  <input
-                    type="file"
-                    hidden
-                    ref={fileRef}
-                    accept="image/*"
-                    onChange={handleFile}
-                  />
-                </div>
+                            {/* TARGET FORMAT */}
+                            <div className="tech-section mb-4">
+                                <div className="tech-label-group">
+                                    <FaExchangeAlt className="text-primary" />
+                                    <span>TARGET ENCODING</span>
+                                </div>
+                                <div className="tech-radio-group">
+                                    {FORMATS.map(f => (
+                                        <button 
+                                            key={f.id} 
+                                            className={`tech-radio-btn ${targetFormat === f.id ? 'active' : ''}`}
+                                            onClick={() => setTargetFormat(f.id)}
+                                            disabled={!selectedFile}
+                                        >
+                                            {f.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
 
-                {/* PREVIEW */}
-                {preview && (
-                  <div className="preview-box text-center mt-4">
-                    <img src={preview} alt="preview" />
-                  </div>
-                )}
+                            {/* QUALITY (If applicable) */}
+                            {targetFormat !== "image/png" && (
+                                <div className="tech-section mb-4">
+                                    <div className="tech-label-group">
+                                        <FaInfoCircle className="text-warning" />
+                                        <span>ENCODING QUALITY: {Math.round(quality * 100)}%</span>
+                                    </div>
+                                    <input 
+                                        type="range" 
+                                        className="form-range tech-range"
+                                        min="0.1" max="1" step="0.05"
+                                        value={quality}
+                                        onChange={(e) => setQuality(parseFloat(e.target.value))}
+                                        disabled={!selectedFile}
+                                    />
+                                </div>
+                            )}
 
-                {/* FORMAT SELECT */}
-                {file && (
-                  <div className="converter-options mt-4">
+                            {/* TRANSPARENCY HANDLING */}
+                            {targetFormat === "image/jpeg" && (
+                                <div className="tech-section mb-4">
+                                    <div className="tech-label-group">
+                                        <div className="d-flex align-items-center gap-2">
+                                            <div className="color-preview" style={{ backgroundColor: bgColor }}></div>
+                                            <span>BACKGROUND FILL</span>
+                                        </div>
+                                    </div>
+                                    <input 
+                                        type="color" 
+                                        className="form-control form-control-color w-100 tech-color-input"
+                                        value={bgColor}
+                                        onChange={(e) => setBgColor(e.target.value)}
+                                        disabled={!selectedFile}
+                                    />
+                                    <p className="x-small text-muted mt-2 mb-0">Used to fill transparent areas in JPEG output</p>
+                                </div>
+                            )}
 
-                    <div className="row g-3">
-
-                      <div className="col-md-6">
-                        <label>From</label>
-                        <input
-                          className="form-control premium-select"
-                          value={file.type || "Auto Detect"}
-                          disabled
-                        />
-                      </div>
-
-                      <div className="col-md-6">
-                        <label>To</label>
-                        <select
-                          className="form-select premium-select"
-                          value={toFormat}
-                          onChange={(e) => setToFormat(e.target.value)}
-                        >
-                          <option value="image/jpeg">JPG</option>
-                          <option value="image/png">PNG</option>
-                          <option value="image/webp">WEBP</option>
-                        </select>
-                      </div>
-
+                            <button 
+                                className="tech-main-btn w-100 mt-2"
+                                onClick={handleConvert}
+                                disabled={!selectedFile || isProcessing}
+                            >
+                                {isProcessing ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2"></span>
+                                        TRANSMUTING DATA...
+                                    </>
+                                ) : (
+                                    <>START CONVERSION PROCESS</>
+                                )}
+                            </button>
+                        </div>
                     </div>
 
-                  </div>
-                )}
+                    {/* RIGHT: PREVIEW */}
+                    <div className="col-lg-7">
+                        <div className="tech-card h-100 p-4">
+                            <div className="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
+                                <h5 className="m-0 fw-bold">ENCODED BUFFER PREVIEW</h5>
+                                {convertedPreview && (
+                                    <button className="tech-download-btn" onClick={handleDownload}>
+                                        <FaDownload className="me-2" /> DOWNLOAD RESULT
+                                    </button>
+                                )}
+                            </div>
 
-                {/* CONVERT BUTTON */}
-                {file && (
-                  <button
-                    className="btn-convert mt-4 w-100"
-                    onClick={handleConvert}
-                  >
-                    {loading ? "⚡ Converting..." : "🔄 Convert Image"}
-                  </button>
-                )}
+                            {!selectedFile ? (
+                                <div className="tech-empty-state">
+                                    <FaImage className="opacity-10 display-1 mb-3" />
+                                    <p className="text-muted">SOURCE RECEPTACLE EMPTY</p>
+                                </div>
+                            ) : (
+                                <div className="tech-output-container">
+                                    <div className="tech-preview-window checkerboard">
+                                        <img src={convertedPreview || originalPreview} alt="Converter Preview" className="img-fluid" />
+                                        {isProcessing && (
+                                            <div className="tech-overlay-processing">
+                                                <div className="spinner-grow text-primary"></div>
+                                            </div>
+                                        )}
+                                    </div>
 
-                {/* RESULT */}
-                {convertedUrl && (
-                  <div className="result-box text-center mt-4">
-                    <img src={convertedUrl} alt="converted" />
-
-                    <button
-                      className="btn-premium-download mt-3"
-                      onClick={handleDownload}
-                    >
-                      ⬇ Download Converted Image
-                    </button>
-                  </div>
-                )}
-
-              </div>
-
-            </div>
-
-            {/* RIGHT SIDE AD */}
-            <div className="col-lg-4">
-              <div className="converter-ad-sticky">
-
-                {/* ALWAYS SHOW FIRST AD */}
-                <div className="converter-ad-card mb-3">
-                  <p className="ad-title">Advertisement</p>
-                  <img src={squreImg1} className="img-fluid rounded" alt="ad" />
+                                    {/* CONVERSION STATS */}
+                                    <div className="tech-stats mt-4">
+                                        <div className="stats-row">
+                                            <span className="label">SOURCE MAGNITUDE</span>
+                                            <span className="value">{formatSize(selectedFile.size)}</span>
+                                        </div>
+                                        <div className="stats-row highlight">
+                                            <span className="label">TARGET PROTOCOL</span>
+                                            <span className="value">{targetFormat.split('/')[1].toUpperCase()}</span>
+                                        </div>
+                                        {convertedPreview && (
+                                            <div className="stats-row success">
+                                                <span className="label">STATUS</span>
+                                                <span className="value"><FaCheckCircle className="me-1" /> OPTIMIZED & READY</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
-                {/* SHOW AFTER UPLOAD */}
-                {file && (
-                  <div className="converter-ad-card mb-3">
-                    <img src={squreImg2} className="img-fluid rounded" alt="ad" />
-                  </div>
-                )}
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-                {/* SHOW AFTER CONVERT */}
-                {convertedUrl && (
-                  <div className="converter-ad-card">
-                    <img src={squreImg1} className="img-fluid rounded" alt="ad" />
-                  </div>
-                )}
-
-              </div>
+                {/* INFO SECTION */}
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="tech-card p-5">
+                            <div className="row g-4 align-items-center">
+                                <div className="col-md-8">
+                                    <h3 className="fw-bold mb-4">Technical Image Transmutation</h3>
+                                    <p className="text-muted mb-4" style={{ lineHeight: '1.8' }}>
+                                        Our converter uses the browser's low-level canvas rendering engine to re-encode image data between different mime-types. 
+                                        By processing everything locally, we eliminate data latency and ensure absolute privacy.
+                                    </p>
+                                    <div className="row g-3">
+                                        <div className="col-sm-6">
+                                            <div className="tech-spec-item">
+                                                <div className="dot"></div>
+                                                <span><strong>Format Support:</strong> JPG, PNG, WEBP, and more.</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className="tech-spec-item">
+                                                <div className="dot"></div>
+                                                <span><strong>Privacy:</strong> Zero-server data exposure logic.</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className="tech-spec-item">
+                                                <div className="dot"></div>
+                                                <span><strong>Alpha Channel:</strong> Intelligent transparency preservation.</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className="tech-spec-item">
+                                                <div className="dot"></div>
+                                                <span><strong>Interpolation:</strong> High-fidelity pixel resampling.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="tech-info-box p-4 text-center">
+                                        <div className="display-4 text-primary mb-3">⚡</div>
+                                        <h5 className="fw-bold">No Limits</h5>
+                                        <p className="x-small text-muted">Free, infinite conversions with no watermarks or registrations needed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-          </div>
-
         </div>
-      </section>
-      {/* ================= TOP BANNER AD ================= */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img
-          src={bannerImg2}
-          alt="Ad Banner"
-          className="img-fluid rounded"
-        />
-      </div>
+    );
+};
 
-      <section className="how-section-premium">
-        <div className="container">
-
-          {/* HEADER */}
-          <div className="text-center mb-5">
-            <h2 className="how-title">How It Works</h2>
-            <p className="how-subtitle">
-              Convert your images in just a few simple steps.
-            </p>
-          </div>
-
-          {/* STEPS */}
-          <div className="row g-4">
-
-            {/* STEP 1 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="how-card">
-                <div className="how-icon">
-                  <FaUpload />
-                </div>
-                <h6>Upload Image</h6>
-                <p>Select or drag & drop your image file.</p>
-                <span className="step-badge">01</span>
-              </div>
-            </div>
-
-            {/* STEP 2 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="how-card">
-                <div className="how-icon">
-                  <FaCog />
-                </div>
-                <h6>Select Format</h6>
-                <p>Choose your desired output format.</p>
-                <span className="step-badge">02</span>
-              </div>
-            </div>
-
-            {/* STEP 3 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="how-card">
-                <div className="how-icon">
-                  <FaExchangeAlt />
-                </div>
-                <h6>Convert</h6>
-                <p>Click convert and process instantly.</p>
-                <span className="step-badge">03</span>
-              </div>
-            </div>
-
-            {/* STEP 4 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="how-card">
-                <div className="how-icon">
-                  <FaDownload />
-                </div>
-                <h6>Download</h6>
-                <p>Save your converted image instantly.</p>
-                <span className="step-badge">04</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <section className="features-section-white">
-        <div className="container">
-
-          {/* HEADER */}
-          <div className="text-center mb-5">
-            <h2 className="features-title">
-              Powerful Features
-            </h2>
-            <p className="features-subtitle">
-              Everything you need for fast and high-quality image conversion.
-            </p>
-          </div>
-
-          {/* GRID */}
-          <div className="row g-4">
-
-            {/* FEATURE 1 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="feature-card-white">
-                <div className="feature-icon-white">
-                  <FaBolt />
-                </div>
-                <h6>Fast Conversion</h6>
-                <p>Convert images instantly with high-speed processing.</p>
-              </div>
-            </div>
-
-            {/* FEATURE 2 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="feature-card-white">
-                <div className="feature-icon-white">
-                  <FaImage />
-                </div>
-                <h6>No Quality Loss</h6>
-                <p>Maintain original image clarity after conversion.</p>
-              </div>
-            </div>
-
-            {/* FEATURE 3 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="feature-card-white">
-                <div className="feature-icon-white">
-                  <FaShieldAlt />
-                </div>
-                <h6>Secure Processing</h6>
-                <p>Your images are processed safely and never stored.</p>
-              </div>
-            </div>
-
-            {/* FEATURE 4 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="feature-card-white">
-                <div className="feature-icon-white">
-                  <FaLayerGroup />
-                </div>
-                <h6>Multiple Formats</h6>
-                <p>Supports JPG, PNG, WebP and more formats.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <section className="formats-section-premium">
-        <div className="container">
-
-          {/* HEADER */}
-          <div className="text-center mb-5">
-            <h2 className="formats-title-premium">
-              Supported Format Conversions
-            </h2>
-            <p className="formats-subtitle-premium">
-              Convert images between popular formats instantly with high quality.
-            </p>
-          </div>
-
-          {/* GRID */}
-          <div className="row g-4 justify-content-center">
-
-            {/* ITEM 1 */}
-            <div className="col-md-6 col-lg-4">
-              <div className="format-card-premium">
-                <div className="format-icons">
-                  <span className="format-badge">JPG</span>
-                  <FaExchangeAlt className="arrow-icon" />
-                  <span className="format-badge active">PNG</span>
-                </div>
-                <p>Convert JPG images to PNG format without quality loss.</p>
-              </div>
-            </div>
-
-            {/* ITEM 2 */}
-            <div className="col-md-6 col-lg-4">
-              <div className="format-card-premium">
-                <div className="format-icons">
-                  <span className="format-badge">PNG</span>
-                  <FaExchangeAlt className="arrow-icon" />
-                  <span className="format-badge active">WEBP</span>
-                </div>
-                <p>Optimize PNG images by converting them to WebP format.</p>
-              </div>
-            </div>
-
-            {/* ITEM 3 */}
-            <div className="col-md-6 col-lg-4">
-              <div className="format-card-premium">
-                <div className="format-icons">
-                  <span className="format-badge">WEBP</span>
-                  <FaExchangeAlt className="arrow-icon" />
-                  <span className="format-badge active">JPG</span>
-                </div>
-                <p>Convert WebP images back to JPG for better compatibility.</p>
-              </div>
-            </div>
-
-            {/* ITEM 4 */}
-            <div className="col-md-6 col-lg-4">
-              <div className="format-card-premium">
-                <div className="format-icons">
-                  <span className="format-badge">JPG</span>
-                  <FaExchangeAlt className="arrow-icon" />
-                  <span className="format-badge active">WEBP</span>
-                </div>
-                <p>Reduce image size by converting JPG to WebP format.</p>
-              </div>
-            </div>
-
-            {/* ITEM 5 */}
-            <div className="col-md-6 col-lg-4">
-              <div className="format-card-premium">
-                <div className="format-icons">
-                  <span className="format-badge">PNG</span>
-                  <FaExchangeAlt className="arrow-icon" />
-                  <span className="format-badge active">JPG</span>
-                </div>
-                <p>Convert PNG images into lightweight JPG format easily.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-        {/* ================= TOP BANNER AD ================= */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img
-          src={bannerImg3}
-          alt="Ad Banner"
-          className="img-fluid rounded"
-        />
-      </div>
-
-      <section className="why-section-premium">
-        <div className="container">
-
-          {/* HEADER */}
-          <div className="text-center mb-5">
-            <h2 className="why-title-premium">
-              Why Choose Our Tool
-            </h2>
-            <p className="why-subtitle-premium">
-              Built for speed, simplicity, and complete user freedom.
-            </p>
-          </div>
-
-          {/* GRID */}
-          <div className="row g-4 justify-content-center">
-
-            {/* ITEM 1 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="why-card-premium">
-                <div className="why-icon-premium">
-                  <FaCheckCircle />
-                </div>
-                <h6>No Watermark</h6>
-                <p>Download images without any branding or watermark.</p>
-              </div>
-            </div>
-
-            {/* ITEM 2 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="why-card-premium">
-                <div className="why-icon-premium">
-                  <FaUnlock />
-                </div>
-                <h6>Free Forever</h6>
-                <p>Use all features without paying anything, anytime.</p>
-              </div>
-            </div>
-
-            {/* ITEM 3 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="why-card-premium">
-                <div className="why-icon-premium">
-                  <FaMobileAlt />
-                </div>
-                <h6>Mobile Friendly</h6>
-                <p>Works perfectly on mobile, tablet, and desktop.</p>
-              </div>
-            </div>
-
-            {/* ITEM 4 */}
-            <div className="col-md-6 col-lg-3">
-              <div className="why-card-premium">
-                <div className="why-icon-premium">
-                  <FaUserSlash />
-                </div>
-                <h6>No Signup Required</h6>
-                <p>Start converting instantly without creating an account.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <section className="faq-section-premium">
-        <div className="container">
-
-          {/* HEADER */}
-          <div className="text-center mb-5">
-            <h2 className="faq-title-premium">
-              Frequently Asked Questions
-            </h2>
-            <p className="faq-subtitle-premium">
-              Everything you need to know about our image converter.
-            </p>
-          </div>
-
-          {/* ACCORDION */}
-          <Accordion defaultActiveKey="0" className="faq-accordion-premium">
-
-            <Accordion.Item eventKey="0" className="faq-item-premium">
-              <Accordion.Header>Is this tool free to use?</Accordion.Header>
-              <Accordion.Body>
-                Yes, our image converter is completely free to use with no hidden charges.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="1" className="faq-item-premium">
-              <Accordion.Header>Does conversion reduce image quality?</Accordion.Header>
-              <Accordion.Body>
-                No, our tool ensures high-quality conversion while maintaining image clarity.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="2" className="faq-item-premium">
-              <Accordion.Header>Is my data safe?</Accordion.Header>
-              <Accordion.Body>
-                Yes, your images are processed securely and are never stored on our servers.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="3" className="faq-item-premium">
-              <Accordion.Header>Which formats are supported?</Accordion.Header>
-              <Accordion.Body>
-                We support JPG, PNG, WebP and other popular image formats.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="4" className="faq-item-premium">
-              <Accordion.Header>Can I use this tool on mobile?</Accordion.Header>
-              <Accordion.Body>
-                Yes, our tool is fully mobile-friendly and works on all devices.
-              </Accordion.Body>
-            </Accordion.Item>
-
-          </Accordion>
-
-        </div>
-      </section>
-
-      {/* realtedrools */}
-      <RelatedTools/>
-    </>
-  )
-}
+export default ImageConverter;

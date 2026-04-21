@@ -1,505 +1,373 @@
-import React, { useRef, useState, useEffect } from "react";
-import "./BackgroundRemover.css";
-import bannerImg1 from "../../../../../assets/img/adsbanner1.png";
-import bannerImg2 from "../../../../../assets/img/adsbanner2.png"
-import bannerImg3 from "../../../../../assets/img/adsbanner3.png"
-import squreImg1 from "../../../../../assets/img/squareads1.png"
-
-
-import toast from "react-hot-toast";
+import React, { useState, useEffect, useRef } from "react";
+import * as tf from "@tensorflow/tfjs";
 import * as bodyPix from "@tensorflow-models/body-pix";
-import "@tensorflow/tfjs";
-import { MdCampaign, MdDownload, MdOutlineHighQuality } from "react-icons/md";
-import { AiOutlineThunderbolt, AiOutlineUserDelete } from "react-icons/ai";
-import { FiChevronDown, FiInstagram, FiShield, FiSmartphone, FiUploadCloud, FiZap } from "react-icons/fi";
-import { FaCheckCircle, FaShoppingBag, FaUserCircle } from "react-icons/fa";
-import RelatedTools from "../../../../../components/RelatedTools";
-const faqData = [
-  {
-    question: "Is this background remover free to use?",
-    answer:
-      "Yes, our AI background remover is 100% free to use with no hidden charges or subscriptions.",
-  },
-  {
-    question: "Does removing background reduce image quality?",
-    answer:
-      "No, our tool maintains high-quality output and preserves image resolution while removing the background.",
-  },
-  {
-    question: "Is my data safe and secure?",
-    answer:
-      "Yes, your images are processed securely and are not stored on our servers, ensuring complete privacy.",
-  },
-  {
-    question: "What image formats are supported?",
-    answer:
-      "We support popular formats like JPG, PNG, and JPEG for seamless background removal.",
-  },
-  {
-    question: "Can I use this tool on mobile devices?",
-    answer:
-      "Yes, our tool is fully mobile-friendly and works on smartphones, tablets, and desktops.",
-  },
-  {
-    question: "Does it work for all types of images?",
-    answer:
-      "Our AI works best with human images. For products or complex objects, results may vary.",
-  },
-];
-
+import { toast } from "react-hot-toast";
+import { 
+  FaCloudUploadAlt, FaDownload, FaTrash, FaImage, FaUndo,
+  FaFileImage, FaShieldAlt, FaMagic, FaSpinner
+} from "react-icons/fa";
+import "./BackgroundRemover.css";
 
 const BackgroundRemover = () => {
-   const [activeIndex, setActiveIndex] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [originalPreview, setOriginalPreview] = useState(null);
+    const [processedImage, setProcessedImage] = useState(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [isModelLoading, setIsModelLoading] = useState(true);
+    const [model, setModel] = useState(null);
+    const [progress, setProgress] = useState(0);
 
-  const toggleFAQ = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+    const fileInputRef = useRef(null);
+    const canvasRef = useRef(null);
 
-  const fileInputRef = useRef();
-  const canvasRef = useRef();
+    const isMounted = useRef(false);
 
-  const [imageURL, setImageURL] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [model, setModel] = useState(null);
+    // Load Model on Mount
+    useEffect(() => {
+        if (isMounted.current) return;
+        isMounted.current = true;
 
-  // ✅ Load AI model once (IMPORTANT)
-  useEffect(() => {
-    const loadModel = async () => {
-      try {
-        const net = await bodyPix.load({
-          architecture: "MobileNetV1",
-          outputStride: 16,
-          multiplier: 0.75,
-          quantBytes: 2,
-        });
-        setModel(net);
-      } catch (err) {
-        toast.error("Failed to load AI model");
-        console.error(err);
-      }
+        const loadModel = async () => {
+            try {
+                // Initialize TFJS
+                await tf.ready();
+                // Load BodyPix model
+                const loadedModel = await bodyPix.load({
+                    architecture: 'MobileNetV1',
+                    outputStride: 16,
+                    multiplier: 0.75,
+                    quantBytes: 2
+                });
+                setModel(loadedModel);
+                setIsModelLoading(false);
+                toast.success("AI Model loaded successfully!");
+            } catch (error) {
+                console.error("Model load error:", error);
+                toast.error("Failed to load AI model. Please refresh.");
+                setIsModelLoading(false);
+            }
+        };
+        loadModel();
+    }, []);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            processUpload(file);
+        }
     };
 
-    loadModel();
-  }, []);
-
-  // ✅ Handle file upload
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImageURL(url);
-    }
-  };
-
-  // ✅ Remove background
-  const removeBackground = async () => {
-    if (!imageURL) return toast.error("Upload image first");
-    if (!model) return toast.error("Model still loading...");
-
-    setLoading(true);
-
-    try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = imageURL;
-
-      img.onload = async () => {
-        const segmentation = await model.segmentPerson(img);
-
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const pixels = imageData.data;
-
-        for (let i = 0; i < segmentation.data.length; i++) {
-          if (segmentation.data[i] === 0) {
-            pixels[i * 4 + 3] = 0; // remove background
-          }
+    const processUpload = (file) => {
+        if (!file.type.startsWith('image/')) {
+            toast.error("Please select a valid image file");
+            return;
         }
 
-        ctx.putImageData(imageData, 0, 0);
-        setLoading(false);
-      };
+        setSelectedFile(file);
+        setProcessedImage(null);
+        setProgress(0);
+        
+        const previewUrl = URL.createObjectURL(file);
+        setOriginalPreview(previewUrl);
+        toast.success("Image uploaded!");
+    };
 
-    } catch (err) {
-      console.error(err);
-      toast.error("Error processing image");
-      setLoading(false);
-    }
-  };
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            processUpload(file);
+        }
+    };
 
-  // ✅ Download image
-  const downloadImage = () => {
-    if (!canvasRef.current) return;
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
 
-    const link = document.createElement("a");
-    link.download = "removed-bg.png";
-    link.href = canvasRef.current.toDataURL("image/png");
-    link.click();
-  };
+    const removeBackground = async () => {
+        if (!model || !selectedFile) return;
 
-  return (
-    <>
-      {/* ================= HERO ================= */} <section className="hero-section bg-remover-hero"> <div className="container text-center"> <div className="breadcrumb-pill"> <span>🏠 Home</span> <span className="separator">›</span> <span className="active">Background Remover</span> </div> <h1 className="hero-title"> Remove Image Background <span>Instantly</span> </h1> <p className="hero-subtitle"> Automatically remove backgrounds from images in seconds. 100% free, no signup required, and high-quality results. </p> <div className="hero-trust"> ⚡ AI Powered • 🔒 Secure • 🎯 High Accuracy • 📱 Mobile Friendly </div> </div> </section>
-      {/* AD */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img src={bannerImg1} alt="Ad Banner" className="img-fluid rounded" />
-      </div>
+        setIsProcessing(true);
+        setProgress(10);
 
-      <div className="container py-5">
+        try {
+            const img = new Image();
+            img.src = originalPreview;
+            
+            await new Promise((resolve) => {
+                img.onload = resolve;
+            });
 
-        {/* ===== TOP SECTION ===== */}
-        <div className="row g-4 align-items-stretch">
+            setProgress(30);
 
-          {/* LEFT - UPLOAD */}
-          <div className="col-lg-8">
-            <div className="glass-card p-4 h-100 text-center">
+            // Set canvas dimensions
+            const canvas = canvasRef.current;
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
 
-              <h3 className="mb-3">AI Background Remover</h3>
+            // Perform segmentation
+            const segmentation = await model.segmentPerson(img, {
+                flipHorizontal: false,
+                internalResolution: 'high',
+                segmentationThreshold: 0.7
+            });
 
-              {/* Upload Box */}
-              <div
-                onClick={() => fileInputRef.current.click()}
-                className="upload-box-premium mb-3"
-              >
-                <p className="mb-1 fw-semibold">
-                  {imageURL ? "✅ Image Selected" : "📁 Click to Upload Image"}
-                </p>
-                <small className="text-muted">
-                  PNG, JPG supported • Max 5MB
-                </small>
+            setProgress(70);
 
-                <input
-                  type="file"
-                  hidden
-                  ref={fileInputRef}
-                  onChange={handleFile}
-                  accept="image/*"
-                />
-              </div>
+            // Create image data for the mask
+            const imageData = ctx.createImageData(img.width, img.height);
+            const { data } = imageData;
 
-              {/* Button */}
-              <button
-                onClick={removeBackground}
-                disabled={loading}
-                className="btn-premium"
-              >
-                {loading ? "Processing..." : "🚀 Remove Background"}
-              </button>
+            // Draw original image to get pixels
+            ctx.drawImage(img, 0, 0);
+            const originalData = ctx.getImageData(0, 0, img.width, img.height).data;
 
-            </div>
-          </div>
+            // Apply mask: if pixel is background (segmentation.data[i] == 0), set alpha to 0
+            for (let i = 0; i < segmentation.data.length; i++) {
+                const n = i * 4;
+                data[n] = originalData[n];     // R
+                data[n + 1] = originalData[n + 1]; // G
+                data[n + 2] = originalData[n + 2]; // B
+                data[n + 3] = segmentation.data[i] ? 255 : 0; // A (1 for person, 0 for background)
+            }
 
-          {/* RIGHT - ADS */}
-          <div className="col-lg-4">
-            <div className="glass-card p-3 ad-section h-100">
-              <p className="text-center small text-muted mb-2">Advertisement</p>
-              <img
-                src={squreImg1}
-                alt="Ad"
-                className="img-fluid rounded"
-              />
-            </div>
-          </div>
+            ctx.putImageData(imageData, 0, 0);
+            
+            const resultUrl = canvas.toDataURL('image/png');
+            setProcessedImage(resultUrl);
+            setProgress(100);
+            toast.success("Background removed!");
+        } catch (error) {
+            console.error("Processing error:", error);
+            toast.error("Processing failed. Please try a different image.");
+        } finally {
+            setIsProcessing(false);
+        }
+    };
 
-        </div>
+    const handleDownload = () => {
+        if (!processedImage) return;
+        const link = document.createElement("a");
+        link.href = processedImage;
+        link.download = `no-bg_${selectedFile.name.split('.')[0]}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
-        {/* ===== RESULT SECTION ===== */}
-        <div className="row mt-5 g-4">
+    const reset = () => {
+        setSelectedFile(null);
+        setOriginalPreview(null);
+        setProcessedImage(null);
+        setProgress(0);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
 
-          {/* ORIGINAL */}
-          <div className="col-md-6">
-            <div className="glass-card p-3 text-center h-100">
-              <h5 className="mb-3">Original Image</h5>
+    return (
+        <div className="background-remover-container">
+            <div className="container py-4">
+                <div className="row g-4">
+                    {/* LEFT PANEL: UPLOAD & SETTINGS */}
+                    <div className="col-lg-4">
+                        <div className="premium-card p-4 h-100">
+                            <h5 className="fw-bold mb-4 d-flex align-items-center">
+                                <FaFileImage className="text-primary me-2" /> Upload Image
+                            </h5>
 
-              {imageURL ? (
-                <img
-                  src={imageURL}
-                  alt="original"
-                  className="result-img"
-                />
-              ) : (
-                <p className="text-muted">No image uploaded</p>
-              )}
-            </div>
-          </div>
+                            {!selectedFile ? (
+                                <div 
+                                    className={`upload-zone text-center p-5 mb-4 ${isModelLoading ? 'disabled' : ''}`}
+                                    onDrop={handleDrop}
+                                    onDragOver={handleDragOver}
+                                    onClick={() => !isModelLoading && fileInputRef.current.click()}
+                                >
+                                    <input 
+                                        type="file" 
+                                        hidden 
+                                        ref={fileInputRef}
+                                        onChange={handleFileChange}
+                                        accept="image/*"
+                                        disabled={isModelLoading}
+                                    />
+                                    <div className="upload-icon-wrapper mb-3">
+                                        {isModelLoading ? (
+                                            <FaSpinner className="display-4 text-primary spin" />
+                                        ) : (
+                                            <FaCloudUploadAlt className="display-4 text-primary" />
+                                        )}
+                                    </div>
+                                    <p className="mb-0 fw-medium">
+                                        {isModelLoading ? "AI Model Loading..." : "Drag & drop image"}
+                                    </p>
+                                    <p className="small text-muted text-center px-4">
+                                        {isModelLoading ? "Please wait while we prepare the tools..." : "Best results with clear foreground subjects"}
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="selected-info p-3 mb-4 glass-card border-primary">
+                                    <div className="d-flex align-items-center justify-content-between mb-2">
+                                        <span className="small text-muted text-truncate me-2">{selectedFile.name}</span>
+                                        <button className="btn btn-sm btn-link text-danger p-0" onClick={reset} disabled={isProcessing}>
+                                            <FaTrash />
+                                        </button>
+                                    </div>
+                                    <div className="fw-bold">READY TO PROCESS</div>
+                                </div>
+                            )}
 
-          {/* RESULT */}
-          <div className="col-md-6">
-            <div className="glass-card p-3 text-center h-100">
-              <h5 className="mb-3">Background Removed</h5>
+                            <div className="settings-info mb-4">
+                                <div className="d-flex align-items-center gap-3 p-3 glass-card mb-3">
+                                    <div className="icon-circle bg-primary-soft">
+                                        <FaShieldAlt className="text-primary" />
+                                    </div>
+                                    <div>
+                                        <div className="fw-bold small">Privacy Guaranteed</div>
+                                        <div className="x-small text-muted">Processing happens on your device</div>
+                                    </div>
+                                </div>
+                                <div className="d-flex align-items-center gap-3 p-3 glass-card">
+                                    <div className="icon-circle bg-success-soft">
+                                        <FaMagic className="text-success" />
+                                    </div>
+                                    <div>
+                                        <div className="fw-bold small">AI Powered</div>
+                                        <div className="x-small text-muted">Neural engine detection</div>
+                                    </div>
+                                </div>
+                            </div>
 
-              <canvas
-                ref={canvasRef}
-                className="result-img"
-              />
+                            <button 
+                                className="btn btn-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2"
+                                onClick={removeBackground}
+                                disabled={!selectedFile || isProcessing || isModelLoading}
+                            >
+                                {isProcessing ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Processing {progress}%
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaMagic className="small" /> Remove Background
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
 
-              <button
-                onClick={downloadImage}
-                className="btn-premium mt-3"
-                disabled={!imageURL}
-              >
-                ⬇ Download Image
-              </button>
-            </div>
-          </div>
+                    {/* RIGHT PANEL: PREVIEW */}
+                    <div className="col-lg-8">
+                        <div className="premium-card p-4 h-100">
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <h5 className="fw-bold m-0 d-flex align-items-center">
+                                    <FaImage className="text-primary me-2" /> Result Preview
+                                </h5>
+                                {processedImage && (
+                                    <button className="btn btn-sm btn-success d-flex align-items-center gap-2 px-3" onClick={handleDownload}>
+                                        <FaDownload /> Download PNG
+                                    </button>
+                                )}
+                            </div>
 
-        </div>
-      </div>
+                            {!selectedFile ? (
+                                <div className="empty-preview h-100 min-vh-50 d-flex flex-column align-items-center justify-content-center text-center p-5">
+                                    <div className="preview-placeholder mb-3">
+                                        <FaImage className="display-1 text-muted opacity-25" />
+                                    </div>
+                                    <h5 className="text-muted">No Image Selected</h5>
+                                    <p className="small text-muted">Upload an image to start the magic</p>
+                                </div>
+                            ) : (
+                                <div className="comparison-content h-100">
+                                    <div className="row g-4 mb-4">
+                                        {/* Original */}
+                                        <div className="col-md-6">
+                                            <div className="preview-box">
+                                                <div className="preview-label">Original</div>
+                                                <div className="preview-image-wrapper">
+                                                    <img src={originalPreview} alt="Original" className="img-fluid rounded" />
+                                                </div>
+                                            </div>
+                                        </div>
 
-      {/* AD */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img src={bannerImg2} alt="Ad Banner" className="img-fluid rounded" />
-      </div>
-
-
-      <section className="how-it-works-section py-5">
-        <div className="container">
-
-          {/* Heading */}
-          <div className="text-center mb-5">
-            <h2 className="section-title">
-              How to Remove Background from Image Online
-            </h2>
-            <p className="section-subtitle">
-              Remove image backgrounds instantly with our AI-powered tool.
-              Upload your image, let AI do the magic, and download your result in seconds.
-            </p>
-          </div>
-
-          {/* Steps */}
-          <div className="row g-4">
-
-            {/* Step 1 */}
-            <div className="col-md-4">
-              <div className="step-card text-center h-100">
-                <div className="step-icon gradient-icon">
-                  <FiUploadCloud />
+                                        {/* Result */}
+                                        <div className="col-md-6">
+                                            <div className="preview-box result-box">
+                                                <div className="preview-label text-success">Result</div>
+                                                {processedImage ? (
+                                                    <div className="preview-image-wrapper checkerboard">
+                                                        <img src={processedImage} alt="Result" className="img-fluid rounded" />
+                                                    </div>
+                                                ) : (
+                                                    <div className="preview-image-wrapper d-flex align-items-center justify-content-center text-center p-4 bg-dark bg-opacity-25 rounded mt-0">
+                                                        <div className="opacity-50">
+                                                            {isProcessing ? (
+                                                                <>
+                                                                    <div className="spinner-border text-primary mb-3" role="status"></div>
+                                                                    <p className="small text-muted mb-0">AI is segmenting image...</p>
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <FaMagic className="mb-2 display-6" />
+                                                                    <p className="small text-muted mb-0">Hit 'Remove Background'</p>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-                <h5 className="step-title">Upload Your Image</h5>
-                <p className="step-desc">
-                  Upload any JPG or PNG image from your device.
-                  Fast, secure, and no signup required.
-                </p>
-              </div>
-            </div>
 
-            {/* Step 2 */}
-            <div className="col-md-4">
-              <div className="step-card text-center h-100">
-                <div className="step-icon gradient-icon">
-                  <AiOutlineThunderbolt />
+                {/* HIDDEN CANVAS FOR PROCESSING */}
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+                {/* INFO SECTION */}
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="premium-card p-5">
+                            <div className="row g-4 align-items-center">
+                                <div className="col-md-7">
+                                    <h2 className="fw-bold mb-4">AI Background Removal</h2>
+                                    <p className="text-muted" style={{ lineHeight: '1.8' }}>
+                                        Our background remover uses state-of-the-art BodyPix neural networks to detect human subjects and separate them from the background with high precision. 
+                                        The best part? Everything happens directly in your browser.
+                                    </p>
+                                    <div className="mt-4">
+                                        <div className="d-flex align-items-center mb-3">
+                                            <div className="check-icon text-success me-3">✓</div>
+                                            <span><strong>Browser Based:</strong> No images are ever uploaded to our servers. Your data stays yours.</span>
+                                        </div>
+                                        <div className="d-flex align-items-center mb-3">
+                                            <div className="check-icon text-success me-3">✓</div>
+                                            <span><strong>High Resolution:</strong> Supports processing at original image dimensions for clear cutouts.</span>
+                                        </div>
+                                        <div className="d-flex align-items-center">
+                                            <div className="check-icon text-success me-3">✓</div>
+                                            <span><strong>Transparent PNG:</strong> Instant export to PNG format with alpha channel transparency.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-5">
+                                    <div className="glass-card p-4 text-center border-primary border-opacity-25">
+                                        <div className="display-4 text-primary mb-3">🧠</div>
+                                        <h4 className="fw-bold mb-2">Neural Engine</h4>
+                                        <p className="small text-muted mb-0">Optimized for people, portraits, and clear subjects.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h5 className="step-title">AI Removes Background</h5>
-                <p className="step-desc">
-                  Our AI automatically detects the subject and removes
-                  the background with high accuracy in seconds.
-                </p>
-              </div>
             </div>
-
-            {/* Step 3 */}
-            <div className="col-md-4">
-              <div className="step-card text-center h-100">
-                <div className="step-icon gradient-icon">
-                  <MdDownload />
-                </div>
-                <h5 className="step-title">Download Image</h5>
-                <p className="step-desc">
-                  Download your transparent background image instantly
-                  in high quality without watermark.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
         </div>
-      </section>
-
-      <section className="features-section py-5">
-        <div className="container">
-
-          {/* Heading */}
-          <div className="text-center mb-5">
-            <h2 className="section-title">
-              Why Choose Our AI Background Remover
-            </h2>
-            <p className="section-subtitle">
-              Experience fast, secure, and high-quality background removal with our powerful AI tool — built for everyone.
-            </p>
-          </div>
-
-          {/* Features Grid */}
-          <div className="row g-4">
-
-            {/* Feature 1 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <FaCheckCircle className="feature-icon" />
-                <h5>100% Free</h5>
-                <p>Use our background remover completely free with no hidden charges.</p>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <AiOutlineUserDelete className="feature-icon" />
-                <h5>No Signup Required</h5>
-                <p>No registration needed. Upload and remove background instantly.</p>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <FiZap className="feature-icon" />
-                <h5>Fast Processing</h5>
-                <p>Our AI processes images in seconds for quick and efficient results.</p>
-              </div>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <MdOutlineHighQuality className="feature-icon" />
-                <h5>High Quality Output</h5>
-                <p>Get clean, sharp edges and high-resolution transparent images.</p>
-              </div>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <FiShield className="feature-icon" />
-                <h5>Secure & Private</h5>
-                <p>Your images are never stored. 100% safe and private processing.</p>
-              </div>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="col-md-4">
-              <div className="feature-card">
-                <FiSmartphone className="feature-icon" />
-                <h5>Mobile Friendly</h5>
-                <p>Use our tool on any device — mobile, tablet, or desktop.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
- {/* AD */}
-      <div className="glass-card p-2 mb-4 text-center banner-ad">
-        <p className="ad-title">Advertisement</p>
-        <img src={bannerImg3} alt="Ad Banner" className="img-fluid rounded" />
-      </div>
-      <section className="usecases-section py-5">
-        <div className="container">
-
-          {/* Heading */}
-          <div className="text-center mb-5">
-            <h2 className="section-title">
-              Where You Can Use Background Remover
-            </h2>
-            <p className="section-subtitle">
-              Our AI background remover is perfect for multiple use cases — from e-commerce to social media and marketing.
-            </p>
-          </div>
-
-          {/* Grid */}
-          <div className="row g-4">
-
-            {/* E-commerce */}
-            <div className="col-md-3 col-sm-6">
-              <div className="usecase-card">
-                <FaShoppingBag className="usecase-icon" />
-                <h6>E-commerce Products</h6>
-                <p>Create clean product images for Amazon, Flipkart, Shopify & more.</p>
-              </div>
-            </div>
-
-            {/* Profile */}
-            <div className="col-md-3 col-sm-6">
-              <div className="usecase-card">
-                <FaUserCircle className="usecase-icon" />
-                <h6>Profile Pictures</h6>
-                <p>Make professional profile photos for LinkedIn, resumes, and portfolios.</p>
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div className="col-md-3 col-sm-6">
-              <div className="usecase-card">
-                <FiInstagram className="usecase-icon" />
-                <h6>Social Media Posts</h6>
-                <p>Create engaging Instagram, Facebook, and YouTube thumbnails.</p>
-              </div>
-            </div>
-
-            {/* Marketing */}
-            <div className="col-md-3 col-sm-6">
-              <div className="usecase-card">
-                <MdCampaign className="usecase-icon" />
-                <h6>Marketing Creatives</h6>
-                <p>Design ads, banners, and promotional graphics easily.</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-      <section className="faq-section py-5">
-      <div className="container">
-
-        {/* Heading */}
-        <div className="text-center mb-5">
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <p className="section-subtitle">
-            Find answers to common questions about our AI background remover tool.
-          </p>
-        </div>
-
-        {/* FAQ List */}
-        <div className="faq-wrapper mx-auto">
-          {faqData.map((item, index) => (
-            <div
-              key={index}
-              className={`faq-item ${activeIndex === index ? "active" : ""}`}
-            >
-              <div
-                className="faq-question"
-                onClick={() => toggleFAQ(index)}
-              >
-                <h6>{item.question}</h6>
-                <FiChevronDown className="faq-icon" />
-              </div>
-
-              <div className="faq-answer">
-                <p>{item.answer}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-      </div>
-    </section>
-
-    <RelatedTools/>
-    </>
-  );
+    );
 };
 
 export default BackgroundRemover;

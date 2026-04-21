@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, Row, Col } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
+import { LayoutGrid, Zap } from 'lucide-react';
 
-// Icons
-import {
-  FaSearch, FaFont, FaCalculator, FaCode, FaCalendarAlt,
-  FaImage, FaRuler, FaShieldAlt
-} from 'react-icons/fa';
-
+// Assets & Data
 import logo from "../assets/img/logo.png";
+import { categories, allTools } from '../data/toolsData';
+import useToolSearch from '../hooks/useToolSearch';
 
+/**
+ * PremiumNavbar Component
+ * A floating, glassmorphism-styled navigation bar with 
+ * integrated search and mega-menu for tools.
+ */
 const PremiumNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Handle scroll event
+  // Phase 3: Centralized Search Logic
+  const { 
+    searchQuery, 
+    setSearchQuery, 
+    handleSearchSubmit 
+  } = useToolSearch();
+
+  // ===== SCROLL HANDLER =====
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -23,149 +34,144 @@ const PremiumNavbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Helper function to check if a link is active
+  // Helper to determine active route
   const checkActive = (path) => {
-    return location.pathname === path ? "active" : "";
+    if (path === '/') return location.pathname === '/' ? "active" : "";
+    return location.pathname.startsWith(path) ? "active" : "";
   };
 
-  // --- NEW: Premium Smooth Scroll to Top Function ---
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // Creates a silky smooth glide to the top
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Memoize featured tools for mega menu performance
+  const featuredTools = useMemo(() => {
+    return allTools.filter(t => t.isPremium).slice(0, 4);
+  }, []);
 
   return (
     <div className={`wt-navbar-wrapper ${isScrolled ? 'wt-scrolled' : ''}`}>
-      <Navbar expand="lg" className="wt-floating-navbar">
+      <Navbar expand="lg" className="wt-floating-navbar shadow-lg">
         <Container fluid className="px-3 px-lg-4">
-
-          {/* Brand / Logo - Added onClick */}
+          {/* LOGO */}
           <Navbar.Brand as={Link} to="/" onClick={scrollToTop} className="d-flex align-items-center gap-2">
             <img src={logo} alt="WebzenTools Logo" className="wt-nav-logo" />
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="premium-nav" className="wt-nav-toggle" />
+          <Navbar.Toggle aria-controls="premium-nav" className="wt-nav-toggle rounded-circle" />
 
           <Navbar.Collapse id="premium-nav">
-            <Nav className="mx-auto align-items-center gap-1 gap-lg-3">
-
-              {/* Added onClick to trigger scrollToTop */}
+            <Nav className="mx-auto align-items-center gap-1 gap-lg-2">
               <Nav.Link as={Link} to="/" onClick={scrollToTop} className={`wt-nav-link ${checkActive('/')}`}>
                 Home
               </Nav.Link>
 
-              {/* --- Standard Dropdown --- */}
-              <NavDropdown title="Categories" id="categories-dropdown" className="wt-glass-dropdown">
-
-                <Link to="/category/category-details" className="dropdown-item">
-                  <FaFont size={14} className="me-2 wt-cyan-accent" /> Text Tools
-                </Link>
-
-                <Link to="/category/calculators" className="dropdown-item">
-                  <FaCalculator size={14} className="me-2 wt-cyan-accent" /> Calculators
-                </Link>
-
-                <Link to="/category/developers" className="dropdown-item">
-                  <FaCode size={14} className="me-2 wt-cyan-accent" /> Developer Tools
-                </Link>
-
-                <Link to="/category/date-time" className="dropdown-item">
-                  <FaCalendarAlt size={14} className="me-2 wt-cyan-accent" /> Date & Time
-                </Link>
-
-                <NavDropdown.Divider />
-
-                <Link to="/category" className="dropdown-item">
-                  <FaShieldAlt size={14} className="me-2 wt-cyan-accent" /> View All Categories
-                </Link>
-
+              {/* DYNAMIC CATEGORIES DROPDOWN */}
+              <NavDropdown 
+                title="Categories" 
+                id="categories-dropdown" 
+                className={`wt-glass-dropdown ${checkActive('/category') || checkActive('/tools?category') ? 'active' : ''}`}
+              >
+                <div className="dropdown-grid p-2" style={{ minWidth: '220px' }}>
+                  {categories.slice(0, 8).map(cat => {
+                    const Icon = cat.icon;
+                    return (
+                      <Link key={cat.id} to={`/category/${cat.id}`} className="dropdown-item">
+                        <div className={`${cat.color} bg-opacity-10 p-2 rounded-3 me-2 d-flex align-items-center justify-content-center`} style={{ width: '32px', height: '32px' }}>
+                          <Icon size={16} />
+                        </div>
+                        <span className="fw-medium">{cat.name}</span>
+                      </Link>
+                    );
+                  })}
+                  <div className="dropdown-divider"></div>
+                  <Link to="/tools" className="dropdown-item fw-bold text-primary">
+                    <LayoutGrid size={16} className="me-2" /> View All 100+ Tools
+                  </Link>
+                </div>
               </NavDropdown>
 
-              {/* --- Premium Mega Menu --- */}
-              <NavDropdown title="Tools" id="tools-mega-menu" className="wt-glass-dropdown wt-mega-menu">
-                <div className="wt-mega-menu-inner p-4">
+              {/* DYNAMIC MEGA MENU */}
+              <NavDropdown 
+                title="Trending Tools" 
+                id="tools-mega-menu" 
+                className={`wt-glass-dropdown wt-mega-menu ${checkActive('/tools/') ? 'active' : ''}`}
+              >
+                <div className="wt-mega-menu-inner p-4 shadow-2xl">
                   <Row className="w-100 m-0">
-                    {/* LEFT SIDE: Text Lists */}
-                    <Col lg={5} className="d-flex flex-wrap justify-content-between pe-lg-4 mb-4 mb-lg-0">
-                      <div className="mb-4 mb-lg-0">
-                        <h6 className="wt-mega-title">Developers</h6>
-                        <ul className="wt-mega-list list-unstyled">
-                          <li><a href="#json">JSON Formatter</a></li>
-                          <li><a href="#base64">Base64 Encoder</a></li>
-                          <li><a href="#regex">Regex Tester</a></li>
-                          <li><a href="#hash">Hash Generator</a></li>
-                        </ul>
-                      </div>
-                      <div className="mb-4 mb-lg-0">
-                        <h6 className="wt-mega-title highlight">Creators</h6>
-                        <ul className="wt-mega-list list-unstyled">
-                          <li><a href="#color">Color Picker</a></li>
-                          <li><a href="#svg">SVG Optimizer</a></li>
-                          <li><a href="#font">Font Pairing</a></li>
-                          <li><a href="#css">CSS Generators</a></li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h6 className="wt-mega-title">System</h6>
-                        <ul className="wt-mega-list list-unstyled">
-                          <li><a href="#cron">Cron Parser</a></li>
-                          <li><a href="#jwt">JWT Decoder</a></li>
-                          <li><a href="#dns">DNS Lookup</a></li>
-                        </ul>
-                      </div>
+                    <Col lg={7} className="pe-lg-4 mb-4 mb-lg-0 border-end border-light border-opacity-10">
+                      <Row>
+                        <Col md={6}>
+                          <h6 className="wt-mega-title text-gradient small text-uppercase">Developer Tools</h6>
+                          <ul className="wt-mega-list list-unstyled mt-3">
+                            {allTools.filter(t => t.category === 'developer').slice(0, 4).map(t => (
+                              <li key={t.id} className="mb-2">
+                                <Link to={`/tools/${t.slug}`} className="d-flex align-items-center gap-2 silver-hover">
+                                  <Zap size={14} className="text-warning" /> {t.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </Col>
+                        <Col md={6}>
+                          <h6 className="wt-mega-title highlight small text-uppercase">AI & Content</h6>
+                          <ul className="wt-mega-list list-unstyled mt-3">
+                            {allTools.filter(t => t.category === 'ai' || t.category === 'text').slice(0, 4).map(t => (
+                              <li key={t.id} className="mb-2">
+                                <Link to={`/tools/${t.slug}`} className="d-flex align-items-center gap-2 silver-hover">
+                                  <Zap size={14} className="text-primary" /> {t.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </Col>
+                      </Row>
                     </Col>
 
-                    {/* Vertical Divider line */}
-                    <div className="d-none d-lg-block wt-mega-divider"></div>
-
-                    {/* RIGHT SIDE: Image Grid */}
-                    <Col lg={6} className="ps-lg-4">
+                    <Col lg={5} className="ps-lg-4">
                       <div className="d-flex justify-content-between align-items-end mb-3">
-                        <h6 className="wt-mega-title m-0">Featured Tools</h6>
-                        <Link to="/all_tools" className="wt-view-all-link">Explore all tools &rarr;</Link>
+                        <h6 className="wt-mega-title m-0 small text-uppercase">Must Try Tools</h6>
                       </div>
-                      <div className="d-flex flex-wrap flex-md-nowrap gap-3 mt-3">
-                        <a href="#dev" className="wt-mega-img-card text-decoration-none flex-fill">
-                          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Code" className="img-fluid rounded-3 mb-2" />
-                          <span className="d-block small fw-bold text-white text-center">Code Utilities</span>
-                        </a>
-                        <a href="#img" className="wt-mega-img-card text-decoration-none flex-fill">
-                          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&q=80" alt="Design" className="img-fluid rounded-3 mb-2" />
-                          <span className="d-block small fw-bold text-white text-center">Image Suite</span>
-                        </a>
-                        <a href="#seo" className="wt-mega-img-card text-decoration-none flex-fill">
-                          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=150&q=80" alt="Data" className="img-fluid rounded-3 mb-2" />
-                          <span className="d-block small fw-bold text-white text-center">Data Analytics</span>
-                        </a>
+                      <div className="d-flex flex-column gap-2">
+                        {featuredTools.map(tool => (
+                          <Link key={tool.id} to={`/tools/${tool.slug}`} className="wt-mega-tool-item glass-card p-3 rounded-4 text-decoration-none d-flex align-items-center gap-3 transition-all hover-glow">
+                             <div className="bg-primary bg-opacity-10 p-2 rounded-3 text-primary shadow-sm">
+                               <Zap size={14} />
+                             </div>
+                             <div>
+                                <div className="small fw-bold text-dark">{tool.name}</div>
+                                <div className="text-muted tiny">{tool.category}</div>
+                             </div>
+                          </Link>
+                        ))}
                       </div>
                     </Col>
                   </Row>
                 </div>
               </NavDropdown>
 
-              {/* Added onClick to trigger scrollToTop */}
               <Nav.Link as={Link} to="/about" onClick={scrollToTop} className={`wt-nav-link ${checkActive('/about')}`}>
                 About
               </Nav.Link>
               <Nav.Link as={Link} to="/contact" onClick={scrollToTop} className={`wt-nav-link ${checkActive('/contact')}`}>
                 Contact
               </Nav.Link>
-
             </Nav>
 
-            {/* --- Search Bar --- */}
-            <Form className="d-flex align-items-center position-relative mt-3 mt-lg-0 ms-lg-3">
-              <FaSearch className="wt-search-icon position-absolute ms-3" size={14} />
+            {/* FUNCTIONAL SEARCH BAR */}
+            <Form className="d-flex align-items-center position-relative mt-3 mt-lg-0 ms-lg-3" onSubmit={handleSearchSubmit}>
+              <div className="position-absolute start-0 ms-3 z-3 text-muted wt-search-icon-box">
+                <FaSearch size={14} className="wt-search-icon" />
+              </div>
               <Form.Control
                 type="search"
                 placeholder="Search tools..."
-                className="wt-premium-search ps-5"
+                className="wt-premium-search ps-5 rounded-pill shadow-sm"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </Form>
-
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -174,3 +180,4 @@ const PremiumNavbar = () => {
 };
 
 export default PremiumNavbar;
+

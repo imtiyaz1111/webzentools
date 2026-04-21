@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 // Importing ALL icons from Font Awesome (via react-icons) to avoid any missing icon errors
 import { FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaArrowRight } from 'react-icons/fa';
@@ -48,11 +49,10 @@ const Footer = () => {
             <Col lg={2} md={6}>
               <h5 className="footer-heading">Explore</h5>
               <ul className="footer-links list-unstyled">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#tools">All Tools</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><Link to="/" className="text-decoration-none">Home</Link></li>
+                <li><Link to="/tools" className="text-decoration-none">All Tools</Link></li>
+                <li><Link to="/about" className="text-decoration-none">About Us</Link></li>
+                <li><Link to="/contact" className="text-decoration-none">Contact</Link></li>
               </ul>
             </Col>
 

@@ -1,0 +1,178 @@
+.regex-tool-bg {
+  background: var(--background);
+  min-height: 100vh;
+}
+
+/* CARDS */
+.premium-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(37, 99, 235, 0.1);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* INPUTS */
+.premium-input {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 15px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.premium-input:focus {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* REGEX SPECIFIC */
+.regex-input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: 0 15px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.regex-slash {
+  font-size: 1.5rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.regex-pattern-input {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 12px 5px !important;
+}
+
+.regex-flags-preview {
+  color: var(--primary);
+  font-weight: 600;
+  font-family: monospace;
+  margin-left: 5px;
+}
+
+.flag-btn {
+  background: rgba(15, 23, 42, 0.05);
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.2s ease;
+}
+
+.flag-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.btn-action {
+  background: rgba(15, 23, 42, 0.05);
+  border: none;
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-action:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+/* HIGHLIGHTING LOGIC */
+.regex-workspace {
+  position: relative;
+  min-height: 300px;
+}
+
+.regex-textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  color: transparent !important;
+  caret-color: var(--dark); /* Keep cursor visible */
+  z-index: 2;
+  resize: none;
+}
+
+.highlights-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text);
+  overflow-y: auto;
+  pointer-events: none; /* Let clicks pass to textarea */
+}
+
+.match-highlight {
+  background-color: rgba(37, 99, 235, 0.2);
+  border-bottom: 2px solid var(--primary);
+  border-radius: 2px;
+  color: var(--dark);
+}
+
+/* MATCH LIST */
+.match-list-container {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.match-item {
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+}
+
+.match-item:hover {
+  background: #ffffff;
+  border-color: var(--primary) !important;
+}
+
+/* CHEATSHEET */
+code {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 991px) {
+  .regex-workspace {
+     min-height: 250px;
+  }
+}
