@@ -1,0 +1,113 @@
+.sitemap-generator {
+    color: #334155;
+}
+
+.sitemap-generator .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.sitemap-generator .text-gradient {
+    background: linear-gradient(135deg, #059669 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sitemap-generator .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    color: #1e293b;
+}
+
+.sitemap-generator .section-title i {
+    margin-right: 0.75rem;
+    color: #059669;
+}
+
+.sitemap-generator .url-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.sitemap-generator .url-item {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    animation: fadeInSlide 0.3s ease forwards;
+}
+
+.sitemap-generator .url-item:hover {
+    border-color: #059669;
+    background: white;
+}
+
+.sitemap-generator .btn-remove {
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.sitemap-generator .btn-remove:hover {
+    color: #ef4444;
+}
+
+.sitemap-generator .code-preview {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    min-height: 400px;
+    position: relative;
+    overflow-x: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sitemap-generator .preview-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.sitemap-generator .btn-action {
+    flex: 1;
+    border-radius: 12px;
+    padding: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sitemap-generator .tag-syntax { color: #10b981; }
+.sitemap-generator .val-syntax { color: #38bdf8; }
+.sitemap-generator .comment-syntax { color: #64748b; font-style: italic; }
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sitemap-generator .bulk-textarea {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    resize: vertical;
+    min-height: 150px;
+}
+
+.sitemap-generator .bulk-textarea:focus {
+    border-color: #059669;
+    background: white;
+}

@@ -1,0 +1,171 @@
+.svg-optimizer-container {
+  padding: 20px;
+}
+
+.premium-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-area-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.svg-textarea {
+  width: 100%;
+  height: 350px;
+  background: transparent;
+  color: #8be9fd;
+  border: none;
+  padding: 20px;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.preview-container {
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: 
+    linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%), 
+    linear-gradient(-45deg, rgba(0,0,0,0.1) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%), 
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px 10px, 10px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-container svg {
+  max-width: 90%;
+  max-height: 90%;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.stats-bar {
+  display: flex;
+  gap: 20px;
+  padding: 15px 25px;
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.savings-badge {
+  background: #22c55e;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.control-panel {
+  padding: 20px;
+}
+
+.option-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.option-check:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.option-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #38bdf8;
+}
+
+.option-label {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.precision-slider {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.action-btn {
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-optimize {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  border: none;
+  color: white;
+}
+
+.btn-download {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 25px;
+  height: 100%;
+}
+
+@media (max-width: 992px) {
+  .svg-textarea {
+    height: 250px;
+  }
+  .preview-container {
+    height: 250px;
+  }
+}

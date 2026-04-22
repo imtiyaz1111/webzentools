@@ -1,0 +1,124 @@
+.google-index-checker {
+    color: #334155;
+}
+
+.google-index-checker .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.google-index-checker .text-gradient {
+    background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.google-index-checker .serp-preview {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: arial, sans-serif;
+}
+
+.google-index-checker .serp-url {
+    color: #202124;
+    font-size: 14px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.google-index-checker .serp-title {
+    color: #1a0dab;
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 3px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.google-index-checker .serp-title:hover {
+    text-decoration: underline;
+}
+
+.google-index-checker .serp-description {
+    color: #4d5156;
+    font-size: 14px;
+    line-height: 1.58;
+}
+
+.google-index-checker .diagnostic-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.google-index-checker .diagnostic-item:hover {
+    transform: translateX(5px);
+    border-color: #4285F4;
+    background: white;
+}
+
+.google-index-checker .status-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.google-index-checker .status-icon.success { background: #dcfce7; color: #15803d; }
+.google-index-checker .status-icon.warning { background: #fef9c3; color: #854d0e; }
+.google-index-checker .status-icon.error { background: #fee2e2; color: #b91c1c; }
+
+.google-index-checker .btn-google { background: #4285F4; border: none; color: white; }
+.google-index-checker .btn-bing { background: #008373; border: none; color: white; }
+.google-index-checker .btn-duck { background: #de5833; border: none; color: white; }
+
+.google-index-checker .btn-search {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.google-index-checker .btn-search:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.google-index-checker .action-section {
+    background: rgba(66, 133, 244, 0.05);
+    border: 1px solid rgba(66, 133, 244, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.google-index-checker .animate-in {
+    animation: fadeIn 0.5s ease forwards;
+}

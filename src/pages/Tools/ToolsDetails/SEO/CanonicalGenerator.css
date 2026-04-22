@@ -1,0 +1,98 @@
+.canonical-generator {
+    color: #334155;
+}
+
+.canonical-generator .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.canonical-generator .text-gradient {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.canonical-generator .form-label {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.canonical-generator .code-preview-container {
+    background: #0f172a;
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    margin-top: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.canonical-generator .code-preview {
+    color: #f8fafc;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.canonical-generator .btn-copy {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.canonical-generator .btn-copy:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.canonical-generator .tag-syntax { color: #d946ef; font-weight: 700; }
+.canonical-generator .attr-syntax { color: #8b5cf6; }
+.canonical-generator .val-syntax { color: #38bdf8; }
+
+.canonical-generator .bulk-textarea {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+}
+
+.canonical-generator .bulk-textarea:focus {
+    border-color: #8b5cf6;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.canonical-generator .nav-pills .nav-link {
+    border-radius: 10px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.canonical-generator .nav-pills .nav-link.active {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.canonical-generator .animate-in {
+    animation: fadeIn 0.5s ease forwards;
+}

@@ -1,0 +1,106 @@
+.keyword-density-checker {
+    color: #334155;
+}
+
+.keyword-density-checker .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.keyword-density-checker .text-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.keyword-density-checker .analysis-textarea {
+    resize: vertical;
+    min-height: 200px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.keyword-density-checker .analysis-textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background: white;
+}
+
+.keyword-density-checker .stat-card {
+    transition: transform 0.3s ease;
+    border-left: 4px solid #6366f1;
+}
+
+.keyword-density-checker .stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.keyword-density-checker .keyword-table-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.keyword-density-checker .density-bar-wrapper {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.keyword-density-checker .density-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+}
+
+.keyword-density-checker .nav-pills .nav-link {
+    color: #64748b;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.keyword-density-checker .nav-pills .nav-link.active {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.keyword-density-checker .table thead th {
+    border-top: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    background: rgba(248, 250, 252, 0.5);
+}
+
+.keyword-density-checker .table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+}
+
+.keyword-density-checker .keyword-tag {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4f46e5;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.keyword-density-checker .animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}

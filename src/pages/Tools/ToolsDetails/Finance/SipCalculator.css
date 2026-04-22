@@ -1,0 +1,141 @@
+.sip-calculator-container {
+    color: #1e293b;
+}
+
+.premium-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.input-section {
+    padding: 30px;
+}
+
+.result-section {
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(56, 189, 248, 0.05));
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.value-display {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #10b981;
+}
+
+/* Custom Range Slider */
+.custom-range {
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 15px 0;
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #10b981;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s ease;
+}
+
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+}
+
+.donut-chart {
+    transform: rotate(-90deg);
+}
+
+.chart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.chart-label {
+    font-size: 0.7rem;
+    color: #64748b;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.chart-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.stat-value.primary { color: #10b981; }
+.stat-value.secondary { color: #38bdf8; }
+.stat-value.accent { color: #f59e0b; }
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    .input-section, .result-section {
+        padding: 20px;
+    }
+}

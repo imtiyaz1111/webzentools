@@ -1,0 +1,162 @@
+.roi-calculator-container {
+    color: #1e293b;
+}
+
+.premium-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.input-section {
+    padding: 30px;
+}
+
+.result-section {
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.premium-input {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-input:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+}
+
+.roi-display-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.roi-display-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: #10b981;
+}
+
+.roi-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.roi-value {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #059669;
+    line-height: 1;
+}
+
+.profit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
+
+.metrics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+}
+
+.metric-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.metric-value {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+
+.formula-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.formula-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .input-section, .result-section {
+        padding: 20px;
+    }
+    .roi-value {
+        font-size: 2.5rem;
+    }
+}
