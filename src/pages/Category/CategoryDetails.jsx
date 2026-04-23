@@ -176,15 +176,17 @@ const CategoryDetails = () => {
             </section>
 
             {/* Privacy Section */}
-            <section className="wt-privacy-section py-5 bg-dark text-white position-relative overflow-hidden">
+            <section className="wt-privacy-section position-relative overflow-hidden">
                 <div className="wt-privacy-ambient-glow"></div>
-                <Container className="position-relative z-2 py-5">
-                    <div className="text-center mb-5">
-                        <div className="wt-privacy-badge mb-3 d-inline-block px-3 py-1 rounded-pill bg-primary bg-opacity-20 text-primary small fw-bold">
+                <Container className="wt-privacy-container">
+                    <div className="wt-privacy-header">
+                        <div className="wt-privacy-badge">
                             <span className="wt-pulse-dot"></span> Zero-Stored Architecture
                         </div>
-                        <h2 className="display-6 fw-bold">Your data stays <span className="wt-text-gradient-cyan">on your device.</span></h2>
-                        <p className="text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
+                        <h2 className="wt-privacy-title">
+                            Your data stays <span className="wt-text-gradient-cyan">on your device.</span>
+                        </h2>
+                        <p className="wt-privacy-subtitle mx-auto">
                             We use client-side logic to process your information. 
                             Nothing is uploaded to our servers, ensuring 100% data privacy.
                         </p>
@@ -192,24 +194,30 @@ const CategoryDetails = () => {
 
                     <Row className="g-4">
                         <Col md={4}>
-                            <div className="wt-privacy-card p-4 rounded-4 h-100 bg-white bg-opacity-5 border border-white border-opacity-10 text-center">
-                                <ShieldCheck size={40} className="text-success mb-3" />
-                                <h3 className="h5 fw-bold">Secure Local Processing</h3>
-                                <p className="text-white-50 small mb-0">Algorithms run locally in your browser memory.</p>
+                            <div className="wt-privacy-card text-center h-100">
+                                <div className="wt-privacy-icon-box mx-auto">
+                                    <ShieldCheck size={28} className="text-success" />
+                                </div>
+                                <h3 className="wt-privacy-card-title">Secure Local Processing</h3>
+                                <p className="wt-privacy-card-text">Algorithms run locally in your browser memory.</p>
                             </div>
                         </Col>
                         <Col md={4}>
-                            <div className="wt-privacy-card p-4 rounded-4 h-100 bg-white bg-opacity-5 border border-white border-opacity-10 text-center">
-                                <Server size={40} className="text-primary mb-3" />
-                                <h3 className="h5 fw-bold">Zero Data Persistence</h3>
-                                <p className="text-white-50 small mb-0">We don't use databases to store your inputs or files.</p>
+                            <div className="wt-privacy-card text-center h-100">
+                                <div className="wt-privacy-icon-box mx-auto">
+                                    <Server size={28} className="text-primary" />
+                                </div>
+                                <h3 className="wt-privacy-card-title">Zero Data Persistence</h3>
+                                <p className="wt-privacy-card-text">We don't use databases to store your inputs or files.</p>
                             </div>
                         </Col>
                         <Col md={4}>
-                            <div className="wt-privacy-card p-4 rounded-4 h-100 bg-white bg-opacity-5 border border-white border-opacity-10 text-center">
-                                <Code size={40} className="text-info mb-3" />
-                                <h3 className="h5 fw-bold">Transparent Logic</h3>
-                                <p className="text-white-50 small mb-0">Open and verifiable browser-based utility suite.</p>
+                            <div className="wt-privacy-card text-center h-100">
+                                <div className="wt-privacy-icon-box mx-auto">
+                                    <Code size={28} className="text-info" />
+                                </div>
+                                <h3 className="wt-privacy-card-title">Transparent Logic</h3>
+                                <p className="wt-privacy-card-text">Open and verifiable browser-based utility suite.</p>
                             </div>
                         </Col>
                     </Row>

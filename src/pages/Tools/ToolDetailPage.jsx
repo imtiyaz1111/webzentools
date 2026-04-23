@@ -26,6 +26,15 @@ const RoiCalculator = React.lazy(() => import('./ToolsDetails/Finance/RoiCalcula
 
 
 const WordCounter = React.lazy(() => import('./ToolsDetails/TextTools/WordCounter'));
+const CaseConverter = React.lazy(() => import('./ToolsDetails/TextTools/CaseConverter'));
+const DuplicateLineRemover = React.lazy(() => import('./ToolsDetails/TextTools/DuplicateLineRemover'));
+const TextLineSorter = React.lazy(() => import('./ToolsDetails/TextTools/TextLineSorter'));
+const LoremIpsumGenerator = React.lazy(() => import('./ToolsDetails/TextTools/LoremIpsumGenerator'));
+const StringReverser = React.lazy(() => import('./ToolsDetails/TextTools/StringReverser'));
+const WhitespaceRemover = React.lazy(() => import('./ToolsDetails/TextTools/WhitespaceRemover'));
+const DiffChecker = React.lazy(() => import('./ToolsDetails/TextTools/DiffChecker'));
+const MarkdownEditor = React.lazy(() => import('./ToolsDetails/TextTools/MarkdownEditor'));
+const TextToBinary = React.lazy(() => import('./ToolsDetails/TextTools/TextToBinary'));
 const AITextGenerator = React.lazy(() => import('./ToolsDetails/AITools/AITextGenerator'));
 const Base64EncodeDecode = React.lazy(() => import('./ToolsDetails/DeveloperTools/Base64EncodeDecode/Base64EncodeDecode'));
 const CSSMinifierBeautifier = React.lazy(() => import('./ToolsDetails/DeveloperTools/CSSMinifierBeautifier/CSSMinifierBeautifier'));
@@ -55,6 +64,26 @@ const GoogleIndexChecker = React.lazy(() => import('./ToolsDetails/SEO/GoogleInd
 const SerpSimulator = React.lazy(() => import('./ToolsDetails/SEO/SerpSimulator'));
 const OpenGraphChecker = React.lazy(() => import('./ToolsDetails/SEO/OpenGraphChecker'));
 const CanonicalGenerator = React.lazy(() => import('./ToolsDetails/SEO/CanonicalGenerator'));
+const PasswordGenerator = React.lazy(() => import('./ToolsDetails/SecurityTools/PasswordGenerator'));
+const HashGenerator = React.lazy(() => import('./ToolsDetails/SecurityTools/HashGenerator'));
+const UrlEncoderDecoder = React.lazy(() => import('./ToolsDetails/SecurityTools/UrlEncoderDecoder'));
+const IpLookup = React.lazy(() => import('./ToolsDetails/SecurityTools/IpLookup'));
+const WhoisLookup = React.lazy(() => import('./ToolsDetails/SecurityTools/WhoisLookup'));
+const SslChecker = React.lazy(() => import('./ToolsDetails/SecurityTools/SslChecker'));
+const MacLookup = React.lazy(() => import('./ToolsDetails/SecurityTools/MacLookup'));
+const PortScanner = React.lazy(() => import('./ToolsDetails/SecurityTools/PortScanner'));
+const BcryptGenerator = React.lazy(() => import('./ToolsDetails/SecurityTools/BcryptGenerator'));
+const Base32Encoder = React.lazy(() => import('./ToolsDetails/SecurityTools/Base32Encoder'));
+const PomodoroTimer = React.lazy(() => import('./ToolsDetails/ProductivityTools/PomodoroTimer'));
+const TodoList = React.lazy(() => import('./ToolsDetails/ProductivityTools/TodoList'));
+const SecureNotes = React.lazy(() => import('./ToolsDetails/ProductivityTools/SecureNotes'));
+const TimezoneConverter = React.lazy(() => import('./ToolsDetails/ProductivityTools/TimezoneConverter'));
+const UnitConverter = React.lazy(() => import('./ToolsDetails/ProductivityTools/UnitConverter'));
+const AgeCalculator = React.lazy(() => import('./ToolsDetails/ProductivityTools/AgeCalculator'));
+const DaysBetweenDates = React.lazy(() => import('./ToolsDetails/ProductivityTools/DaysBetweenDates'));
+const Stopwatch = React.lazy(() => import('./ToolsDetails/ProductivityTools/Stopwatch'));
+const PercentageCalculator = React.lazy(() => import('./ToolsDetails/ProductivityTools/PercentageCalculator'));
+const HabitTracker = React.lazy(() => import('./ToolsDetails/ProductivityTools/HabitTracker'));
 
 
 
@@ -121,6 +150,24 @@ const ToolDetailPage = () => {
 
             case 'WordCounter':
                 return <WordCounter />;
+            case 'CaseConverter':
+                return <CaseConverter />;
+            case 'DuplicateLineRemover':
+                return <DuplicateLineRemover />;
+            case 'TextLineSorter':
+                return <TextLineSorter />;
+            case 'LoremIpsumGenerator':
+                return <LoremIpsumGenerator />;
+            case 'StringReverser':
+                return <StringReverser />;
+            case 'WhitespaceRemover':
+                return <WhitespaceRemover />;
+            case 'DiffChecker':
+                return <DiffChecker />;
+            case 'MarkdownEditor':
+                return <MarkdownEditor />;
+            case 'TextToBinary':
+                return <TextToBinary />;
             case 'AITextGenerator':
                 return <AITextGenerator />;
             case 'Base64EncodeDecode':
@@ -179,6 +226,46 @@ const ToolDetailPage = () => {
                 return <OpenGraphChecker />;
             case 'CanonicalGenerator':
                 return <CanonicalGenerator />;
+            case 'PasswordGenerator':
+                return <PasswordGenerator />;
+            case 'HashGenerator':
+                return <HashGenerator />;
+            case 'UrlEncoderDecoder':
+                return <UrlEncoderDecoder />;
+            case 'IpLookup':
+                return <IpLookup />;
+            case 'WhoisLookup':
+                return <WhoisLookup />;
+            case 'SslChecker':
+                return <SslChecker />;
+            case 'MacLookup':
+                return <MacLookup />;
+            case 'PortScanner':
+                return <PortScanner />;
+            case 'BcryptGenerator':
+                return <BcryptGenerator />;
+            case 'Base32Encoder':
+                return <Base32Encoder />;
+            case 'PomodoroTimer':
+                return <PomodoroTimer />;
+            case 'TodoList':
+                return <TodoList />;
+            case 'SecureNotes':
+                return <SecureNotes />;
+            case 'TimezoneConverter':
+                return <TimezoneConverter />;
+            case 'UnitConverter':
+                return <UnitConverter />;
+            case 'AgeCalculator':
+                return <AgeCalculator />;
+            case 'DaysBetweenDates':
+                return <DaysBetweenDates />;
+            case 'Stopwatch':
+                return <Stopwatch />;
+            case 'PercentageCalculator':
+                return <PercentageCalculator />;
+            case 'HabitTracker':
+                return <HabitTracker />;
 
 
 
