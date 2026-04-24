@@ -46,6 +46,13 @@ const CategoriesGrid = ({ categories }) => {
                         );
                     })}
                 </Row>
+                
+                {/* View All Categories Button */}
+                <div className="text-center mt-5">
+                    <Link to="/category" className="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg transition-all hover-lift">
+                        View All Categories <ChevronRight size={18} className="ms-2" />
+                    </Link>
+                </div>
             </Container>
         </section>
     );

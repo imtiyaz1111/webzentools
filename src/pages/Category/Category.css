@@ -588,19 +588,18 @@
 
 
 /* ==========================================================================
-   WEBZENTOOLS - PREMIUM NEWSLETTER CTA
+   WEBZENTOOLS - PREMIUM NEWSLETTER CTA (CATEGORY SPECIFIC)
    ========================================================================== */
 
-.wt-newsletter-section {
-    background-color: #030712;
-    /* Deep midnight to seamlessly blend into the footer */
+.wt-cat-newsletter-section {
+    background-color: #030712 !important;
     position: relative;
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* --- Ambient Background Glows --- */
-.wt-news-glow {
+.wt-cat-news-glow {
     position: absolute;
     width: 500px;
     height: 500px;
@@ -611,13 +610,13 @@
     pointer-events: none;
 }
 
-.wt-news-glow-left {
+.wt-cat-news-glow-left {
     background: #00e5ff;
     top: -20%;
     left: -15%;
 }
 
-.wt-news-glow-right {
+.wt-cat-news-glow-right {
     background: #3b82f6;
     bottom: -20%;
     right: -15%;
@@ -627,20 +626,20 @@
    THE FLOATING GLASS CARD
    ========================================================================== */
 
-.wt-newsletter-card {
-    background: rgba(15, 23, 42, 0.6);
+.wt-cat-newsletter-card {
+    background: rgba(15, 23, 42, 0.6) !important;
     /* Deep slate glass */
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 30px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 30px !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     position: relative;
     z-index: 5;
 }
 
 /* --- Floating Icon Badge --- */
-.wt-news-icon-badge {
+.wt-cat-news-icon-badge {
     width: 65px;
     height: 65px;
     background: linear-gradient(135deg, rgba(0, 229, 255, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
@@ -655,23 +654,23 @@
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.wt-newsletter-card:hover .wt-news-icon-badge {
+.wt-cat-newsletter-card:hover .wt-cat-news-icon-badge {
     transform: rotate(0deg) scale(1.05);
     background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
     color: #ffffff;
     border-color: transparent;
 }
 
-.wt-paper-plane {
+.wt-cat-paper-plane {
     transition: transform 0.3s ease;
 }
 
-.wt-newsletter-card:hover .wt-paper-plane {
+.wt-cat-newsletter-card:hover .wt-cat-paper-plane {
     transform: translate(2px, -2px);
 }
 
 /* --- Typography --- */
-.wt-text-gradient-cyan-blue {
+.wt-cat-text-gradient-cyan-blue {
     background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -682,20 +681,20 @@
    PREMIUM INPUT GROUP (INSET BUTTON)
    ========================================================================== */
 
-.wt-premium-input-group {
+.wt-cat-premium-input-group {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.wt-input-icon {
+.wt-cat-input-icon {
     left: 20px;
     color: #64748b;
     z-index: 10;
     transition: color 0.3s ease;
 }
 
-.wt-news-input {
+.wt-cat-news-input {
     background: rgba(3, 7, 18, 0.5) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
@@ -708,34 +707,34 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.wt-news-input::placeholder {
+.wt-cat-news-input::placeholder {
     color: #475569;
 }
 
-.wt-news-input:focus {
+.wt-cat-news-input:focus {
     background: rgba(3, 7, 18, 0.8) !important;
     border-color: #00e5ff !important;
     box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     outline: none;
 }
 
-.wt-news-input:focus+.wt-input-icon,
-.wt-premium-input-group:focus-within .wt-input-icon {
+.wt-cat-news-input:focus+.wt-cat-input-icon,
+.wt-cat-premium-input-group:focus-within .wt-cat-input-icon {
     color: #00e5ff;
 }
 
 /* --- The Submit Button --- */
-.wt-news-submit-btn {
+.wt-cat-news-submit-btn {
     position: absolute;
     right: 6px;
     /* Sits perfectly inside the input */
     top: 6px;
     bottom: 6px;
-    background: #ffffff;
-    color: #0f172a;
-    border: none;
-    border-radius: 50px;
-    padding: 0 28px;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 0 28px !important;
     font-weight: 700;
     font-size: 0.95rem;
     cursor: pointer;
@@ -746,18 +745,18 @@
     min-width: 130px;
 }
 
-.wt-news-submit-btn:hover {
-    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
-    color: #ffffff;
+.wt-cat-news-submit-btn:hover {
+    background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%) !important;
+    color: #ffffff !important;
     box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
     transform: scale(1.02);
 }
 
 /* Success State Animation */
-.wt-news-submit-btn.success {
-    background: #10b981;
+.wt-cat-news-submit-btn.success {
+    background: #10b981 !important;
     /* Emerald Green */
-    color: #ffffff;
+    color: #ffffff !important;
     pointer-events: none;
 }
 
@@ -765,12 +764,12 @@
    ANIMATIONS & MOBILE
    ========================================================================== */
 
-.wt-fade-in-up {
+.wt-cat-fade-in-up {
     opacity: 0;
-    animation: wtNewsSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    animation: wtCatNewsSlideUp 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes wtNewsSlideUp {
+@keyframes wtCatNewsSlideUp {
     from {
         opacity: 0;
         transform: translateY(40px);
@@ -783,25 +782,25 @@
 }
 
 @media (max-width: 576px) {
-    .wt-newsletter-card {
+    .wt-cat-newsletter-card {
         padding: 2rem 1.5rem !important;
-        border-radius: 20px;
+        border-radius: 20px !important;
     }
 
-    .wt-news-input {
+    .wt-cat-news-input {
         padding: 14px 14px 14px 45px !important;
         border-radius: 12px !important;
     }
 
-    .wt-news-submit-btn {
+    .wt-cat-news-submit-btn {
         position: relative;
         right: 0;
         top: 0;
         bottom: 0;
         width: 100%;
         margin-top: 10px;
-        padding: 14px;
-        border-radius: 12px;
+        padding: 14px !important;
+        border-radius: 12px !important;
     }
 }
 

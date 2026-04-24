@@ -1,0 +1,137 @@
+.wt-js-editor-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.wt-editor-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.wt-editor-toolbar {
+    height: 60px;
+    z-index: 10;
+}
+
+.wt-editor-workspace {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.wt-editor-pane {
+    height: 100%;
+}
+
+.wt-js-textarea {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+    padding: 20px;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    outline: none;
+    resize: none;
+    background-color: #1e1e1e;
+    color: #9cdcfe; /* JS variable light blue */
+    tab-size: 4;
+}
+
+.wt-console-pane {
+    height: 100%;
+}
+
+.wt-console-header {
+    background: #2d2d2d;
+    border-bottom: 1px solid #3d3d3d;
+}
+
+.wt-console-output {
+    overflow-y: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    background: #000000;
+}
+
+.wt-console-line {
+    display: flex;
+    gap: 10px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #1a1a1a;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.wt-console-line.log { color: #d4d4d4; }
+.wt-console-line.error { 
+    color: #f48771; 
+    background: rgba(244, 135, 113, 0.05);
+}
+
+.log-time {
+    color: #6a9955;
+    min-width: 85px;
+    font-size: 11px;
+}
+
+.log-icon {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.log-content {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.wt-js-copy-toast {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: #10b981;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    animation: toastFade 2s forwards;
+    z-index: 100;
+}
+
+@keyframes toastFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    15% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.wt-js-card {
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.wt-js-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffc107 !important;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 991px) {
+    .wt-editor-container {
+        height: auto;
+    }
+    .wt-editor-workspace {
+        height: 1200px;
+    }
+    .wt-editor-pane, .wt-console-pane {
+        height: 600px;
+    }
+}

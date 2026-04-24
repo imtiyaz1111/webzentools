@@ -33,7 +33,7 @@ const LoremIpsumGenerator = React.lazy(() => import('./ToolsDetails/TextTools/Lo
 const StringReverser = React.lazy(() => import('./ToolsDetails/TextTools/StringReverser'));
 const WhitespaceRemover = React.lazy(() => import('./ToolsDetails/TextTools/WhitespaceRemover'));
 const DiffChecker = React.lazy(() => import('./ToolsDetails/TextTools/DiffChecker'));
-const MarkdownEditor = React.lazy(() => import('./ToolsDetails/TextTools/MarkdownEditor'));
+
 const TextToBinary = React.lazy(() => import('./ToolsDetails/TextTools/TextToBinary'));
 const AITextGenerator = React.lazy(() => import('./ToolsDetails/AITools/AITextGenerator'));
 const AIBlogWriter = React.lazy(() => import('./ToolsDetails/AITools/AIBlogWriter'));
@@ -63,6 +63,19 @@ const JwtDecoder = React.lazy(() => import('./ToolsDetails/DeveloperTools/JwtDec
 const SqlFormatter = React.lazy(() => import('./ToolsDetails/DeveloperTools/SqlFormatter/SqlFormatter'));
 const UrlParser = React.lazy(() => import('./ToolsDetails/DeveloperTools/UrlParser/UrlParser'));
 const ApiTester = React.lazy(() => import('./ToolsDetails/DeveloperTools/ApiTester/ApiTester'));
+const HTMLEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/HTMLEditor'));
+const CSSEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/CSSEditor'));
+const JavaScriptEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/JavaScriptEditor'));
+const ReactJSXEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/ReactJSXEditor'));
+const XMLEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/XMLEditor'));
+const TypeScriptEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/TypeScriptEditor'));
+const MarkdownEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/MarkdownEditor'));
+const PythonEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/PythonEditor'));
+const JavaEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/JavaEditor'));
+const CEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/CEditor'));
+const CPPEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/CPPEditor'));
+const PHPEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/PHPEditor'));
+const NodeJsEditor = React.lazy(() => import('./ToolsDetails/DeveloperTools/NodeJsEditor'));
 const ImageCompressor = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageCompressor/ImageCompressor'));
 const BackgroundRemover = React.lazy(() => import('./ToolsDetails/ImagesTools/BackgroundRemover/BackgroundRemover'));
 const ImageResizer = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageResizer/ImageResizer'));
@@ -103,6 +116,16 @@ const DaysBetweenDates = React.lazy(() => import('./ToolsDetails/ProductivityToo
 const Stopwatch = React.lazy(() => import('./ToolsDetails/ProductivityTools/Stopwatch'));
 const PercentageCalculator = React.lazy(() => import('./ToolsDetails/ProductivityTools/PercentageCalculator'));
 const HabitTracker = React.lazy(() => import('./ToolsDetails/ProductivityTools/HabitTracker'));
+const VideoToMP3 = React.lazy(() => import('./ToolsDetails/MediaTools/VideoToMP3'));
+const VideoCompressor = React.lazy(() => import('./ToolsDetails/MediaTools/VideoCompressor'));
+const ThumbnailDownloader = React.lazy(() => import('./ToolsDetails/MediaTools/ThumbnailDownloader'));
+const GifMaker = React.lazy(() => import('./ToolsDetails/MediaTools/GifMaker'));
+const AudioCutter = React.lazy(() => import('./ToolsDetails/MediaTools/AudioCutter'));
+const ScreenRecorder = React.lazy(() => import('./ToolsDetails/MediaTools/ScreenRecorder'));
+const AudioConverter = React.lazy(() => import('./ToolsDetails/MediaTools/AudioConverter'));
+const ScreenRuler = React.lazy(() => import('./ToolsDetails/MediaTools/ScreenRuler'));
+const ColorPaletteGenerator = React.lazy(() => import('./ToolsDetails/MediaTools/ColorPaletteGenerator'));
+const VideoDownloader = React.lazy(() => import('./ToolsDetails/MediaTools/VideoDownloader'));
 
 
 
@@ -234,6 +257,32 @@ const ToolDetailPage = () => {
                 return <UrlParser />;
             case 'ApiTester':
                 return <ApiTester />;
+            case 'HTMLEditor':
+                return <HTMLEditor />;
+            case 'CSSEditor':
+                return <CSSEditor />;
+            case 'JavaScriptEditor':
+                return <JavaScriptEditor />;
+            case 'ReactJSXEditor':
+                return <ReactJSXEditor />;
+            case 'XMLEditor':
+                return <XMLEditor />;
+            case 'TypeScriptEditor':
+                return <TypeScriptEditor />;
+            case 'MarkdownEditor':
+                return <MarkdownEditor />;
+            case 'PythonEditor':
+                return <PythonEditor />;
+            case 'JavaEditor':
+                return <JavaEditor />;
+            case 'CEditor':
+                return <CEditor />;
+            case 'CPPEditor':
+                return <CPPEditor />;
+            case 'PHPEditor':
+                return <PHPEditor />;
+            case 'NodeJsEditor':
+                return <NodeJsEditor />;
             case 'ImageCompressor':
                 return <ImageCompressor />;
             case 'BackgroundRemover':
@@ -314,6 +363,26 @@ const ToolDetailPage = () => {
                 return <PercentageCalculator />;
             case 'HabitTracker':
                 return <HabitTracker />;
+            case 'VideoToMP3':
+                return <VideoToMP3 />;
+            case 'VideoCompressor':
+                return <VideoCompressor />;
+            case 'ThumbnailDownloader':
+                return <ThumbnailDownloader />;
+            case 'GifMaker':
+                return <GifMaker />;
+            case 'AudioCutter':
+                return <AudioCutter />;
+            case 'ScreenRecorder':
+                return <ScreenRecorder />;
+            case 'AudioConverter':
+                return <AudioConverter />;
+            case 'ScreenRuler':
+                return <ScreenRuler />;
+            case 'ColorPaletteGenerator':
+                return <ColorPaletteGenerator />;
+            case 'VideoDownloader':
+                return <VideoDownloader />;
 
 
 

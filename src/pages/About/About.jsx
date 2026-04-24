@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Home, ChevronRight } from 'lucide-react';
-import { Sparkles, CheckCircle2, ArrowRight, Shield, Zap, Activity } from 'lucide-react';
-import { Rocket, Globe2, Target } from 'lucide-react';
-
-import { ShieldCheck, Smartphone, Gift, UserX } from 'lucide-react';
-import { Plug, Sliders } from 'lucide-react';
-import { Mail, Send } from 'lucide-react';
-import { MessageCircleQuestion, Plus } from 'lucide-react';
+import { 
+    Home, ChevronRight, Sparkles, CheckCircle2, ArrowRight, Shield, Zap, Activity, 
+    Rocket, Globe2, Target, ShieldCheck, Smartphone, Gift, UserX, 
+    Mail, Send, MessageCircleQuestion, Plus, Search 
+} from 'lucide-react';
 
 import "./About.css";
 import SEO from '../../components/SEO';
@@ -55,24 +52,24 @@ const About = () => {
     const steps = [
         {
             id: "01",
-            title: "Connect Infrastructure",
-            desc: "Integrate your existing repositories or databases in seconds. We automatically detect your framework and configure the optimal build settings.",
-            icon: <Plug size={28} className="wt-step-icon" />,
+            title: "Find Your Tool",
+            desc: "Browse our extensive library of 100+ utilities. Use our high-speed search to find exactly what you need in seconds.",
+            icon: <Search size={28} className="wt-step-icon" />,
             theme: "cyan"
         },
         {
             id: "02",
-            title: "Automate & Configure",
-            desc: "Set your custom rules, define your scaling parameters, and let our engine handle the heavy lifting. Zero manual server configuration required.",
-            icon: <Sliders size={28} className="wt-step-icon" />,
+            title: "Process Locally",
+            desc: "Input your data and watch it process instantly. Everything runs on your device, ensuring your sensitive data never leaves your browser.",
+            icon: <Zap size={28} className="wt-step-icon" />,
             theme: "blue"
         },
         {
             id: "03",
-            title: "Deploy & Scale",
-            desc: "Push to global edge networks instantly. Monitor your performance with real-time telemetry as your application scales infinitely on demand.",
+            title: "Export & Use",
+            desc: "Copy your results or download the output file. Our tools generate clean, accurate, and ready-to-use data for your projects.",
             icon: <Rocket size={28} className="wt-step-icon" />,
-            theme: "purple" // Adds a nice color progression
+            theme: "purple"
         }
     ];
 
@@ -115,11 +112,11 @@ const About = () => {
     return (
         <>
 
-         <SEO
-            title={`Our Services | `}
-            description={`Explore  services by Webzenyx including modern, scalable, and high-performance solutions.`}
-            keywords="web development services, mobile app development, UI UX design, ecommerce solutions"
-            url={`https://www.webzenyx.com/contact`}
+          <SEO
+            title={`About Us | WebzenTools`}
+            description={`Learn more about WebzenTools, our mission to provide premium browser-based utilities, and our commitment to user privacy.`}
+            keywords="about webzentools, online tools mission, privacy-first tools"
+            url={`https://www.webzentools.com/about`}
         />
             <section className="wt-about-hero position-relative d-flex align-items-center">
 
@@ -155,7 +152,7 @@ const About = () => {
 
                     {/* --- Short Description Line --- */}
                     <p className="lead text-white mx-auto wt-fade-in-3" style={{ maxWidth: '650px', lineHeight: '1.8' }}>
-                        We engineer high-performance, intuitive software infrastructure designed to automate your workflows and help your team ship products faster than ever before.
+                        We engineer high-performance, intuitive browser-based utilities designed to simplify your digital workflows with zero friction and maximum privacy.
                     </p>
 
                 </Container>

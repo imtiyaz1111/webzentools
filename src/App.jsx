@@ -13,6 +13,12 @@ const CategoryDetails = lazy(() => import("./pages/Category/CategoryDetails"));
 const Tools = lazy(() => import("./pages/Tools/Tools"));
 const ToolDetailPage = lazy(() => import("./pages/Tools/ToolDetailPage"));
 
+// Legal Pages
+const PrivacyPolicy = lazy(() => import("./pages/Legal/PrivacyPolicy"));
+const TermsAndConditions = lazy(() => import("./pages/Legal/TermsAndConditions"));
+const Disclaimer = lazy(() => import("./pages/Legal/Disclaimer"));
+const CookiePolicy = lazy(() => import("./pages/Legal/CookiePolicy"));
+
 // Common Loading Component
 const PageLoader = () => (
   <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
@@ -37,6 +43,12 @@ function App() {
               <Route path="/tools/:slug" element={<ToolDetailPage />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              
+              {/* Legal Routes */}
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
             </Routes>
           </Suspense>
         </Layouts>

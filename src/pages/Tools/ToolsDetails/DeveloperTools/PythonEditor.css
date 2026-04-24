@@ -1,0 +1,149 @@
+.wt-python-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.wt-editor-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.wt-editor-toolbar {
+    height: 60px;
+    z-index: 10;
+}
+
+.wt-editor-workspace {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.wt-editor-pane {
+    height: 100%;
+}
+
+.wt-python-textarea {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+    padding: 24px;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    outline: none;
+    resize: none;
+    background-color: #1e1e1e;
+    color: #ce9178; /* Python string-like color */
+    tab-size: 4;
+}
+
+.wt-python-console {
+    height: 100%;
+}
+
+.wt-console-header {
+    background: #2d2d2d;
+    border-bottom: 1px solid #3d3d3d;
+}
+
+.wt-console-body {
+    overflow-y: auto;
+    font-family: 'Fira Code', monospace;
+    background: #000000;
+}
+
+.wt-py-log-line {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 15px;
+    border-bottom: 1px solid #111;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.wt-py-log-line.log { color: #d4d4d4; }
+.wt-py-log-line.error { color: #f48771; border-left: 3px solid #f48771; }
+.wt-py-log-line.info { color: #3b82f6; font-weight: 600; }
+.wt-py-log-line.success { color: #10b981; font-weight: 600; }
+
+.log-time {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.log-text {
+    margin: 0;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.wt-python-toast {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: #3776ab; /* Python Blue */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(55, 118, 171, 0.3);
+    animation: slideUpFade 2s forwards;
+    z-index: 100;
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    15% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.wt-python-feature-card {
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.wt-python-feature-card:hover {
+    transform: translateY(-5px);
+    border-color: #3776ab !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+    .wt-editor-container {
+        height: auto;
+    }
+    .wt-editor-workspace {
+        height: 1200px;
+    }
+    .wt-editor-pane, .wt-python-console {
+        height: 600px;
+    }
+}

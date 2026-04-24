@@ -60,11 +60,10 @@ const Footer = () => {
             <Col lg={2} md={6}>
               <h5 className="footer-heading">Legal</h5>
               <ul className="footer-links list-unstyled">
-                <li><a href="#terms">Terms of Service</a></li>
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#cookies">Cookie Policy</a></li>
-                <li><a href="#licenses">Licenses</a></li>
-                <li><a href="#guidelines">Brand Guidelines</a></li>
+                <li><Link to="/privacy-policy" className="text-decoration-none">Privacy Policy</Link></li>
+                <li><Link to="/terms-and-conditions" className="text-decoration-none">Terms & Conditions</Link></li>
+                <li><Link to="/disclaimer" className="text-decoration-none">Disclaimer</Link></li>
+                <li><Link to="/cookie-policy" className="text-decoration-none">Cookie Policy</Link></li>
               </ul>
             </Col>
 
