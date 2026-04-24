@@ -1,0 +1,149 @@
+.summarizer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.summarizer-card {
+    background: white;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.control-panel {
+    background: #f8fafc;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.format-group {
+    display: flex;
+    background: #fff;
+    padding: 0.25rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.format-btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s ease;
+}
+
+.format-btn.active {
+    background: #1e293b;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.summary-output-area {
+    padding: 2.5rem;
+    background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+}
+
+.summary-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 2rem;
+}
+
+.summary-content ul {
+    padding-left: 1.5rem;
+}
+
+.summary-content li {
+    margin-bottom: 0.75rem;
+}
+
+.takeaways-section {
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.takeaway-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.takeaway-icon {
+    width: 24px;
+    height: 24px;
+    background: #6366f1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.efficiency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.efficiency-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    text-align: center;
+}
+
+.efficiency-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1e293b;
+    display: block;
+}
+
+.efficiency-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.btn-summarize-main {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 16px;
+    font-weight: 700;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 2rem 0;
+}

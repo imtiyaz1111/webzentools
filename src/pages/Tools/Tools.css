@@ -9,6 +9,7 @@
 .tools-hero {
     background: linear-gradient(110deg, #0f172a 0%, #1e293b 100%);
     position: relative;
+    padding-top: 130px !important;
 }
 
 .hero-glow {

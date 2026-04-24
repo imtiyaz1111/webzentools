@@ -66,16 +66,17 @@ const Home = () => {
             <BentoStats />
 
             {/* ===== STATS ANIMATION SECTION ===== */}
-            <section className="stats-in-motion-section py-5">
-                <Container>
-                    <Row>
-                        <StatsItem icon={Zap} target={100} label="Tools Available" suffix="+" />
-                        <StatsItem icon={Grid} target={50000} label="Developers Trusted" suffix="+" />
-                        <StatsItem icon={Rocket} target={1000000} label="Data Conversions" suffix="+" />
-                        <StatsItem icon={ShieldCheck} target={99.9} label="Privacy Guaranteed" suffix="%" />
+            <section className="stats-in-motion-section py-5 my-5">
+                <Container className="glass-card p-5 rounded-5 border-0 shadow-2xl">
+                    <Row className="g-4 text-center">
+                        <StatsItem icon={Zap} target={120} label="Tools Available" suffix="+" />
+                        <StatsItem icon={Grid} target={50000} label="Happy Users" suffix="+" />
+                        <StatsItem icon={Rocket} target={100} label="Uptime" suffix="%" />
+                        <StatsItem icon={ShieldCheck} target={100} label="Privacy Safe" suffix="%" />
                     </Row>
                 </Container>
             </section>
+
 
             {/* ===== COMPARISON SECTION ===== */}
             <ComparisonTable />

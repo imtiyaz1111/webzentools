@@ -36,6 +36,24 @@ const DiffChecker = React.lazy(() => import('./ToolsDetails/TextTools/DiffChecke
 const MarkdownEditor = React.lazy(() => import('./ToolsDetails/TextTools/MarkdownEditor'));
 const TextToBinary = React.lazy(() => import('./ToolsDetails/TextTools/TextToBinary'));
 const AITextGenerator = React.lazy(() => import('./ToolsDetails/AITools/AITextGenerator'));
+const AIBlogWriter = React.lazy(() => import('./ToolsDetails/AITools/AIBlogWriter'));
+const ImagePromptGenerator = React.lazy(() => import('./ToolsDetails/AITools/ImagePromptGenerator'));
+const AICaptionGenerator = React.lazy(() => import('./ToolsDetails/AITools/AICaptionGenerator'));
+const AIParaphraser = React.lazy(() => import('./ToolsDetails/AITools/AIParaphraser'));
+const AIEmailWriter = React.lazy(() => import('./ToolsDetails/AITools/AIEmailWriter'));
+const AICodeExplainer = React.lazy(() => import('./ToolsDetails/AITools/AICodeExplainer'));
+const AIGrammarChecker = React.lazy(() => import('./ToolsDetails/AITools/AIGrammarChecker'));
+const AITextSummarizer = React.lazy(() => import('./ToolsDetails/AITools/AITextSummarizer'));
+const AIBusinessNameGenerator = React.lazy(() => import('./ToolsDetails/AITools/AIBusinessNameGenerator'));
+
+
+
+
+
+
+
+
+
 const Base64EncodeDecode = React.lazy(() => import('./ToolsDetails/DeveloperTools/Base64EncodeDecode/Base64EncodeDecode'));
 const CSSMinifierBeautifier = React.lazy(() => import('./ToolsDetails/DeveloperTools/CSSMinifierBeautifier/CSSMinifierBeautifier'));
 const HTMLMinifier = React.lazy(() => import('./ToolsDetails/DeveloperTools/HTMLMinifier/HTMLMinifier'));
@@ -44,6 +62,7 @@ const UuidGenerator = React.lazy(() => import('./ToolsDetails/DeveloperTools/Uui
 const JwtDecoder = React.lazy(() => import('./ToolsDetails/DeveloperTools/JwtDecoder/JwtDecoder'));
 const SqlFormatter = React.lazy(() => import('./ToolsDetails/DeveloperTools/SqlFormatter/SqlFormatter'));
 const UrlParser = React.lazy(() => import('./ToolsDetails/DeveloperTools/UrlParser/UrlParser'));
+const ApiTester = React.lazy(() => import('./ToolsDetails/DeveloperTools/ApiTester/ApiTester'));
 const ImageCompressor = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageCompressor/ImageCompressor'));
 const BackgroundRemover = React.lazy(() => import('./ToolsDetails/ImagesTools/BackgroundRemover/BackgroundRemover'));
 const ImageResizer = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageResizer/ImageResizer'));
@@ -170,6 +189,33 @@ const ToolDetailPage = () => {
                 return <TextToBinary />;
             case 'AITextGenerator':
                 return <AITextGenerator />;
+            case 'AIBlogWriter':
+                return <AIBlogWriter />;
+            case 'ImagePromptGenerator':
+                return <ImagePromptGenerator />;
+            case 'AICaptionGenerator':
+                return <AICaptionGenerator />;
+            case 'AIParaphraser':
+                return <AIParaphraser />;
+            case 'AIEmailWriter':
+                return <AIEmailWriter />;
+            case 'AICodeExplainer':
+                return <AICodeExplainer />;
+            case 'AIGrammarChecker':
+                return <AIGrammarChecker />;
+            case 'AITextSummarizer':
+                return <AITextSummarizer />;
+            case 'AIBusinessNameGenerator':
+                return <AIBusinessNameGenerator />;
+
+
+
+
+
+
+
+
+
             case 'Base64EncodeDecode':
                 return <Base64EncodeDecode />;
             case 'CSSMinifierBeautifier':
@@ -186,6 +232,8 @@ const ToolDetailPage = () => {
                 return <SqlFormatter />;
             case 'UrlParser':
                 return <UrlParser />;
+            case 'ApiTester':
+                return <ApiTester />;
             case 'ImageCompressor':
                 return <ImageCompressor />;
             case 'BackgroundRemover':

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { FaHome, FaShareAlt, FaCopy, FaStar } from 'react-icons/fa';
 import AdSection from '../components/AdSection';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 const ToolLayout = ({ tool, children }) => {
     const shareUrl = window.location.href;
@@ -18,10 +18,12 @@ const ToolLayout = ({ tool, children }) => {
 
     return (
         <div className="tool-page-wrapper py-5">
-            <Helmet>
-                <title>{tool.name} | WebzenTools</title>
-                <meta name="description" content={tool.desc} />
-            </Helmet>
+            <SEO 
+                title={tool.metaTitle || `${tool.name} | WebzenTools`}
+                description={tool.metaDescription || tool.desc}
+                keywords={tool.metaKeywords}
+                url={shareUrl}
+            />
 
             <Container mt={5}>
                 {/* Breadcrumbs */}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { FaRobot, FaMagic, FaCopy } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -26,20 +27,14 @@ const AITextGenerator = () => {
                 throw new Error('Gemini API key is not configured in environment variables.');
             }
 
-            // Simple fetch call to Gemini API
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{ text: prompt }]
-                    }]
-                })
+            // Simple axios call to Gemini API
+            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                contents: [{
+                    parts: [{ text: prompt }]
+                }]
             });
 
-            const data = await response.json();
+            const data = response.data;
             
             if (data.error) {
                 throw new Error(data.error.message || 'Failed to generate text.');

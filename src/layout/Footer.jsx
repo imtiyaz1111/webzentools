@@ -74,18 +74,19 @@ const Footer = () => {
               <p className="footer-description mb-3">
                 Get the latest updates, tool releases, and platform news delivered to your inbox.
               </p>
-              <Form className="footer-newsletter d-flex align-items-center position-relative">
+              <Form className="footer-newsletter d-flex align-items-center position-relative mt-4">
                 <FaEnvelope className="newsletter-icon position-absolute ms-3" size={18} />
                 <Form.Control
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="name@email.com"
                   className="newsletter-input ps-5"
                   aria-label="Email address"
                 />
-                <Button variant="primary" className="newsletter-btn position-absolute">
+                <Button variant="primary" className="newsletter-btn position-absolute border-0 shadow-lg">
                   <FaArrowRight size={18} />
                 </Button>
               </Form>
+
             </Col>
 
           </Row>

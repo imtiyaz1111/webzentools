@@ -1,0 +1,175 @@
+.caption-generator-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.platform-tabs {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    scrollbar-width: none;
+}
+
+.platform-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.platform-tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: 99px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.platform-tab:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.platform-tab.active {
+    background: #1e293b;
+    color: white;
+    border-color: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Platform specific active colors */
+.platform-tab.active.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none; }
+.platform-tab.active.tiktok { background: #000; border: none; }
+.platform-tab.active.linkedin { background: #0077b5; border: none; }
+.platform-tab.active.twitter { background: #1DA1F2; border: none; }
+
+.tone-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tone-chip {
+    padding: 0.4rem 1rem;
+    border-radius: 12px;
+    background: #f1f5f9;
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tone-chip.active {
+    background: #6366f1;
+    color: white;
+}
+
+.caption-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.caption-card:hover {
+    border-color: #6366f1;
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.1);
+}
+
+.caption-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+.caption-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-copy-caption {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.btn-copy-caption:hover {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+.emoji-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #f8fafc;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.main-input-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid white;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.btn-generate-main {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    font-weight: 700;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-generate-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.3);
+}
+
+.hashtags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.hashtag-pill {
+    color: #6366f1;
+    font-weight: 600;
+    font-size: 0.85rem;
+}

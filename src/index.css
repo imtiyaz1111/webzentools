@@ -1,6 +1,6 @@
 * {
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   box-sizing: border-box;
 }
 
@@ -23,15 +23,40 @@ a {
   --glass: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.2);
   --radius-2xl: 1.5rem;
+  
+  /* Modern Gradients */
+  --grad-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+  --grad-mesh: radial-gradient(at 0% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%), 
+               radial-gradient(at 50% 0%, hsla(225, 39%, 20%, 1) 0, transparent 50%), 
+               radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 body {
   background-color: var(--background);
-  height: 2000px;
-  /* Increased for testing scroll */
-  /* ADDED: Padding to prevent layout jumping when navbar becomes fixed */
-  padding-top: 100px;
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  padding-top: 0;
 }
+
 
 
 /* ==========================================================================
@@ -118,9 +143,10 @@ body {
 .nav-link.active {
   color: var(--primary) !important;
   background: rgba(37, 99, 235, 0.08) !important;
-  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1), 0 0 20px rgba(37, 99, 235, 0.1);
   font-weight: 700;
 }
+
 
 /* ==========================================================================
    PREMIUM DROPDOWNS & MEGA MENU
@@ -140,12 +166,13 @@ body {
 }
 
 .wt-glass-dropdown .dropdown-menu {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(15, 23, 42, 0.95);
+  /* Dark midnight glass */
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   margin-top: 15px;
   padding: 12px;
   animation: dropdownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -165,7 +192,7 @@ body {
 
 /* Dropdown Items */
 .wt-glass-dropdown .dropdown-item {
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 10px 15px;
   font-size: 0.9rem;
@@ -177,13 +204,13 @@ body {
 }
 
 .wt-glass-dropdown .dropdown-item:hover {
-  background: rgba(37, 99, 235, 0.06);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
   transform: translateX(4px);
 }
 
 .dropdown-divider {
-  border-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
   margin: 10px 0;
 }
 
@@ -198,11 +225,13 @@ body {
 }
 
 .wt-mega-menu .dropdown-menu {
-  width: 90%;
-  max-width: 900px;
+  width: 95%;
+  max-width: 1000px;
   left: 50% !important;
   transform: translateX(-50%) !important;
   padding: 0;
+  overflow: hidden;
+  border-radius: 24px;
 }
 
 /* Only run the keyframe override if it's open */
@@ -241,14 +270,21 @@ body {
 }
 
 .wt-mega-list a {
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
 }
 
-.wt-mega-list a:hover {
-  color: #00e5ff;
+.wt-mega-list a:hover,
+.silver-hover:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(5px);
 }
 
 .wt-mega-divider {
@@ -265,8 +301,28 @@ body {
 }
 
 .wt-view-all-link:hover {
-  color: #00e5ff !important;
+  color: var(--accent) !important;
   text-decoration: underline;
+}
+
+/* Mega Menu Tool Item Card */
+.wt-mega-tool-item {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.wt-mega-tool-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-2px);
+}
+
+.wt-mega-tool-item .text-dark {
+  color: #ffffff !important;
+}
+
+.wt-mega-tool-item .text-muted {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* Mega Menu Image Cards */
@@ -349,25 +405,27 @@ body {
 }
 
 @media (max-width: 991px) {
+  .navbar-collapse {
+    background: rgba(15, 23, 42, 0.98);
+    /* Solid dark midnight for mobile menu */
+    margin: 15px -15px -15px -15px;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
   .wt-floating-navbar {
-    border-radius: 20px;
-    /* Less rounded on mobile so menu looks right */
-    padding: 15px;
-  }
-
-  .wt-premium-search {
-    width: 100%;
-  }
-
-  .wt-premium-search:focus {
-    width: 100%;
+    border-radius: 25px;
+    padding: 10px 20px;
   }
 
   .wt-glass-dropdown .dropdown-menu {
-    background: transparent;
-    border: none;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: none;
-    padding-left: 15px;
+    padding-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     animation: none;
   }
 
@@ -375,6 +433,24 @@ body {
     transform: none !important;
     left: 0 !important;
     width: 100%;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .wt-nav-link, 
+  .wt-glass-dropdown .dropdown-toggle,
+  .wt-glass-dropdown .dropdown-item {
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 12px 0 !important;
+  }
+
+  .wt-mega-title {
+    margin-top: 20px !important;
+    color: var(--accent) !important;
+  }
+
+  .wt-mega-divider {
+    display: none;
   }
 }
 
@@ -389,8 +465,9 @@ body {
   background-color: #f8fafc;
   /* Very soft slate/off-white background */
   overflow: hidden;
-  /* Push down slightly so it doesn't hide behind your fixed navbar */
-  padding-top: 80px;
+  /* Balanced padding to account for fixed navbar at 20px top offset */
+  padding-top: 130px;
+  padding-bottom: 80px;
 }
 
 /* --- Decorative Background Glows --- */
@@ -616,6 +693,12 @@ body {
   font-family: inherit;
   margin-top: auto;
   /* Pushes footer to bottom if container is flex */
+}
+
+/* Tool Page Wrapper Spacing Fix */
+.tool-page-wrapper {
+  padding-top: 130px !important;
+  padding-bottom: 80px;
 }
 
 /* Top Section Spacing */

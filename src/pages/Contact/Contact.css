@@ -9,6 +9,7 @@
     /* Gives the hero section plenty of breathing room */
     position: relative;
     overflow: hidden;
+    padding-top: 130px;
 }
 
 /* --- 1. The Subtle Tech Grid Overlay --- */

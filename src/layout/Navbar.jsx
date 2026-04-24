@@ -51,12 +51,13 @@ const PremiumNavbar = () => {
 
   return (
     <div className={`wt-navbar-wrapper ${isScrolled ? 'wt-scrolled' : ''}`}>
-      <Navbar expand="lg" className="wt-floating-navbar shadow-lg">
+      <Navbar expand="lg" className="wt-floating-navbar shadow-2xl">
         <Container fluid className="px-3 px-lg-4">
           {/* LOGO */}
           <Navbar.Brand as={Link} to="/" onClick={scrollToTop} className="d-flex align-items-center gap-2">
-            <img src={logo} alt="WebzenTools Logo" className="wt-nav-logo" />
+            <img src={logo} alt="WebzenTools Logo" className="wt-nav-logo" style={{ height: '50px' }} />
           </Navbar.Brand>
+
 
           <Navbar.Toggle aria-controls="premium-nav" className="wt-nav-toggle rounded-circle" />
 
@@ -133,7 +134,7 @@ const PremiumNavbar = () => {
                         <h6 className="wt-mega-title m-0 small text-uppercase">Must Try Tools</h6>
                       </div>
                       <div className="d-flex flex-column gap-2">
-                        {featuredTools.map(tool => (
+                        {featuredTools?.map(tool => (
                           <Link key={tool.id} to={`/tools/${tool.slug}`} className="wt-mega-tool-item glass-card p-3 rounded-4 text-decoration-none d-flex align-items-center gap-3 transition-all hover-glow">
                              <div className="bg-primary bg-opacity-10 p-2 rounded-3 text-primary shadow-sm">
                                <Zap size={14} />
@@ -180,4 +181,4 @@ const PremiumNavbar = () => {
 };
 
 export default PremiumNavbar;
-
+

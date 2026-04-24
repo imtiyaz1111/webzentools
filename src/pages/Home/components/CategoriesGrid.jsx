@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 
 /**
  * CategoriesGrid component for the landing page.
@@ -11,8 +12,14 @@ const CategoriesGrid = ({ categories }) => {
         <section className="categories-grid-section py-5">
             <Container>
                 <div className="text-center mb-5">
-                    <h2 className="display-6 fw-bold mb-3">Browse by <span className="text-gradient">Category</span></h2>
-                    <p className="text-muted">Explore our massive library of tools organized by their primary function.</p>
+                    <div className="d-inline-block px-3 py-1 rounded-pill bg-primary bg-opacity-10 text-primary fw-bold small mb-3">
+                        TOOLBOX EXPLORER
+                    </div>
+                    <h2 className="display-5 fw-bold mb-3">Browse by <span className="text-gradient">Category</span></h2>
+                    <p className="text-muted mx-auto" style={{ maxWidth: '600px' }}>
+                        Discover our comprehensive suite of high-performance utilities, 
+                        expertly curated for every digital need.
+                    </p>
                 </div>
 
                 <Row className="g-4">
@@ -20,13 +27,19 @@ const CategoriesGrid = ({ categories }) => {
                         const Icon = cat.icon;
                         return (
                             <Col lg={3} md={4} sm={6} key={cat.id}>
-                                <Link to={`/tools?category=${cat.id}`} className="category-premium-card text-decoration-none h-100 d-block">
-                                    <div className="glass-card p-4 rounded-4 text-center hover-glow h-100 transition-all">
-                                        <div className={`category-icon-bg mb-3 mx-auto ${cat.color.replace('text-', 'bg-')} bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center`} style={{ width: '60px', height: '60px' }}>
-                                            <div className={cat.color}><Icon size={24} /></div>
+                                <Link to={`/category/${cat.id}`} className="category-modern-card text-decoration-none h-100 d-block">
+                                    <div className="modern-glass-card p-4 rounded-5 text-center h-100 transition-all">
+                                        <div className={`cat-icon-wrapper mb-4 mx-auto ${cat.color.replace('text-', 'bg-')} bg-opacity-10 rounded-4 d-flex align-items-center justify-content-center shadow-sm`}>
+                                            <div className={cat.color}><Icon size={28} strokeWidth={2} /></div>
                                         </div>
-                                        <h5 className="fw-bold text-dark mb-1">{cat.name}</h5>
-                                        <p className="text-muted small mb-0">{cat.count} Tools</p>
+                                        <h4 className="fw-bold text-dark mb-2">{cat.name}</h4>
+                                        <div className="d-flex align-items-center justify-content-center gap-2">
+                                            <span className="text-muted small">{cat.count} Professional Tools</span>
+                                            <ChevronRight size={14} className="text-primary mt-1 opacity-0 arrow-reveal" />
+                                        </div>
+                                        
+                                        {/* Hidden Glow on Hover */}
+                                        <div className="card-hover-glow"></div>
                                     </div>
                                 </Link>
                             </Col>
@@ -39,3 +52,4 @@ const CategoriesGrid = ({ categories }) => {
 };
 
 export default CategoriesGrid;
+
