@@ -115,10 +115,10 @@ const Contact = () => {
 
     return (
         <> <SEO
-            title={`Our Services | `}
+            title={`Contact Us | WebzenTools`}
             description={`Explore  services by Webzenyx including modern, scalable, and high-performance solutions.`}
             keywords="web development services, mobile app development, UI UX design, ecommerce solutions"
-            url={`https://www.webzenyx.com/contact`}
+            url={`https://www.webzentools.com/contact`}
         />
             <section className="wt-contact-hero position-relative d-flex align-items-center">
 
