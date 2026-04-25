@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { Home, ChevronRight } from 'lucide-react';
+import { Home, ChevronRight, Loader2 } from 'lucide-react';
 import { Mail, Briefcase, MessageSquare, Send, ArrowRight } from 'lucide-react';
 
 import { FaRocket, FaArrowRight, FaEnvelope } from 'react-icons/fa';
 
 import "./Contact.css";
 import SEO from '../../components/SEO';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        subject: 'Technical Support',
+        message: '',
+        hidden_field: '' // Honeypot field
+    });
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const contactChannels = [
         {
@@ -35,7 +47,71 @@ const Contact = () => {
         }
     ];
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name]) {
+            setErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[name];
+                return newErrors;
+            });
+        }
+    };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name.trim()) newErrors.name = "Full Name is required";
+        if (!formData.email.trim()) {
+            newErrors.email = "Work Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = "Please enter a valid email address";
+        }
+        if (!formData.message.trim()) newErrors.message = "Message is required";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) {
+            toast.error("Please fill in all required fields correctly.");
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            // Posting to your Vercel Serverless Function
+            const response = await axios.post("/api/contact", formData);
+
+            // Check if we got a valid JSON response from our API
+            if (response.data && typeof response.data === 'object' && 'success' in response.data) {
+                if (response.data.success) {
+                    toast.success(response.data.message || "Thank you! Your message has been sent successfully.");
+                    setFormData({
+                        name: '',
+                        email: '',
+                        phone: '',
+                        subject: 'Technical Support',
+                        message: '',
+                        hidden_field: ''
+                    });
+                } else {
+                    toast.error(response.data.message || "Something went wrong. Please try again.");
+                }
+            } else {
+                // This happens if the API doesn't return the expected JSON format
+                console.error("Unexpected response from API:", response.data);
+                toast.error("API error: Could not process the request. Please ensure you have deployed the 'api/contact.js' function.");
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            toast.error("Connection error. Please ensure your Vercel environment variables (SMTP) are configured.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <> <SEO
@@ -146,8 +222,20 @@ const Contact = () => {
 
                                 <h4 className="text-white fw-bold mb-4">Send us a message</h4>
 
-                                <Form>
+                                <Form onSubmit={handleSubmit}>
                                     <Row className="g-4">
+
+                                        {/* Honeypot field - Hidden from users */}
+                                        <div style={{ display: 'none' }}>
+                                            <input
+                                                type="text"
+                                                name="hidden_field"
+                                                value={formData.hidden_field}
+                                                onChange={handleChange}
+                                                tabIndex="-1"
+                                                autoComplete="off"
+                                            />
+                                        </div>
 
                                         {/* Name Input */}
                                         <Col md={6}>
@@ -155,9 +243,13 @@ const Contact = () => {
                                                 <Form.Label className="wt-form-label">Full Name</Form.Label>
                                                 <Form.Control
                                                     type="text"
+                                                    name="name"
+                                                    value={formData.name}
+                                                    onChange={handleChange}
                                                     placeholder="John Doe"
-                                                    className="wt-premium-input"
+                                                    className={`wt-premium-input ${errors.name ? 'is-invalid' : ''}`}
                                                 />
+                                                {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                                             </Form.Group>
                                         </Col>
 
@@ -167,17 +259,41 @@ const Contact = () => {
                                                 <Form.Label className="wt-form-label">Work Email</Form.Label>
                                                 <Form.Control
                                                     type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
                                                     placeholder="john@company.com"
+                                                    className={`wt-premium-input ${errors.email ? 'is-invalid' : ''}`}
+                                                />
+                                                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                                            </Form.Group>
+                                        </Col>
+
+                                        {/* Phone Input */}
+                                        <Col md={6}>
+                                            <Form.Group>
+                                                <Form.Label className="wt-form-label">Phone Number</Form.Label>
+                                                <Form.Control
+                                                    type="tel"
+                                                    name="phone"
+                                                    value={formData.phone}
+                                                    onChange={handleChange}
+                                                    placeholder="+91 98765 43210"
                                                     className="wt-premium-input"
                                                 />
                                             </Form.Group>
                                         </Col>
 
                                         {/* Subject Dropdown */}
-                                        <Col xs={12}>
+                                        <Col md={6}>
                                             <Form.Group>
                                                 <Form.Label className="wt-form-label">How can we help?</Form.Label>
-                                                <Form.Select className="wt-premium-select">
+                                                <Form.Select
+                                                    name="subject"
+                                                    value={formData.subject}
+                                                    onChange={handleChange}
+                                                    className="wt-premium-select"
+                                                >
                                                     <option>Technical Support</option>
                                                     <option>Enterprise Sales & Pricing</option>
                                                     <option>Bug Report</option>
@@ -193,16 +309,28 @@ const Contact = () => {
                                                 <Form.Control
                                                     as="textarea"
                                                     rows={5}
+                                                    name="message"
+                                                    value={formData.message}
+                                                    onChange={handleChange}
                                                     placeholder="Tell us about your project or issue..."
-                                                    className="wt-premium-textarea"
+                                                    className={`wt-premium-textarea ${errors.message ? 'is-invalid' : ''}`}
                                                 />
+                                                {errors.message && <div className="invalid-feedback">{errors.message}</div>}
                                             </Form.Group>
                                         </Col>
 
                                         {/* Submit Button */}
                                         <Col xs={12} className="mt-5">
-                                            <button type="button" className="wt-btn-submit w-100 d-flex justify-content-center align-items-center py-3">
-                                                Send Message <Send size={18} className="ms-2 wt-send-icon" />
+                                            <button
+                                                type="submit"
+                                                disabled={isSubmitting}
+                                                className="wt-btn-submit w-100 d-flex justify-content-center align-items-center py-3"
+                                            >
+                                                {isSubmitting ? (
+                                                    <>Sending Message <Loader2 size={18} className="ms-2 wt-send-icon spin" /></>
+                                                ) : (
+                                                    <>Send Message <Send size={18} className="ms-2 wt-send-icon" /></>
+                                                )}
                                             </button>
                                         </Col>
 
