@@ -13,7 +13,7 @@ export const categories = [
     { id: 'security', name: 'Security Tools', icon: FaShieldAlt, count: 10, color: 'text-red-500' },
     { id: 'productivity', name: 'Productivity Tools', icon: FaClock, count: 10, color: 'text-yellow-500' },
     { id: 'media', name: 'Media Tools', icon: FaVideo, count: 10, color: 'text-pink-500' },
-    { id: 'website', name: 'Website Tools', icon: FaGlobe, count: 10, color: 'text-cyan-500' }
+    { id: 'marketing', name: 'Marketing Tools', icon: FaGlobe, count: 17, color: 'text-cyan-500' },
 ];
 
 export const allTools = [
@@ -1259,125 +1259,226 @@ export const allTools = [
         metaKeywords: 'video downloader, video format converter, mp4 to webm, change video resolution, webzentools'
     },
 
-    // 10. Website Tools
+    // 10. Marketing Tools
     { 
         id: 91, 
-        slug: 'domain-checker', 
-        name: 'Domain Checker', 
-        category: 'website', 
-        desc: 'Check if a specific domain name is available.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'Domain Checker - Free Online Tool | WebzenTools',
-        metaDescription: 'Check if a specific domain name is available. Use our free Domain Checker for fast and secure results. No registration required.',
-        metaKeywords: 'domain checker, free online tool, website tool, webzentools, online domain checker'
+        slug: 'headline-generator', 
+        name: 'Headline Generator', 
+        category: 'marketing', 
+        desc: 'Generate catchy, high-converting headlines for your content and ads.', 
+        isPremium: true, 
+        componentKey: 'HeadlineGenerator',
+        metaTitle: 'Free Online Headline Generator - Catchy Titles in Seconds | WebzenTools',
+        metaDescription: 'Generate high-converting headlines for blogs, ads, and social media with our free premium headline generator. Boost your CTR and engagement instantly.',
+        metaKeywords: 'headline generator, catchy titles, blog title generator, ad headline creator, marketing tools, webzentools'
     },
+
     { 
         id: 92, 
-        slug: 'dns-lookup', 
-        name: 'DNS Records Lookup', 
-        category: 'website', 
-        desc: 'Query A, MX, NS, and TXT DNS records for domains.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'DNS Records Lookup - Free Online Tool | WebzenTools',
-        metaDescription: 'Query A, MX, NS, and TXT DNS records for domains. Use our free DNS Records Lookup for fast and secure results. No registration required.',
-        metaKeywords: 'dns records lookup, free online tool, website tool, webzentools, online dns records lookup'
+        slug: 'cta-generator', 
+        name: 'CTA Generator', 
+        category: 'marketing', 
+        desc: 'Generate powerful, high-converting Call-to-Action buttons and phrases.', 
+        isPremium: true, 
+        componentKey: 'CTAGenerator',
+        metaTitle: 'Free Online CTA Generator - High Converting Call to Actions | WebzenTools',
+        metaDescription: 'Create powerful call-to-actions for your buttons, emails, and landing pages with our free premium CTA generator. Boost your conversion rates instantly.',
+        metaKeywords: 'cta generator, call to action creator, conversion rate optimization, marketing tools, button text generator, webzentools'
     },
+
     { 
         id: 93, 
-        slug: 'speed-test', 
-        name: 'Page Speed Test', 
-        category: 'website', 
-        desc: 'Analyze TTFB and page loading metrics.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'Page Speed Test - Free Online Tool | WebzenTools',
-        metaDescription: 'Analyze TTFB and page loading metrics. Use our free Page Speed Test for fast and secure results. No registration required.',
-        metaKeywords: 'page speed test, free online tool, website tool, webzentools, online page speed test'
+        slug: 'product-description-generator', 
+        name: 'Product Description Generator', 
+        category: 'marketing', 
+        desc: 'Create compelling and SEO-friendly product descriptions for your e-commerce store.', 
+        isPremium: true, 
+        componentKey: 'ProductDescriptionGenerator',
+        metaTitle: 'Free Online Product Description Generator - Catchy & SEO Friendly | WebzenTools',
+        metaDescription: 'Generate high-converting product descriptions for Shopify, Amazon, and Etsy with our free premium generator. Boost your sales with AI-written copy.',
+        metaKeywords: 'product description generator, ecommerce copy generator, ai product descriptions, shopify description tool, marketing tools, webzentools'
     },
+
     { 
         id: 94, 
-        slug: 'header-checker', 
-        name: 'HTTP Headers Checker', 
-        category: 'website', 
-        desc: 'Inspect HTTP response headers for security issues.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'HTTP Headers Checker - Free Online Tool | WebzenTools',
-        metaDescription: 'Inspect HTTP response headers for security issues. Use our free HTTP Headers Checker for fast and secure results. No registration required.',
-        metaKeywords: 'http headers checker, free online tool, website tool, webzentools, online http headers checker'
+        slug: 'sales-copy-generator', 
+        name: 'Sales Copy Generator', 
+        category: 'marketing', 
+        desc: 'Generate high-converting sales copy using frameworks like AIDA, PAS, and BAB.', 
+        isPremium: true, 
+        componentKey: 'SalesCopyGenerator',
+        metaTitle: 'Free Online Sales Copy Generator - AIDA, PAS, BAB Frameworks | WebzenTools',
+        metaDescription: 'Create high-converting sales copy for your landing pages and ads with our free premium sales copy generator. Choose from multiple marketing frameworks.',
+        metaKeywords: 'sales copy generator, aida framework, pas copywriting, bab marketing copy, landing page copy tool, marketing tools, webzentools'
     },
+
     { 
         id: 95, 
-        slug: 'status-checker', 
-        name: 'HTTP Status Checker', 
-        category: 'website', 
-        desc: 'Ping a URL to see if it returns 200 OK or errors.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'HTTP Status Checker - Free Online Tool | WebzenTools',
-        metaDescription: 'Ping a URL to see if it returns 200 OK or errors. Use our free HTTP Status Checker for fast and secure results. No registration required.',
-        metaKeywords: 'http status checker, free online tool, website tool, webzentools, online http status checker'
+        slug: 'landing-page-copy-generator', 
+        name: 'Landing Page Copy Generator', 
+        category: 'marketing', 
+        desc: 'Generate complete landing page copy including Hero, Benefits, Features, and FAQs.', 
+        isPremium: true, 
+        componentKey: 'LandingPageGenerator',
+        metaTitle: 'Free Online Landing Page Copy Generator - Complete Sections | WebzenTools',
+        metaDescription: 'Generate professional landing page copy in minutes. Get high-converting content for your Hero section, Benefits, Social Proof, and FAQs with our AI tool.',
+        metaKeywords: 'landing page generator, landing page copy, ecommerce landing page tool, marketing copy generator, webzentools'
     },
+
     { 
         id: 96, 
-        slug: 'open-graph-gen', 
-        name: 'Open Graph Generator', 
-        category: 'website', 
-        desc: 'Easily construct Open Graph HTML meta tags.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'Open Graph Generator - Free Online Tool | WebzenTools',
-        metaDescription: 'Easily construct Open Graph HTML meta tags. Use our free Open Graph Generator for fast and secure results. No registration required.',
-        metaKeywords: 'open graph generator, free online tool, website tool, webzentools, online open graph generator'
+        slug: 'ad-copy-generator', 
+        name: 'Ad Copy Generator', 
+        category: 'marketing', 
+        desc: 'Generate high-performing ad copy for Facebook, Google, Instagram, and LinkedIn.', 
+        isPremium: true, 
+        componentKey: 'AdCopyGenerator',
+        metaTitle: 'Free Online Ad Copy Generator - FB, Google & Instagram Ads | WebzenTools',
+        metaDescription: 'Create high-converting ad copy for your social media and search campaigns with our free premium generator. Boost your CTR and ROAS with AI-written ads.',
+        metaKeywords: 'ad copy generator, facebook ad tool, google ads copy, instagram ad creator, marketing tools, webzentools'
     },
+
     { 
         id: 97, 
-        slug: 'broken-link', 
-        name: 'Broken Link Checker', 
-        category: 'website', 
-        desc: 'Crawl a webpage to find 404 broken links.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'Broken Link Checker - Free Online Tool | WebzenTools',
-        metaDescription: 'Crawl a webpage to find 404 broken links. Use our free Broken Link Checker for fast and secure results. No registration required.',
-        metaKeywords: 'broken link checker, free online tool, website tool, webzentools, online broken link checker'
+        slug: 'email-subject-line-generator', 
+        name: 'Email Subject Line Generator', 
+        category: 'marketing', 
+        desc: 'Generate catchy, high-open-rate subject lines for your email campaigns.', 
+        isPremium: true, 
+        componentKey: 'EmailSubjectGenerator',
+        metaTitle: 'Free Online Email Subject Line Generator - High Open Rates | WebzenTools',
+        metaDescription: 'Boost your email open rates with our free premium subject line generator. Create catchy, personalized, and urgent subject lines in seconds.',
+        metaKeywords: 'email subject line generator, email marketing tool, catchy subject lines, increase open rates, marketing tools, webzentools'
     },
+
     { 
         id: 98, 
-        slug: 'ssl-generator', 
-        name: 'CSR/SSL Generator', 
-        category: 'website', 
-        desc: 'Generate Certificate Signing Requests for SSL.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'CSR/SSL Generator - Free Online Tool | WebzenTools',
-        metaDescription: 'Generate Certificate Signing Requests for SSL. Use our free CSR/SSL Generator for fast and secure results. No registration required.',
-        metaKeywords: 'csr/ssl generator, free online tool, website tool, webzentools, online csr/ssl generator'
+        slug: 'cold-email-generator', 
+        name: 'Cold Email Generator', 
+        category: 'marketing', 
+        desc: 'Generate personalized, professional cold emails that get responses.', 
+        isPremium: true, 
+        componentKey: 'ColdEmailGenerator',
+        metaTitle: 'Free Online Cold Email Generator - Get More Responses | WebzenTools',
+        metaDescription: 'Create highly personalized and professional cold emails for sales and networking with our free premium generator. Increase your outreach success rates.',
+        metaKeywords: 'cold email generator, sales outreach tool, personalized email creator, networking email generator, marketing tools, webzentools'
     },
+
     { 
         id: 99, 
-        slug: 'base64-image', 
-        name: 'Base64 Image Encoder', 
-        category: 'website', 
-        desc: 'Convert an image directly to a base64 HTML string.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'Base64 Image Encoder - Free Online Tool | WebzenTools',
-        metaDescription: 'Convert an image directly to a base64 HTML string. Use our free Base64 Image Encoder for fast and secure results. No registration required.',
-        metaKeywords: 'base64 image encoder, free online tool, website tool, webzentools, online base64 image encoder'
+        slug: 'value-proposition-generator', 
+        name: 'Value Proposition Generator', 
+        category: 'marketing', 
+        desc: 'Define your unique value proposition and clear selling points for your brand.', 
+        isPremium: true, 
+        componentKey: 'ValuePropositionGenerator',
+        metaTitle: 'Free Online Value Proposition Generator - Unique Selling Points | WebzenTools',
+        metaDescription: 'Create a compelling value proposition for your startup or product with our free premium generator. Clearly define your unique selling points and benefits.',
+        metaKeywords: 'value proposition generator, unique selling points tool, brand positioning creator, marketing tools, webzentools'
     },
+
     { 
         id: 100, 
-        slug: 'html-extractor', 
-        name: 'HTML Tag Extractor', 
-        category: 'website', 
-        desc: 'Extract all links or image tags from HTML source.', 
-        isPremium: false, 
-        componentKey: 'Placeholder',
-        metaTitle: 'HTML Tag Extractor - Free Online Tool | WebzenTools',
-        metaDescription: 'Extract all links or image tags from HTML source. Use our free HTML Tag Extractor for fast and secure results. No registration required.',
-        metaKeywords: 'html tag extractor, free online tool, website tool, webzentools, online html tag extractor'
-    }
+        slug: 'usp-generator', 
+        name: 'USP Generator', 
+        category: 'marketing', 
+        desc: 'Identify and craft your Unique Selling Proposition to stand out from competitors.', 
+        isPremium: true, 
+        componentKey: 'USPGenerator',
+        metaTitle: 'Free Online USP Generator - Unique Selling Proposition Creator | WebzenTools',
+        metaDescription: 'Discover what makes your business unique with our free premium USP generator. Stand out from the crowd with a powerful Unique Selling Proposition.',
+        metaKeywords: 'usp generator, unique selling proposition creator, competitive advantage tool, marketing strategy, webzentools'
+    },
+
+    { 
+        id: 101, 
+        slug: 'marketing-funnel-builder', 
+        name: 'Marketing Funnel Builder', 
+        category: 'marketing', 
+        desc: 'Map out your complete customer journey from awareness to conversion with AI.', 
+        isPremium: true, 
+        componentKey: 'MarketingFunnelBuilder',
+        metaTitle: 'Free Online Marketing Funnel Builder - Customer Journey Map | WebzenTools',
+        metaDescription: 'Design high-converting marketing funnels for your business with our free premium builder. Map out awareness, interest, and conversion stages with AI.',
+        metaKeywords: 'marketing funnel builder, customer journey map tool, sales funnel creator, lead generation funnel, marketing tools, webzentools'
+    },
+
+    { 
+        id: 102, 
+        slug: 'conversion-rate-calculator', 
+        name: 'Conversion Rate Calculator', 
+        category: 'marketing', 
+        desc: 'Calculate your conversion rates, cost per acquisition, and ROI with precision.', 
+        isPremium: true, 
+        componentKey: 'ConversionRateCalculator',
+        metaTitle: 'Free Online Conversion Rate Calculator - Marketing ROI Tool | WebzenTools',
+        metaDescription: 'Measure your marketing success with our free premium conversion rate calculator. Calculate CR, CPA, and ROI to optimize your ad spend.',
+        metaKeywords: 'conversion rate calculator, marketing roi tool, cpa calculator, ad spend optimizer, marketing tools, webzentools'
+    },
+
+    { 
+        id: 103, 
+        slug: 'break-even-calculator', 
+        name: 'Break-even Calculator', 
+        category: 'marketing', 
+        desc: 'Find out exactly how many units you need to sell to cover your costs.', 
+        isPremium: true, 
+        componentKey: 'BreakEvenCalculator',
+        metaTitle: 'Free Online Break-even Calculator - Business Profitability Tool | WebzenTools',
+        metaDescription: 'Calculate your break-even point with our free premium calculator. Understand your fixed costs, variable costs, and sales targets to reach profitability.',
+        metaKeywords: 'break-even calculator, profitability tool, business math, fixed cost calculator, marketing tools, webzentools'
+    },
+
+    { 
+        id: 104, 
+        slug: 'clv-calculator', 
+        name: 'Customer Lifetime Value Calculator', 
+        category: 'marketing', 
+        desc: 'Calculate the total revenue you can expect from a single customer over time.', 
+        isPremium: true, 
+        componentKey: 'CLVCalculator',
+        metaTitle: 'Free Online CLV Calculator - Customer Lifetime Value Tool | WebzenTools',
+        metaDescription: 'Predict your future revenue with our free premium CLV calculator. Understand customer retention, churn, and long-term value to guide your growth.',
+        metaKeywords: 'clv calculator, customer lifetime value tool, customer retention math, churn rate calculator, marketing tools, webzentools'
+    },
+
+    { 
+        id: 105, 
+        slug: 'cac-calculator', 
+        name: 'Customer Acquisition Cost Calculator', 
+        category: 'marketing', 
+        desc: 'Measure exactly how much it costs to acquire a new customer and optimize your ad spend.', 
+        isPremium: true, 
+        componentKey: 'CACCalculator',
+        metaTitle: 'Free Online CAC Calculator - Customer Acquisition Cost Tool | WebzenTools',
+        metaDescription: 'Calculate your CAC with our free premium calculator. Track marketing spend, sales costs, and acquisition metrics to improve your business efficiency.',
+        metaKeywords: 'cac calculator, customer acquisition cost tool, marketing spend calculator, sales efficiency tool, marketing tools, webzentools'
+    },
+
+    { 
+        id: 106, 
+        slug: 'ab-test-calculator', 
+        name: 'A/B Test Calculator', 
+        category: 'marketing', 
+        desc: 'Calculate the statistical significance of your A/B tests to make data-driven decisions.', 
+        isPremium: true, 
+        componentKey: 'ABTestCalculator',
+        metaTitle: 'Free Online A/B Test Calculator - Statistical Significance Tool | WebzenTools',
+        metaDescription: 'Determine the winner of your marketing experiments with our free premium A/B test calculator. Calculate significance, confidence levels, and p-values.',
+        metaKeywords: 'ab test calculator, statistical significance tool, conversion rate optimization, split testing calculator, marketing tools, webzentools'
+    },
+
+    { 
+        id: 107, 
+        slug: 'campaign-performance-analyzer', 
+        name: 'Campaign Performance Analyzer', 
+        category: 'marketing', 
+        desc: 'Analyze your marketing campaigns across multiple channels and calculate ROAS and CPC.', 
+        isPremium: true, 
+        componentKey: 'CampaignPerformanceAnalyzer',
+        metaTitle: 'Free Online Campaign Performance Analyzer - Marketing KPI Tool | WebzenTools',
+        metaDescription: 'Evaluate your marketing performance with our free premium analyzer. Calculate ROAS, CPC, CTR, and CPA to optimize your cross-channel campaigns.',
+        metaKeywords: 'campaign performance analyzer, marketing kpi tool, roas calculator, cpc calculator, ctr tool, marketing tools, webzentools'
+    },
+
 ];

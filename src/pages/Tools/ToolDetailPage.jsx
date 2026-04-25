@@ -126,6 +126,23 @@ const AudioConverter = React.lazy(() => import('./ToolsDetails/MediaTools/AudioC
 const ScreenRuler = React.lazy(() => import('./ToolsDetails/MediaTools/ScreenRuler'));
 const ColorPaletteGenerator = React.lazy(() => import('./ToolsDetails/MediaTools/ColorPaletteGenerator'));
 const VideoDownloader = React.lazy(() => import('./ToolsDetails/MediaTools/VideoDownloader'));
+const HeadlineGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/HeadlineGenerator'));
+const CTAGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/CTAGenerator'));
+const ProductDescriptionGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/ProductDescriptionGenerator'));
+const SalesCopyGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/SalesCopyGenerator'));
+const LandingPageGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/LandingPageGenerator'));
+const AdCopyGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/AdCopyGenerator'));
+const EmailSubjectGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/EmailSubjectGenerator'));
+const ColdEmailGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/ColdEmailGenerator'));
+const ValuePropositionGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/ValuePropositionGenerator'));
+const USPGenerator = React.lazy(() => import('./ToolsDetails/MarketingTools/USPGenerator'));
+const MarketingFunnelBuilder = React.lazy(() => import('./ToolsDetails/MarketingTools/MarketingFunnelBuilder'));
+const ConversionRateCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/ConversionRateCalculator'));
+const BreakEvenCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/BreakEvenCalculator'));
+const CLVCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/CLVCalculator'));
+const CACCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/CACCalculator'));
+const ABTestCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/ABTestCalculator'));
+const CampaignPerformanceAnalyzer = React.lazy(() => import('./ToolsDetails/MarketingTools/CampaignPerformanceAnalyzer'));
 
 
 
@@ -383,6 +400,40 @@ const ToolDetailPage = () => {
                 return <ColorPaletteGenerator />;
             case 'VideoDownloader':
                 return <VideoDownloader />;
+            case 'HeadlineGenerator':
+                return <HeadlineGenerator />;
+            case 'CTAGenerator':
+                return <CTAGenerator />;
+            case 'ProductDescriptionGenerator':
+                return <ProductDescriptionGenerator />;
+            case 'SalesCopyGenerator':
+                return <SalesCopyGenerator />;
+            case 'LandingPageGenerator':
+                return <LandingPageGenerator />;
+            case 'AdCopyGenerator':
+                return <AdCopyGenerator />;
+            case 'EmailSubjectGenerator':
+                return <EmailSubjectGenerator />;
+            case 'ColdEmailGenerator':
+                return <ColdEmailGenerator />;
+            case 'ValuePropositionGenerator':
+                return <ValuePropositionGenerator />;
+            case 'USPGenerator':
+                return <USPGenerator />;
+            case 'MarketingFunnelBuilder':
+                return <MarketingFunnelBuilder />;
+            case 'ConversionRateCalculator':
+                return <ConversionRateCalculator />;
+            case 'BreakEvenCalculator':
+                return <BreakEvenCalculator />;
+            case 'CLVCalculator':
+                return <CLVCalculator />;
+            case 'CACCalculator':
+                return <CACCalculator />;
+            case 'ABTestCalculator':
+                return <ABTestCalculator />;
+            case 'CampaignPerformanceAnalyzer':
+                return <CampaignPerformanceAnalyzer />;
 
 
 
