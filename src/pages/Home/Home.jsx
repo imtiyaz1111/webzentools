@@ -14,6 +14,7 @@ import CategoriesGrid from './components/CategoriesGrid';
 import TrendingTools from './components/TrendingTools';
 import BentoStats from './components/BentoStats';
 import StatsItem from './components/StatsItem';
+import TopToolsShowcase from './components/TopToolsShowcase';
 import ComparisonTable from './components/ComparisonTable';
 import FAQ from './components/FAQ';
 
@@ -76,6 +77,9 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
+
+            {/* ===== TOP TOOLS SHOWCASE SECTION ===== */}
+            <TopToolsShowcase />
 
 
             {/* ===== COMPARISON SECTION ===== */}

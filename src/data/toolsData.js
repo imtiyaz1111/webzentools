@@ -1,11 +1,11 @@
 import {
     FaCode, FaImage, FaRobot, FaCalculator, FaSearch,
-    FaFont, FaShieldAlt, FaClock, FaVideo, FaGlobe
+    FaFont, FaShieldAlt, FaClock, FaVideo, FaGlobe, FaShareAlt, FaFilePdf
 } from 'react-icons/fa';
 
 export const categories = [
     { id: 'developer', name: 'Developer Tools', icon: FaCode, count: 23, color: 'text-blue-500' },
-    { id: 'image', name: 'Image Tools', icon: FaImage, count: 10, color: 'text-purple-500' },
+    { id: 'image', name: 'Image Tools', icon: FaImage, count: 9, color: 'text-purple-500' },
     { id: 'ai', name: 'AI Tools', icon: FaRobot, count: 10, color: 'text-indigo-500' },
     { id: 'finance', name: 'Finance Tools', icon: FaCalculator, count: 10, color: 'text-green-500' },
     { id: 'seo', name: 'SEO Tools', icon: FaSearch, count: 10, color: 'text-orange-500' },
@@ -14,6 +14,8 @@ export const categories = [
     { id: 'productivity', name: 'Productivity Tools', icon: FaClock, count: 10, color: 'text-yellow-500' },
     { id: 'media', name: 'Media Tools', icon: FaVideo, count: 10, color: 'text-pink-500' },
     { id: 'marketing', name: 'Marketing Tools', icon: FaGlobe, count: 17, color: 'text-cyan-500' },
+    { id: 'social', name: 'Social Media Tools', icon: FaShareAlt, count: 7, color: 'text-pink-600' },
+    { id: 'pdf-document', name: 'PDF & Document Tools', icon: FaFilePdf, count: 11, color: 'text-red-600' },
 ];
 
 export const allTools = [
@@ -344,18 +346,7 @@ export const allTools = [
         metaDescription: 'Convert images to PNG, JPG, WEBP, or SVG. Use our free Image Converter for fast and secure results. No registration required.',
         metaKeywords: 'image converter, free online tool, image tool, webzentools, online image converter'
     },
-    { 
-        id: 15, 
-        slug: 'pdf-to-jpg', 
-        name: 'PDF to JPG', 
-        category: 'image', 
-        desc: 'Extract pages from PDF files as individual JPG images.', 
-        isPremium: false, 
-        componentKey: 'PdfToJpg',
-        metaTitle: 'PDF to JPG - Free Online Tool | WebzenTools',
-        metaDescription: 'Extract pages from PDF files as individual JPG images. Use our free PDF to JPG for fast and secure results. No registration required.',
-        metaKeywords: 'pdf to jpg, free online tool, image tool, webzentools, online pdf to jpg'
-    },
+
     { 
         id: 16, 
         slug: 'watermark-adder', 
@@ -1479,6 +1470,485 @@ export const allTools = [
         metaTitle: 'Free Online Campaign Performance Analyzer - Marketing KPI Tool | WebzenTools',
         metaDescription: 'Evaluate your marketing performance with our free premium analyzer. Calculate ROAS, CPC, CTR, and CPA to optimize your cross-channel campaigns.',
         metaKeywords: 'campaign performance analyzer, marketing kpi tool, roas calculator, cpc calculator, ctr tool, marketing tools, webzentools'
+    },
+    { 
+        id: 108, 
+        slug: 'instagram-bio-generator', 
+        name: 'Instagram Bio Generator', 
+        category: 'social', 
+        desc: 'Generate catchy, professional, and creative Instagram bios that reflect your personality or brand.', 
+        isPremium: true, 
+        componentKey: 'InstagramBioGenerator',
+        metaTitle: 'Free Online Instagram Bio Generator - Creative & Professional | WebzenTools',
+        metaDescription: 'Create stunning Instagram bios in seconds with our free premium generator. Choose from multiple styles like creative, professional, minimalist, and more.',
+        metaKeywords: 'instagram bio generator, creative bio creator, professional instagram bios, social media tools, instagram growth, webzentools'
+    },
+    { 
+        id: 109, 
+        slug: 'youtube-title-generator', 
+        name: 'YouTube Title Generator', 
+        category: 'social', 
+        desc: 'Generate high-CTR, catchy titles for your YouTube videos to boost views and engagement.', 
+        isPremium: true, 
+        componentKey: 'YouTubeTitleGenerator',
+        metaTitle: 'Free Online YouTube Title Generator - Boost Your Views | WebzenTools',
+        metaDescription: 'Create viral YouTube titles in seconds with our free premium generator. Optimize for high CTR and SEO with multiple styles like clickbait, educational, and more.',
+        metaKeywords: 'youtube title generator, high ctr titles, viral youtube titles, video title creator, social media tools, webzentools'
+    },
+
+    { 
+        id: 110, 
+        slug: 'youtube-tags-generator', 
+        name: 'YouTube Tags Generator', 
+        category: 'social', 
+        desc: 'Generate SEO-optimized tags and keywords for your YouTube videos to improve search rankings.', 
+        isPremium: true, 
+        componentKey: 'YouTubeTagsGenerator',
+        metaTitle: 'Free Online YouTube Tags Generator - SEO Video Keywords | WebzenTools',
+        metaDescription: 'Generate high-ranking YouTube tags and keywords in seconds. Boost your video SEO and visibility with our free premium tags generator. Optimize for better search results.',
+        metaKeywords: 'youtube tags generator, video tags creator, youtube seo keywords, tag extractor, social media tools, webzentools'
+    },
+
+    { 
+        id: 111, 
+        slug: 'tweet-generator', 
+        name: 'Tweet Generator', 
+        category: 'social', 
+        desc: 'Generate viral, engaging tweets and threads for X (Twitter) using AI.', 
+        isPremium: true, 
+        componentKey: 'TweetGenerator',
+        metaTitle: 'Free Online Tweet Generator - Viral X Content | WebzenTools',
+        metaDescription: 'Create high-engagement tweets and threads in seconds with our free premium generator. Choose from multiple tones like witty, professional, and controversial.',
+        metaKeywords: 'tweet generator, twitter content creator, viral tweets, x thread generator, social media tools, webzentools'
+    },
+
+    { 
+        id: 112, 
+        slug: 'reel-caption-generator', 
+        name: 'Reel Caption Generator', 
+        category: 'social', 
+        desc: 'Generate viral, high-engagement captions for your Instagram Reels, TikToks, and YouTube Shorts.', 
+        isPremium: true, 
+        componentKey: 'ReelCaptionGenerator',
+        metaTitle: 'Free Online Reel Caption Generator - Viral Social Media Content | WebzenTools',
+        metaDescription: 'Create engaging captions for Reels and TikTok in seconds. Our AI generator provides viral hooks, emojis, and hashtags to boost your social media presence.',
+        metaKeywords: 'reel caption generator, tiktok caption creator, instagram reels hooks, viral social media captions, short video tools, webzentools'
+    },
+
+    { 
+        id: 113, 
+        slug: 'hashtag-analyzer', 
+        name: 'Hashtag Analyzer', 
+        category: 'social', 
+        desc: 'Analyze hashtag competition and reach to find the best tags for your social media posts.', 
+        isPremium: true, 
+        componentKey: 'HashtagAnalyzer',
+        metaTitle: 'Free Online Hashtag Analyzer - Reach & Competition | WebzenTools',
+        metaDescription: 'Analyze any hashtag for reach, competition, and relevance. Find the best hashtags to grow your social media presence with our free premium analyzer tool.',
+        metaKeywords: 'hashtag analyzer, hashtag competition, reach analysis, trending hashtags, social media tools, webzentools'
+    },
+
+    { 
+        id: 114, 
+        slug: 'engagement-calculator', 
+        name: 'Engagement Calculator', 
+        category: 'social', 
+        desc: 'Calculate your social media engagement rate and compare it with industry benchmarks.', 
+        isPremium: true, 
+        componentKey: 'EngagementCalculator',
+        metaTitle: 'Free Social Media Engagement Calculator - Analyze Your Reach | WebzenTools',
+        metaDescription: 'Calculate your engagement rate for Instagram, Twitter, and TikTok. Get AI-powered insights into your performance and how to improve your content reach.',
+        metaKeywords: 'engagement calculator, social media metrics, engagement rate, instagram analysis, twitter analytics, webzentools'
+    },
+
+    { 
+        id: 115, 
+        slug: 'pdf-merger', 
+        name: 'PDF Merger', 
+        category: 'pdf-document', 
+        desc: 'Combine multiple PDF files into one professional document securely in your browser.', 
+        isPremium: true, 
+        componentKey: 'PDFMerger',
+        metaTitle: 'Free Online PDF Merger - Combine Multiple PDFs | WebzenTools',
+        metaDescription: 'Merge multiple PDF files into one for free with our online PDF Merger. Secure, fast, and no registration required. Combine your documents in seconds.',
+        metaKeywords: 'pdf merger, combine pdf, join pdf files, online pdf joiner, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 116, 
+        slug: 'pdf-splitter', 
+        name: 'PDF Splitter', 
+        category: 'pdf-document', 
+        desc: 'Extract specific pages or page ranges from your PDF files securely in your browser.', 
+        isPremium: true, 
+        componentKey: 'PDFSplitter',
+        metaTitle: 'Free Online PDF Splitter - Extract PDF Pages | WebzenTools',
+        metaDescription: 'Split your PDF files and extract specific pages for free with our online PDF Splitter. Secure, fast, and 100% private. No registration required.',
+        metaKeywords: 'pdf splitter, extract pdf pages, split pdf online, pdf page extractor, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 117, 
+        slug: 'pdf-compressor', 
+        name: 'PDF Compressor', 
+        category: 'pdf-document', 
+        desc: 'Reduce the file size of your PDF documents while maintaining quality for web and email.', 
+        isPremium: true, 
+        componentKey: 'PDFCompressor',
+        metaTitle: 'Free Online PDF Compressor - Reduce PDF Size | WebzenTools',
+        metaDescription: 'Compress and optimize your PDF files online for free. Reduce file size without losing quality for easier sharing and faster loading.',
+        metaKeywords: 'pdf compressor, reduce pdf size, optimize pdf, online pdf compression, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 118, 
+        slug: 'pdf-to-word', 
+        name: 'PDF to Word', 
+        category: 'pdf-document', 
+        desc: 'Convert PDF documents to editable Microsoft Word files (.docx) accurately.', 
+        isPremium: true, 
+        componentKey: 'PdfToWord',
+        metaTitle: 'Free Online PDF to Word Converter - Edit PDF in Word | WebzenTools',
+        metaDescription: 'Convert your PDF files to editable Word documents online for free. Fast, secure, and 100% private conversion in your browser.',
+        metaKeywords: 'pdf to word, convert pdf to docx, online pdf converter, edit pdf in word, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 119, 
+        slug: 'word-to-pdf', 
+        name: 'Word to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert Microsoft Word documents (.docx) to high-quality PDF files instantly.', 
+        isPremium: true, 
+        componentKey: 'WordToPdf',
+        metaTitle: 'Free Online Word to PDF Converter - Convert Docx to PDF | WebzenTools',
+        metaDescription: 'Convert your Word documents to PDF online for free. Fast, secure, and 100% private conversion in your browser. Maintain layout and formatting.',
+        metaKeywords: 'word to pdf, convert docx to pdf, online word converter, docx to pdf converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 120, 
+        slug: 'pdf-to-jpg', 
+        name: 'PDF to JPG', 
+        category: 'pdf-document', 
+        desc: 'Extract pages from PDF files as high-quality JPG images.', 
+        isPremium: true, 
+        componentKey: 'PdfToJpg',
+        metaTitle: 'Free Online PDF to JPG Converter - Extract Images | WebzenTools',
+        metaDescription: 'Extract all pages from your PDF files as JPG images online for free. Fast, secure, and 100% private conversion with high-resolution support.',
+        metaKeywords: 'pdf to jpg, extract images from pdf, pdf to image converter, online pdf converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 121, 
+        slug: 'jpg-to-pdf', 
+        name: 'JPG to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert JPG or PNG images to a single high-quality PDF document.', 
+        isPremium: true, 
+        componentKey: 'JpgToPdf',
+        metaTitle: 'Free Online JPG to PDF Converter - Images to PDF | WebzenTools',
+        metaDescription: 'Convert your JPG and PNG images to a professional PDF document online for free. Easily reorder pages and download your PDF instantly.',
+        metaKeywords: 'jpg to pdf, png to pdf, images to pdf converter, online image converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 122, 
+        slug: 'pdf-viewer', 
+        name: 'PDF Viewer', 
+        category: 'pdf-document', 
+        desc: 'View PDF documents directly in your browser with zoom and navigation controls.', 
+        isPremium: true, 
+        componentKey: 'PDFViewer',
+        metaTitle: 'Free Online PDF Viewer - Browser-Based PDF Reader | WebzenTools',
+        metaDescription: 'Read and view your PDF files online for free. Secure, browser-based PDF viewer with zoom, page navigation, and fullscreen mode. No upload required.',
+        metaKeywords: 'pdf viewer, online pdf reader, view pdf in browser, free pdf tools, secure pdf viewer, webzentools'
+    },
+
+    { 
+        id: 123, 
+        slug: 'pdf-page-remover', 
+        name: 'PDF Page Remover', 
+        category: 'pdf-document', 
+        desc: 'Select and remove unwanted pages from your PDF file instantly.', 
+        isPremium: true, 
+        componentKey: 'PDFPageRemover',
+        metaTitle: 'Free Online PDF Page Remover - Delete Pages from PDF | WebzenTools',
+        metaDescription: 'Remove specific pages from your PDF documents online for free. Secure, browser-based editing with page previews. Delete unwanted pages instantly.',
+        metaKeywords: 'pdf page remover, delete pages from pdf, remove pdf pages online, free pdf tools, edit pdf online, webzentools'
+    },
+
+    { 
+        id: 124, 
+        slug: 'pdf-page-reorder', 
+        name: 'PDF Page Reorder', 
+        category: 'pdf-document', 
+        desc: 'Drag or move pages to change the sequence of your PDF document.', 
+        isPremium: true, 
+        componentKey: 'PDFPageReorder',
+        metaTitle: 'Free Online PDF Page Reorder - Change PDF Page Order | WebzenTools',
+        metaDescription: 'Reorder pages in your PDF documents online for free. Easy-to-use visual interface to drag and move pages into any sequence. 100% private and secure.',
+        metaKeywords: 'pdf page reorder, change pdf page order, move pdf pages, reorder pdf online, free pdf tools, edit pdf online, webzentools'
+    },
+
+    { 
+        id: 125, 
+        slug: 'pdf-editor', 
+        name: 'PDF Editor', 
+        category: 'pdf-document', 
+        desc: 'Edit PDF documents online by adding text, whiteout, and annotations.', 
+        isPremium: true, 
+        componentKey: 'PDFEditor',
+        metaTitle: 'Free Online PDF Editor - Edit PDFs in Browser | WebzenTools',
+        metaDescription: 'Edit your PDF files online for free. Add text, erase content with whiteout, and annotate your documents instantly in your browser. No sign-up required.',
+        metaKeywords: 'pdf editor, online pdf editor, edit pdf online, free pdf tools, add text to pdf, whiteout pdf, webzentools'
+    },
+
+    { 
+        id: 126, 
+        slug: 'fill-sign-pdf', 
+        name: 'Fill & Sign PDF', 
+        category: 'pdf-document', 
+        desc: 'Electronically sign PDF documents and fill out forms easily.', 
+        isPremium: true, 
+        componentKey: 'FillAndSign',
+        metaTitle: 'Free Online eSign Tool - Fill & Sign PDF Documents | WebzenTools',
+        metaDescription: 'Electronically sign your PDF documents and fill out forms online for free. Draw signatures, add text fields, and eSign PDFs securely in your browser.',
+        metaKeywords: 'esign pdf, fill and sign pdf, electronic signature, online pdf signer, free esignature tool, webzentools'
+    },
+
+    { 
+        id: 127, 
+        slug: 'add-watermark-pdf', 
+        name: 'Add Watermark', 
+        category: 'pdf-document', 
+        desc: 'Add text or image watermarks to your PDF documents securely.', 
+        isPremium: true, 
+        componentKey: 'AddWatermark',
+        metaTitle: 'Free Online PDF Watermark Tool - Add Watermark to PDF | WebzenTools',
+        metaDescription: 'Add custom text or image watermarks to your PDF files online for free. Control opacity, rotation, and size. Protect your documents with ease.',
+        metaKeywords: 'pdf watermark, add watermark to pdf, watermark pdf online, protect pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 128, 
+        slug: 'remove-watermark-pdf', 
+        name: 'Remove Watermark', 
+        category: 'pdf-document', 
+        desc: 'Remove unwanted watermarks or logos from your PDF documents.', 
+        isPremium: true, 
+        componentKey: 'RemoveWatermark',
+        metaTitle: 'Free Online PDF Watermark Remover - Clean PDF Documents | WebzenTools',
+        metaDescription: 'Remove watermarks, logos, and unwanted text from your PDF files online for free. Use our visual eraser to clean your documents securely in the browser.',
+        metaKeywords: 'remove pdf watermark, delete pdf logo, clear pdf text, online pdf cleaner, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 129, 
+        slug: 'rotate-pdf-pages', 
+        name: 'Rotate PDF', 
+        category: 'pdf-document', 
+        desc: 'Rotate individual pages or the entire PDF document easily.', 
+        isPremium: true, 
+        componentKey: 'PDFRotator',
+        metaTitle: 'Free Online PDF Rotator - Rotate PDF Pages Online | WebzenTools',
+        metaDescription: 'Rotate your PDF documents online for free. Rotate individual pages or the whole PDF clockwise or counter-clockwise with live visual previews.',
+        metaKeywords: 'rotate pdf, rotate pdf pages, turn pdf, flip pdf online, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 130, 
+        slug: 'password-protect-pdf', 
+        name: 'PDF Password Protect', 
+        category: 'pdf-document', 
+        desc: 'Secure your PDF documents with passwords and custom permissions.', 
+        isPremium: true, 
+        componentKey: 'PDFPasswordProtector',
+        metaTitle: 'Free Online PDF Password Protector - Secure PDF Files | WebzenTools',
+        metaDescription: 'Protect your PDF documents online for free. Set open passwords, owner passwords, and restrict printing or copying with AES encryption.',
+        metaKeywords: 'password protect pdf, encrypt pdf online, secure pdf file, pdf permissions, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 131, 
+        slug: 'unlock-pdf', 
+        name: 'Unlock PDF', 
+        category: 'pdf-document', 
+        desc: 'Remove passwords and security from encrypted PDF documents.', 
+        isPremium: true, 
+        componentKey: 'PDFUnlocker',
+        metaTitle: 'Free Online PDF Unlocker - Remove PDF Passwords | WebzenTools',
+        metaDescription: 'Unlock your PDF documents online for free. Easily remove open passwords and security restrictions from encrypted PDF files securely in your browser.',
+        metaKeywords: 'unlock pdf, remove pdf password, decrypt pdf online, pdf security remover, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 132, 
+        slug: 'remove-pdf-restrictions', 
+        name: 'PDF Permissions Remover', 
+        category: 'pdf-document', 
+        desc: 'Remove owner restrictions like printing and copying from PDF files.', 
+        isPremium: true, 
+        componentKey: 'PDFPermissionsRemover',
+        metaTitle: 'Free Online PDF Permissions Remover - Strip PDF Restrictions | WebzenTools',
+        metaDescription: 'Remove PDF restrictions and owner passwords online for free. Enable printing, copying, and editing on locked PDF documents instantly in your browser.',
+        metaKeywords: 'remove pdf restrictions, strip pdf permissions, enable pdf printing, unlock pdf copying, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 133, 
+        slug: 'redact-pdf-data', 
+        name: 'PDF Redaction', 
+        category: 'pdf-document', 
+        desc: 'Permanently hide sensitive information and PII from PDF documents.', 
+        isPremium: true, 
+        componentKey: 'PDFRedactor',
+        metaTitle: 'Free Online PDF Redaction Tool - Mask Sensitive Data | WebzenTools',
+        metaDescription: 'Securely redact sensitive data from PDF files online for free. Permanently hide PII, account numbers, and private text with opaque black boxes securely in the browser.',
+        metaKeywords: 'redact pdf, hide sensitive data, pdf redaction tool, mask pii, permanent redaction, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 134, 
+        slug: 'secure-pdf-share', 
+        name: 'Secure PDF Share', 
+        category: 'pdf-document', 
+        desc: 'Share PDF files securely with temporary, self-destructing links.', 
+        isPremium: true, 
+        componentKey: 'SecurePDFShare',
+        metaTitle: 'Free Online Secure PDF Sharing - Temporary Share Links | WebzenTools',
+        metaDescription: 'Share your PDF documents securely online for free. Generate temporary, self-destructing links with optional on-the-fly password protection and encryption.',
+        metaKeywords: 'secure pdf share, temporary pdf link, self-destructing file share, encrypted pdf sharing, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 135, 
+        slug: 'pdf-to-excel', 
+        name: 'PDF to Excel', 
+        category: 'pdf-document', 
+        desc: 'Extract tables from PDF documents and convert them to Excel spreadsheets.', 
+        isPremium: true, 
+        componentKey: 'PdfToExcel',
+        metaTitle: 'Free Online PDF to Excel Converter - Table Extraction | WebzenTools',
+        metaDescription: 'Convert PDF tables to Excel spreadsheets online for free. Extract tabular data from PDF files and download as editable CSV/Excel files securely in your browser.',
+        metaKeywords: 'pdf to excel, extract tables from pdf, pdf to spreadsheet, online pdf converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 136, 
+        slug: 'excel-to-pdf', 
+        name: 'Excel to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert Excel spreadsheets and CSV files to high-quality PDF documents.', 
+        isPremium: true, 
+        componentKey: 'ExcelToPdf',
+        metaTitle: 'Free Online Excel to PDF Converter - Sheet to PDF | WebzenTools',
+        metaDescription: 'Convert Excel (.xlsx, .xls) and CSV files to PDF documents online for free. Support for multiple sheets and optimized table layouts securely in your browser.',
+        metaKeywords: 'excel to pdf, convert xlsx to pdf, csv to pdf online, spreadsheet to pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 137, 
+        slug: 'pdf-to-ppt', 
+        name: 'PDF to PowerPoint', 
+        category: 'pdf-document', 
+        desc: 'Convert PDF pages into high-quality PowerPoint slides.', 
+        isPremium: true, 
+        componentKey: 'PdfToPpt',
+        metaTitle: 'Free Online PDF to PowerPoint Converter - PDF to PPTX | WebzenTools',
+        metaDescription: 'Convert PDF documents to PowerPoint presentations online for free. Each PDF page becomes a high-resolution slide in a professional PPTX file securely in your browser.',
+        metaKeywords: 'pdf to powerpoint, convert pdf to pptx, pdf to slides online, presentation converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 138, 
+        slug: 'ppt-to-pdf', 
+        name: 'PowerPoint to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert PowerPoint (.pptx) presentations into high-quality PDF files.', 
+        isPremium: true, 
+        componentKey: 'PptToPdf',
+        metaTitle: 'Free Online PowerPoint to PDF Converter - PPTX to PDF | WebzenTools',
+        metaDescription: 'Convert PowerPoint (.pptx) presentations to PDF documents online for free. Reconstruct slides and text content into professionally formatted PDF files securely in your browser.',
+        metaKeywords: 'powerpoint to pdf, convert pptx to pdf, ppt to pdf online, presentation to pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 139, 
+        slug: 'pdf-to-text', 
+        name: 'PDF to Text', 
+        category: 'pdf-document', 
+        desc: 'Extract raw text content from PDF documents instantly.', 
+        isPremium: true, 
+        componentKey: 'PdfToText',
+        metaTitle: 'Free Online PDF to Text Converter - Extract Text from PDF | WebzenTools',
+        metaDescription: 'Extract text from PDF documents online for free. Quickly convert PDF files to plain text (.txt) and copy or download content securely in your browser.',
+        metaKeywords: 'pdf to text, extract text from pdf, convert pdf to txt, online pdf converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 140, 
+        slug: 'text-to-pdf', 
+        name: 'Text to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert plain text, notes, or .txt files into professional PDF documents.', 
+        isPremium: true, 
+        componentKey: 'TextToPdf',
+        metaTitle: 'Free Online Text to PDF Converter - Create PDF from Text | WebzenTools',
+        metaDescription: 'Convert plain text or .txt files to PDF online for free. Customize font size and formatting to create professionally styled PDF documents securely in your browser.',
+        metaKeywords: 'text to pdf, convert txt to pdf, create pdf from text, online text to pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 141, 
+        slug: 'pdf-to-html', 
+        name: 'PDF to HTML', 
+        category: 'pdf-document', 
+        desc: 'Convert PDF documents into clean, semantic HTML5 web pages.', 
+        isPremium: true, 
+        componentKey: 'PdfToHtml',
+        metaTitle: 'Free Online PDF to HTML Converter - PDF to Web Page | WebzenTools',
+        metaDescription: 'Convert PDF documents to HTML5 online for free. Generate clean, semantic HTML code and web-ready pages from your PDF files securely in your browser.',
+        metaKeywords: 'pdf to html, convert pdf to webpage, pdf to html5, online pdf converter, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 142, 
+        slug: 'html-to-pdf', 
+        name: 'HTML to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert HTML code or web files into professionally formatted PDF documents.', 
+        isPremium: true, 
+        componentKey: 'HtmlToPdf',
+        metaTitle: 'Free Online HTML to PDF Converter - Web Page to PDF | WebzenTools',
+        metaDescription: 'Convert HTML code or .html files to PDF online for free. Maintain styles and layouts with our high-fidelity HTML rendering engine securely in your browser.',
+        metaKeywords: 'html to pdf, convert webpage to pdf, online html converter, render html to pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 143, 
+        slug: 'pdf-to-epub', 
+        name: 'PDF to EPUB', 
+        category: 'pdf-document', 
+        desc: 'Convert PDF documents into eBook (EPUB) format for Kindle and E-readers.', 
+        isPremium: true, 
+        componentKey: 'PdfToEpub',
+        metaTitle: 'Free Online PDF to EPUB Converter - Create eBooks | WebzenTools',
+        metaDescription: 'Convert PDF documents to EPUB eBooks online for free. Reflowable text and industrial-standard eBook formatting for Kindle, iBooks, and E-readers securely in your browser.',
+        metaKeywords: 'pdf to epub, convert pdf to ebook, pdf to epub online, create epub from pdf, free pdf tools, webzentools'
+    },
+
+    { 
+        id: 144, 
+        slug: 'epub-to-pdf', 
+        name: 'EPUB to PDF', 
+        category: 'pdf-document', 
+        desc: 'Convert eBook (EPUB) files into printable and portable PDF documents.', 
+        isPremium: true, 
+        componentKey: 'EpubToPdf',
+        metaTitle: 'Free Online EPUB to PDF Converter - eBook to PDF | WebzenTools',
+        metaDescription: 'Convert EPUB eBooks to PDF online for free. Maintain chapter order and reading flow with our high-fidelity eBook rendering engine securely in your browser.',
+        metaKeywords: 'epub to pdf, convert ebook to pdf, epub to pdf online, kindle to pdf, free pdf tools, webzentools'
     },
 
 ];

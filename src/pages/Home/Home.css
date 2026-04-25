@@ -723,3 +723,115 @@
         font-size: 0.95rem;
     }
 }
+/* --- Top Tools Showcase Section --- */
+.showcase-section {
+    position: relative;
+    z-index: 1;
+}
+
+.showcase-container {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.showcase-nav-link {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--dark) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-nav-link:hover {
+    background: rgba(37, 99, 235, 0.05);
+    border-color: rgba(37, 99, 235, 0.1);
+}
+
+.showcase-nav-link.active {
+    background: white !important;
+    color: var(--dark) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(37, 99, 235, 0.1);
+    transform: translateX(10px);
+}
+
+.showcase-icon-box {
+    transition: all 0.3s ease;
+}
+
+.showcase-display-wrapper {
+    position: relative;
+    padding: 20px;
+}
+
+.display-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    filter: blur(100px);
+    opacity: 0.2;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+.showcase-image-frame {
+    transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+    transition: all 0.5s ease;
+    background: #1e293b;
+}
+
+.showcase-image-frame img {
+    opacity: 0.9;
+    transition: all 0.5s ease;
+}
+
+.showcase-container:hover .showcase-image-frame {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+.showcase-container:hover .showcase-image-frame img {
+    opacity: 1;
+}
+
+.floating-stat-badge {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    z-index: 10;
+    min-width: 200px;
+    background: rgba(255, 255, 255, 0.9) !important;
+    animation: hero-float 5s ease-in-out infinite;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    pointer-events: none;
+}
+
+@media (max-width: 991px) {
+    .showcase-nav {
+        flex-direction: row !important;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .showcase-nav-link {
+        min-width: 200px;
+    }
+    
+    .showcase-nav-link.active {
+        transform: translateY(-5px);
+    }
+    
+    .showcase-image-frame {
+        transform: none;
+    }
+}

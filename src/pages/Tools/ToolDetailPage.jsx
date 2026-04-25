@@ -80,7 +80,7 @@ const ImageCompressor = React.lazy(() => import('./ToolsDetails/ImagesTools/Imag
 const BackgroundRemover = React.lazy(() => import('./ToolsDetails/ImagesTools/BackgroundRemover/BackgroundRemover'));
 const ImageResizer = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageResizer/ImageResizer'));
 const ImageConverter = React.lazy(() => import('./ToolsDetails/ImagesTools/ImageConverter/ImageConverter'));
-const PdfToJpg = React.lazy(() => import('./ToolsDetails/ImagesTools/PdfToJpg/PdfToJpg'));
+const PdfToJpg = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToJpg'));
 const WatermarkAdder = React.lazy(() => import('./ToolsDetails/ImagesTools/WatermarkAdder/WatermarkAdder'));
 const MemeGenerator = React.lazy(() => import('./ToolsDetails/ImagesTools/MemeGenerator/MemeGenerator'));
 const FaviconGenerator = React.lazy(() => import('./ToolsDetails/ImagesTools/FaviconGenerator/FaviconGenerator'));
@@ -143,6 +143,42 @@ const CLVCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/CLV
 const CACCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/CACCalculator'));
 const ABTestCalculator = React.lazy(() => import('./ToolsDetails/MarketingTools/ABTestCalculator'));
 const CampaignPerformanceAnalyzer = React.lazy(() => import('./ToolsDetails/MarketingTools/CampaignPerformanceAnalyzer'));
+const InstagramBioGenerator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/InstagramBioGenerator'));
+const YouTubeTitleGenerator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/YouTubeTitleGenerator'));
+const YouTubeTagsGenerator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/YouTubeTagsGenerator'));
+const TweetGenerator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/TweetGenerator'));
+const ReelCaptionGenerator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/ReelCaptionGenerator'));
+const HashtagAnalyzer = React.lazy(() => import('./ToolsDetails/SocialMediaTools/HashtagAnalyzer'));
+const EngagementCalculator = React.lazy(() => import('./ToolsDetails/SocialMediaTools/EngagementCalculator'));
+const PDFMerger = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFMerger'));
+const PDFSplitter = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFSplitter'));
+const PDFCompressor = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFCompressor'));
+const PdfToWord = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToWord'));
+const WordToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/WordToPdf'));
+const JpgToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/JpgToPdf'));
+const PDFViewer = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFViewer'));
+const PDFPageRemover = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFPageRemover'));
+const PDFPageReorder = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFPageReorder'));
+const PDFEditor = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFEditor'));
+const FillAndSign = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/FillAndSign'));
+const AddWatermark = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/AddWatermark'));
+const RemoveWatermark = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/RemoveWatermark'));
+const PDFRotator = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFRotator'));
+const PDFPasswordProtector = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFPasswordProtector'));
+const PDFUnlocker = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFUnlocker'));
+const PDFPermissionsRemover = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFPermissionsRemover'));
+const PDFRedactor = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PDFRedactor'));
+const SecurePDFShare = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/SecurePDFShare'));
+const PdfToExcel = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToExcel'));
+const ExcelToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/ExcelToPdf'));
+const PdfToPpt = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToPpt'));
+const PptToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PptToPdf'));
+const PdfToText = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToText'));
+const TextToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/TextToPdf'));
+const PdfToHtml = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToHtml'));
+const HtmlToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/HtmlToPdf'));
+const PdfToEpub = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/PdfToEpub'));
+const EpubToPdf = React.lazy(() => import('./ToolsDetails/PDF&DOCUMENTTOOLS/EpubToPdf'));
 
 
 
@@ -434,10 +470,78 @@ const ToolDetailPage = () => {
                 return <ABTestCalculator />;
             case 'CampaignPerformanceAnalyzer':
                 return <CampaignPerformanceAnalyzer />;
-
-
-
-
+            case 'InstagramBioGenerator':
+                return <InstagramBioGenerator />;
+            case 'YouTubeTitleGenerator':
+                return <YouTubeTitleGenerator />;
+            case 'YouTubeTagsGenerator':
+                return <YouTubeTagsGenerator />;
+            case 'TweetGenerator':
+                return <TweetGenerator />;
+            case 'ReelCaptionGenerator':
+                return <ReelCaptionGenerator />;
+            case 'HashtagAnalyzer':
+                return <HashtagAnalyzer />;
+            case 'EngagementCalculator':
+                return <EngagementCalculator />;
+            case 'PDFMerger':
+                return <PDFMerger />;
+            case 'PDFSplitter':
+                return <PDFSplitter />;
+            case 'PDFCompressor':
+                return <PDFCompressor />;
+            case 'PdfToWord':
+                return <PdfToWord />;
+            case 'WordToPdf':
+                return <WordToPdf />;
+            case 'JpgToPdf':
+                return <JpgToPdf />;
+            case 'PDFViewer':
+                return <PDFViewer />;
+            case 'PDFPageRemover':
+                return <PDFPageRemover />;
+            case 'PDFPageReorder':
+                return <PDFPageReorder />;
+            case 'PDFEditor':
+                return <PDFEditor />;
+            case 'FillAndSign':
+                return <FillAndSign />;
+            case 'AddWatermark':
+                return <AddWatermark />;
+            case 'RemoveWatermark':
+                return <RemoveWatermark />;
+            case 'PDFRotator':
+                return <PDFRotator />;
+            case 'PDFPasswordProtector':
+                return <PDFPasswordProtector />;
+            case 'PDFUnlocker':
+                return <PDFUnlocker />;
+            case 'PDFPermissionsRemover':
+                return <PDFPermissionsRemover />;
+            case 'PDFRedactor':
+                return <PDFRedactor />;
+            case 'SecurePDFShare':
+                return <SecurePDFShare />;
+            case 'PdfToExcel':
+                return <PdfToExcel />;
+            case 'ExcelToPdf':
+                return <ExcelToPdf />;
+            case 'PdfToPpt':
+                return <PdfToPpt />;
+            case 'PptToPdf':
+                return <PptToPdf />;
+            case 'PdfToText':
+                return <PdfToText />;
+            case 'TextToPdf':
+                return <TextToPdf />;
+            case 'PdfToHtml':
+                return <PdfToHtml />;
+            case 'HtmlToPdf':
+                return <HtmlToPdf />;
+            case 'PdfToEpub':
+                return <PdfToEpub />;
+            case 'EpubToPdf':
+                return <EpubToPdf />;
 
 
 
