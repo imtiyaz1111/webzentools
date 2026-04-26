@@ -49,7 +49,7 @@ const PDFEditor = () => {
             const loadingTask = pdfjsLib.getDocument(fileUrl);
             
             // Handle password protected PDFs
-            loadingTask.onPassword = (updatePassword, reason) => {
+            loadingTask.onPassword = (updatePassword) => {
                 const password = prompt('This PDF is password protected. Please enter the password:');
                 if (password) {
                     updatePassword(password);
@@ -70,7 +70,7 @@ const PDFEditor = () => {
         }
     };
 
-    const renderPage = async () => {
+    const renderPage = useCallback(async () => {
         if (!pdfDoc || !canvasRef.current) return;
         const page = await pdfDoc.getPage(currentPage);
         const viewport = page.getViewport({ scale });
@@ -79,11 +79,11 @@ const PDFEditor = () => {
         canvas.height = viewport.height;
         canvas.width = viewport.width;
         await page.render({ canvasContext: context, viewport }).promise;
-    };
+    }, [pdfDoc, currentPage, scale]);
 
     useEffect(() => {
         if (pdfDoc) renderPage();
-    }, [pdfDoc, currentPage, scale]);
+    }, [pdfDoc, renderPage]);
 
     const handleCanvasClick = (e) => {
         if (activeTool === 'select') return;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaSortAmountDown, FaSortAmountUp, FaSortAlphaDown, FaSortAlphaUp, 
@@ -10,18 +10,13 @@ const TextLineSorter = () => {
     const [text, setText] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
-    const [lineCount, setLineCount] = useState(0);
+    const lineCount = text.trim() ? text.split(/\n/).length : 0;
 
     // Options
     const [options, setOptions] = useState({
         trimLines: true,
         removeEmpty: true
     });
-
-    useEffect(() => {
-        const count = text.trim() ? text.split(/\n/).length : 0;
-        setLineCount(count);
-    }, [text]);
 
     const handleCopy = () => {
         if (!text) return;

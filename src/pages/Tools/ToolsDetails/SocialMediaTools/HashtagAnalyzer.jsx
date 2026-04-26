@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, ProgressBar } from 'react-bootstrap';
 import { 
     FaHashtag, FaMagic, FaChartLine, FaRedo, 
     FaFire, FaLock, FaGlobe, FaSearch 
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService.js';
 
 const HashtagAnalyzer = () => {
     const [hashtag, setHashtag] = useState('');
@@ -21,8 +21,7 @@ const HashtagAnalyzer = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Analyze the hashtag "#${cleanTag}" for social media (Instagram, Twitter, TikTok).
+                        const prompt = `Analyze the hashtag "#${cleanTag}" for social media (Instagram, Twitter, TikTok).
             Provide:
             1. reachScore (0-100)
             2. competitionScore (0-100)
@@ -34,16 +33,7 @@ const HashtagAnalyzer = () => {
             Format the response as a valid JSON object.
             Do not include any other text except the JSON object.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setAnalysis(results);
             toast.success('Analysis complete!');

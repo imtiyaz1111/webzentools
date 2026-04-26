@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Container, Row, Col, Form, Button, Badge } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaChevronRight, FaSearch, FaArrowRight, FaSyncAlt } from 'react-icons/fa';
 import { Zap, Star, Filter } from 'lucide-react';
 
@@ -27,23 +27,22 @@ const Tools = () => {
         handleSearchSubmit 
     } = useToolSearch(queryParams.get('q') || '');
 
-    // Local State for categories and pagination
-    const [activeCategory, setActiveCategory] = useState(queryParams.get('category') || 'all');
+    const navigate = useNavigate();
+    const activeCategory = queryParams.get('category') || 'all';
     const [visibleCount, setVisibleCount] = useState(12);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Sync state with URL params when they change
+    // Sync search query from URL
     useEffect(() => {
-        const cat = queryParams.get('category') || 'all';
         const q = queryParams.get('q') || '';
-        setActiveCategory(cat);
-        setSearchQuery(q);
-    }, [location.search, setSearchQuery]);
+        if (q !== searchQuery) {
+            setSearchQuery(q);
+        }
+    }, [location.search, searchQuery, setSearchQuery]);
 
     // Handle Pagination
     const handleLoadMore = useCallback(() => {
         setIsLoading(true);
-        // Simulate loading delay for better UX
         setTimeout(() => {
             setVisibleCount(prev => prev + 12);
             setIsLoading(false);
@@ -63,9 +62,14 @@ const Tools = () => {
     const displayedTools = useMemo(() => filteredTools.slice(0, visibleCount), [filteredTools, visibleCount]);
 
     const clearFilters = useCallback(() => {
-        setSearchQuery('');
-        setActiveCategory('all');
-    }, [setSearchQuery]);
+        navigate('/tools');
+    }, [navigate]);
+
+    const handleCategoryClick = (catId) => {
+        const q = queryParams.get('q');
+        const search = q ? `?category=${catId}&q=${q}` : `?category=${catId}`;
+        navigate(`/tools${search}`);
+    };
 
     return (
         <div className="tools-catalog-wrapper">
@@ -123,7 +127,7 @@ const Tools = () => {
                                 <div className="category-list d-flex flex-column gap-1">
                                     <button 
                                         className={`category-filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
-                                        onClick={() => setActiveCategory('all')}
+                                        onClick={() => handleCategoryClick('all')}
                                     >
                                         All Tools <span className="ms-auto badge rounded-pill bg-primary">{allTools.length}</span>
                                     </button>
@@ -133,7 +137,7 @@ const Tools = () => {
                                             <button 
                                                 key={cat.id}
                                                 className={`category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                                                onClick={() => setActiveCategory(cat.id)}
+                                                onClick={() => handleCategoryClick(cat.id)}
                                             >
                                                 <span className={cat.color + ' me-2'}><Icon size={18} /></span>
                                                 {cat.name}

@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import { FaClock, FaParagraph, FaFont, FaAlignLeft } from 'react-icons/fa';
 
 const WordCounter = () => {
     const [text, setText] = useState('');
-    const [stats, setStats] = useState({
-        words: 0,
-        characters: 0,
-        paragraphs: 0,
-        readingTime: 0
-    });
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const characters = text.length;
+    const paragraphs = text.trim() ? text.split(/\n\s*\n/).length : 0;
+    const readingTime = Math.ceil(words / 200); // Avg 200 wpm
 
-    useEffect(() => {
-        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-        const characters = text.length;
-        const paragraphs = text.trim() ? text.split(/\n\s*\n/).length : 0;
-        const readingTime = Math.ceil(words / 200); // Avg 200 wpm
-
-        setStats({ words, characters, paragraphs, readingTime });
-    }, [text]);
+    const stats = { words, characters, paragraphs, readingTime };
 
     const handleClear = () => setText('');
 

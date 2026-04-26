@@ -6,13 +6,11 @@ import {
   FaExchangeAlt, FaLink, FaKeyboard 
 } from "react-icons/fa";
 import "./Base64EncodeDecode.css";
-import bannerImg1 from "../../../../../assets/img/adsbanner1.png";
 
 const Base64EncodeDecode = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState("encode"); // 'encode' or 'decode'
-  const [inputMode, setInputMode] = useState("text"); // 'text' or 'file'
   const [urlSafe, setUrlSafe] = useState(false);
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [error, setError] = useState("");
@@ -29,8 +27,8 @@ const Base64EncodeDecode = () => {
         base64 = base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
       }
       return base64;
-    } catch (e) {
-      throw new Error("Failed to encode: " + e.message);
+    } catch (err) {
+      throw new Error("Failed to encode: " + err.message);
     }
   }, []);
 
@@ -45,7 +43,7 @@ const Base64EncodeDecode = () => {
       const binString = atob(base64);
       const bytes = Uint8Array.from(binString, (m) => m.charCodeAt(0));
       return new TextDecoder().decode(bytes);
-    } catch (e) {
+    } catch (err) {
       throw new Error("Invalid Base64 string");
     }
   }, []);

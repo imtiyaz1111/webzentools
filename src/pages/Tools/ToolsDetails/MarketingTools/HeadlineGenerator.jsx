@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert, Card } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaDownload, FaSyncAlt, FaRegLightbulb, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './HeadlineGenerator.css';
+import aiService from '../../../../services/aiService.js';
 
 const HeadlineGenerator = () => {
     const [loading, setLoading] = useState(false);
@@ -35,21 +35,6 @@ const HeadlineGenerator = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const callGeminiAI = async (prompt) => {
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
-            throw new Error('Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
-        }
-
-        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-            contents: [{ parts: [{ text: prompt }] }]
-        });
-
-        const data = response.data;
-        if (data.error) throw new Error(data.error.message);
-        return data.candidates[0].content.parts[0].text;
-    };
-
     const generateHeadlines = async () => {
         if (!formData.topic) {
             toast.error('Please enter a topic or keyword.');
@@ -66,7 +51,7 @@ const HeadlineGenerator = () => {
         Provide only the list of headlines, one per line, without numbers or extra text.`;
 
         try {
-            const result = await callGeminiAI(prompt);
+            const result = await aiService.generateContent(prompt);
             const cleanedHeadlines = result.split('\n')
                 .map(h => h.trim().replace(/^\d+\.\s*/, '').replace(/^"|"$/g, ''))
                 .filter(h => h.length > 5)

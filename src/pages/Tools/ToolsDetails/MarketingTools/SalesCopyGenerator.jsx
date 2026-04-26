@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert, Card, Accordion } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaDownload, FaSyncAlt, FaRegLightbulb, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './SalesCopyGenerator.css';
+import aiService from '../../../../services/aiService.js';
 
 const SalesCopyGenerator = () => {
     const [loading, setLoading] = useState(false);
@@ -34,21 +34,6 @@ const SalesCopyGenerator = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const callGeminiAI = async (prompt) => {
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
-            throw new Error('Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
-        }
-
-        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-            contents: [{ parts: [{ text: prompt }] }]
-        });
-
-        const data = response.data;
-        if (data.error) throw new Error(data.error.message);
-        return data.candidates[0].content.parts[0].text;
-    };
-
     const generateSalesCopy = async () => {
         if (!formData.productName || !formData.solution) {
             toast.error('Please enter product name and solution details.');
@@ -69,7 +54,7 @@ const SalesCopyGenerator = () => {
         Include a catchy headline at the start.`;
 
         try {
-            const resultText = await callGeminiAI(prompt);
+            const resultText = await aiService.generateContent(prompt);
             setResult(resultText);
             toast.success('Sales copy generated!');
         } catch (err) {

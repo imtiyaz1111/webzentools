@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { 
   FaDatabase, FaCopy, FaDownload, FaTrash, 
-  FaCheck, FaMagic, FaKeyboard, FaExchangeAlt, FaCode
+  FaCheck, FaKeyboard, FaCode, FaExclamationTriangle
 } from "react-icons/fa";
 import "./SqlFormatter.css";
 
@@ -55,8 +55,8 @@ const SqlFormatter = () => {
       });
 
       return result.trim();
-    } catch (e) {
-      throw new Error("Formatting failed: " + e.message);
+    } catch (err) {
+      throw new Error("Formatting failed: " + err.message);
     }
   }, []);
 
@@ -70,8 +70,8 @@ const SqlFormatter = () => {
     try {
       setError("");
       setOutput(formatSQL(input));
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
       setOutput("");
     }
   }, [input, formatSQL]);

@@ -26,21 +26,26 @@ export default async function handler(req, res) {
         }
 
         // ================= EMAIL CONFIGURATION =================
-        // For Gmail, use an App Password (not your regular password)
+        const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+        const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+        const smtpSecure = process.env.SMTP_SECURE === 'true' || smtpPort === 465;
+
         const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp.gmail.com',
-            port: parseInt(process.env.SMTP_PORT || '465'),
-            secure: true, 
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpSecure, 
             auth: {
-                user: process.env.SMTP_USER || 'webzentools@gmail.com',
-                pass: process.env.SMTP_PASS  // Set this in Vercel environment variables
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
             },
         });
 
         // ================= EMAIL CONTENT =================
+        const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || 'mdimtiyazalam630@gmail.com';
+        
         const mailOptions = {
             from: `"WebzenTools System" <${process.env.SMTP_USER || 'webzentools@gmail.com'}>`,
-            to: 'mdimtiyazalam630@gmail.com',
+            to: recipientEmail,
             replyTo: email,
             subject: `🔥 New Contact: ${subject || 'No Subject'}`,
             html: `
@@ -70,6 +75,10 @@ export default async function handler(req, res) {
         };
 
         // ================= SEND EMAIL =================
+        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+            throw new Error("SMTP credentials are not configured in environment variables.");
+        }
+
         await transporter.sendMail(mailOptions);
         
         return res.status(200).json({ success: true, message: "Your message has been sent successfully!" });
@@ -78,7 +87,8 @@ export default async function handler(req, res) {
         console.error('Submission Error:', error);
         return res.status(500).json({ 
             success: false, 
-            message: "The server encountered an error while sending the email. Please check your SMTP configuration." 
+            message: `Error: ${error.message || "The server encountered an error while sending the email."}` 
         });
     }
 }
+

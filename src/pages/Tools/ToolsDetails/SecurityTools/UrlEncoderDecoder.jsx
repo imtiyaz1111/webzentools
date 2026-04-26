@@ -1,37 +1,27 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Row, Col, Form, Button, OverlayTrigger, Tooltip, Badge } from 'react-bootstrap';
-import { FaCopy, FaTrash, FaLink, FaExchangeAlt, FaShieldAlt, FaInfoCircle, FaCheck } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Row, Col, Form, Button, Badge } from 'react-bootstrap';
+import { FaCopy, FaTrash, FaLink, FaExchangeAlt, FaShieldAlt, FaCheck } from 'react-icons/fa';
 
 const UrlEncoderDecoder = () => {
     const [input, setInput] = useState('');
-    const [output, setOutput] = useState('');
     const [mode, setMode] = useState('encode'); // 'encode' or 'decode'
     const [copied, setCopied] = useState(false);
-    const [error, setError] = useState(false);
 
-    const processText = useCallback(() => {
-        if (!input) {
-            setOutput('');
-            setError(false);
-            return;
-        }
+    let output = '';
+    let error = false;
 
+    if (input) {
         try {
             if (mode === 'encode') {
-                setOutput(encodeURIComponent(input));
+                output = encodeURIComponent(input);
             } else {
-                setOutput(decodeURIComponent(input));
+                output = decodeURIComponent(input);
             }
-            setError(false);
-        } catch (e) {
-            setOutput('Error: Invalid URL or Malformed Input');
-            setError(true);
+        } catch (err) {
+            output = 'Error: Invalid URL or Malformed Input';
+            error = true;
         }
-    }, [input, mode]);
-
-    useEffect(() => {
-        processText();
-    }, [processText]);
+    }
 
     const copyToClipboard = () => {
         if (!output || error) return;

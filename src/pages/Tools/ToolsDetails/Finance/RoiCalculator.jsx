@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaArrowUp, FaWallet, FaHandHoldingUsd, FaChartLine, FaInfoCircle } from 'react-icons/fa';
 import './RoiCalculator.css';
@@ -7,13 +7,7 @@ const RoiCalculator = () => {
     const [initialCost, setInitialCost] = useState(10000);
     const [finalValue, setFinalValue] = useState(15000);
 
-    const [results, setResults] = useState({
-        roi: 0,
-        profit: 0,
-        multiple: 0
-    });
-
-    const calculateROI = () => {
+    const results = useMemo(() => {
         const IC = parseFloat(initialCost) || 0;
         const FV = parseFloat(finalValue) || 0;
 
@@ -22,18 +16,13 @@ const RoiCalculator = () => {
             const roi = (profit / IC) * 100;
             const multiple = FV / IC;
 
-            setResults({
+            return {
                 roi: roi.toFixed(2),
                 profit: profit.toFixed(2),
                 multiple: multiple.toFixed(2)
-            });
-        } else {
-            setResults({ roi: 0, profit: 0, multiple: 0 });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateROI();
+        return { roi: 0, profit: 0, multiple: 0 };
     }, [initialCost, finalValue]);
 
     const handleReset = () => {

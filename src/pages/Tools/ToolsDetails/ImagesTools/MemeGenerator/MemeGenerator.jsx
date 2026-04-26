@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { FaDownload, FaUpload, FaTrash, FaCheck, FaImage, FaFont, FaPalette } from "react-icons/fa";
+import { FaDownload, FaUpload, FaTrash, FaImage, FaFont, FaPalette } from "react-icons/fa";
 import "./MemeGenerator.css";
 
 const MemeGenerator = () => {

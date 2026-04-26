@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaEraser, FaCompressAlt, FaTrash, FaCopy, 
@@ -14,11 +14,6 @@ const WhitespaceRemover = () => {
         cleaned: 0,
         reduction: 0
     });
-
-    useEffect(() => {
-        const original = text.length;
-        setStats(prev => ({ ...prev, original }));
-    }, [text]);
 
     const handleCopy = () => {
         if (!text) return;

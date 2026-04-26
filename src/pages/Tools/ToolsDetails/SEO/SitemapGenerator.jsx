@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form, Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import { FaSitemap, FaPlus, FaTrash, FaCopy, FaDownload, FaListUl, FaEdit, FaCheck, FaInfoCircle } from 'react-icons/fa';
 import './SitemapGenerator.css';
@@ -9,7 +9,6 @@ const SitemapGenerator = () => {
     ]);
     const [bulkInput, setBulkInput] = useState('');
     const [activeTab, setActiveTab] = useState('manual');
-    const [generatedCode, setGeneratedCode] = useState('');
     const [copied, setCopied] = useState(false);
 
     const addUrl = () => {
@@ -39,7 +38,7 @@ const SitemapGenerator = () => {
         setActiveTab('manual');
     };
 
-    useEffect(() => {
+    const generatedCode = useMemo(() => {
         let code = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         code += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
         
@@ -54,7 +53,7 @@ const SitemapGenerator = () => {
         });
 
         code += `</urlset>`;
-        setGeneratedCode(code);
+        return code;
     }, [urls]);
 
     const handleCopy = () => {

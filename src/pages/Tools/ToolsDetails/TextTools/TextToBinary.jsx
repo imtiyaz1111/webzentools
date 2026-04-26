@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaExchangeAlt, FaMicrochip, FaTrash, FaCopy, 
@@ -7,7 +7,6 @@ import {
 
 const TextToBinary = () => {
     const [input, setInput] = useState('');
-    const [output, setOutput] = useState('');
     const [isBinaryToText, setIsBinaryToText] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
@@ -23,26 +22,12 @@ const TextToBinary = () => {
             return bin.split(/\s+/).filter(x => x).map(b => {
                 return String.fromCharCode(parseInt(b, 2));
             }).join('');
-        } catch (e) {
+        } catch {
             return 'Invalid binary format';
         }
     };
 
-    const handleProcess = () => {
-        if (!input) {
-            setOutput('');
-            return;
-        }
-        if (isBinaryToText) {
-            setOutput(convertToText(input));
-        } else {
-            setOutput(convertToBinary(input));
-        }
-    };
-
-    useEffect(() => {
-        handleProcess();
-    }, [input, isBinaryToText]);
+    const output = input ? (isBinaryToText ? convertToText(input) : convertToBinary(input)) : '';
 
     const handleCopy = () => {
         if (!output) return;
@@ -65,10 +50,8 @@ const TextToBinary = () => {
 
     const toggleMode = () => {
         const tempInput = output;
-        const tempOutput = input;
         setIsBinaryToText(!isBinaryToText);
         setInput(tempInput);
-        setOutput(tempOutput);
     };
 
     return (

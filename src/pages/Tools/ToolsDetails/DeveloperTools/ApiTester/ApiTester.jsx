@@ -3,8 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { 
     FaPlay, FaPlus, FaTrash, FaCopy, FaHistory, 
-    FaCode, FaList, FaCheckCircle, FaTimesCircle, FaClock, FaDatabase,
-    FaLock, FaShieldAlt, FaTerminal, FaSave
+    FaClock, FaDatabase, FaTerminal
 } from "react-icons/fa";
 import { HiLightningBolt } from "react-icons/hi";
 import "./ApiTester.css";
@@ -87,7 +86,7 @@ const ApiTester = () => {
                     try {
                         requestData = JSON.parse(bodyRaw);
                         requestHeaders["Content-Type"] = "application/json";
-                    } catch (e) {
+                    } catch {
                         requestData = bodyRaw;
                     }
                 } else if (bodyType === "form-data") {
@@ -134,18 +133,18 @@ const ApiTester = () => {
                 params: params.filter(p => p.key) 
             });
             toast.success("Request completed!");
-        } catch (error) {
+        } catch (err) {
             const endTime = new Date().getTime();
             setResponse({
-                status: error.response?.status || "Error",
-                statusText: error.response?.statusText || error.message,
+                status: err.response?.status || "Error",
+                statusText: err.response?.statusText || err.message,
                 time: endTime - startTime,
                 size: 0,
-                data: error.response?.data || { error: error.message },
-                headers: error.response?.headers || {},
+                data: err.response?.data || { error: err.message },
+                headers: err.response?.headers || {},
                 isError: true
             });
-            toast.error(error.response ? `Error: ${error.response.status}` : "Request failed");
+            toast.error(err.response ? `Error: ${err.response.status}` : "Request failed");
         } finally {
             setLoading(false);
         }

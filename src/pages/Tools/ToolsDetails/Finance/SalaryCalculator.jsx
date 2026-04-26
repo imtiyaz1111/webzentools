@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaClock, FaCalendarDay, FaCalendarWeek, FaCalendarAlt, FaBriefcase } from 'react-icons/fa';
 import './SalaryCalculator.css';
@@ -9,16 +9,7 @@ const SalaryCalculator = () => {
     const [hoursPerWeek, setHoursPerWeek] = useState(40);
     const [daysPerWeek, setDaysPerWeek] = useState(5);
 
-    const [results, setResults] = useState({
-        hourly: 0,
-        daily: 0,
-        weekly: 0,
-        biweekly: 0,
-        monthly: 0,
-        yearly: 0
-    });
-
-    const calculateSalary = () => {
+    const results = useMemo(() => {
         let yearlySalary = 0;
         const val = parseFloat(amount) || 0;
 
@@ -45,18 +36,14 @@ const SalaryCalculator = () => {
                 yearlySalary = val;
         }
 
-        setResults({
+        return {
             hourly: yearlySalary / (52 * hoursPerWeek),
             daily: yearlySalary / (52 * daysPerWeek),
             weekly: yearlySalary / 52,
             biweekly: yearlySalary / 26,
             monthly: yearlySalary / 12,
             yearly: yearlySalary
-        });
-    };
-
-    useEffect(() => {
-        calculateSalary();
+        };
     }, [amount, period, hoursPerWeek, daysPerWeek]);
 
     const handleReset = () => {

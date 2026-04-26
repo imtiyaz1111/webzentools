@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Container, Row, Col, Button, ButtonGroup, Badge, Card, Dropdown } from 'react-bootstrap';
 import { 
     FaEdit, FaEye, FaDownload, FaCopy, FaTrash, 
@@ -41,22 +41,22 @@ Built with ❤️ by **WebzenTools**.`;
 
 const MarkdownEditor = () => {
     const [markdown, setMarkdown] = useState(defaultMarkdown);
-    const [html, setHtml] = useState('');
     const [copySuccess, setCopySuccess] = useState('');
-    const [stats, setStats] = useState({ words: 0, lines: 0 });
-
+    // Configure marked options once
     useEffect(() => {
-        // Configure marked options
         marked.setOptions({
             breaks: true,
             gfm: true
         });
-        setHtml(marked.parse(markdown));
-        
-        // Calculate stats
+    }, []);
+
+    // Derive HTML and stats directly from markdown state
+    const html = useMemo(() => marked.parse(markdown), [markdown]);
+    
+    const stats = useMemo(() => {
         const words = markdown.trim() ? markdown.trim().split(/\s+/).length : 0;
         const lines = markdown.split('\n').length;
-        setStats({ words, lines });
+        return { words, lines };
     }, [markdown]);
 
     const handleCopy = (content, type) => {

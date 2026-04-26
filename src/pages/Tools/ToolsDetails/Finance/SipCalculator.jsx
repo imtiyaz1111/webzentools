@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaChartPie, FaCoins, FaArrowUp, FaInfoCircle } from 'react-icons/fa';
 import './SipCalculator.css';
@@ -8,15 +8,7 @@ const SipCalculator = () => {
     const [returnRate, setReturnRate] = useState(12);
     const [timePeriod, setTimePeriod] = useState(10);
 
-    const [results, setResults] = useState({
-        totalInvestment: 0,
-        estimatedReturns: 0,
-        totalValue: 0,
-        investedPercent: 0,
-        returnsPercent: 0
-    });
-
-    const calculateSIP = () => {
+    const results = useMemo(() => {
         const P = monthlyInvestment;
         const i = returnRate / 12 / 100;
         const n = timePeriod * 12;
@@ -26,18 +18,21 @@ const SipCalculator = () => {
             const totalInvestment = P * n;
             const estimatedReturns = totalValue - totalInvestment;
 
-            setResults({
+            return {
                 totalInvestment: Math.round(totalInvestment),
                 estimatedReturns: Math.round(estimatedReturns),
                 totalValue: Math.round(totalValue),
                 investedPercent: (totalInvestment / totalValue) * 100,
                 returnsPercent: (estimatedReturns / totalValue) * 100
-            });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateSIP();
+        return {
+            totalInvestment: 0,
+            estimatedReturns: 0,
+            totalValue: 0,
+            investedPercent: 0,
+            returnsPercent: 0
+        };
     }, [monthlyInvestment, returnRate, timePeriod]);
 
     const handleReset = () => {

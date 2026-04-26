@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import bcrypt from 'bcryptjs';
 import { Row, Col, Form, Button, Badge, Spinner, Alert } from 'react-bootstrap';
 import { FaLock, FaKey, FaShieldAlt, FaCheck, FaTimes, FaCopy, FaSyncAlt, FaInfoCircle } from 'react-icons/fa';
@@ -26,8 +26,8 @@ const BcryptGenerator = () => {
             const salt = bcrypt.genSaltSync(rounds);
             const hash = bcrypt.hashSync(genInput, salt);
             setGenHash(hash);
-        } catch (e) {
-            console.error(e);
+        } catch (err) {
+            console.error(err);
         } finally {
             setGenerating(false);
         }
@@ -40,7 +40,7 @@ const BcryptGenerator = () => {
             await new Promise(resolve => setTimeout(resolve, 50));
             const isValid = bcrypt.compareSync(verifyText, verifyHash);
             setVerifyResult(isValid);
-        } catch (e) {
+        } catch (err) {
             setVerifyResult(false);
         } finally {
             setVerifying(false);

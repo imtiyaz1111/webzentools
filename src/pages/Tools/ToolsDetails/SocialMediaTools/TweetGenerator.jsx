@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import { 
     FaTwitter, FaMagic, FaCopy, FaRedo, 
     FaHashtag, FaListUl, FaRegLightbulb 
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService.js';
 
 const TweetGenerator = () => {
     const [topic, setTopic] = useState('');
@@ -25,8 +25,7 @@ const TweetGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Generate ${isThread ? 'a 5-tweet thread' : '5 distinct tweet variations'} based on this topic/idea: "${topic}".
+                        const prompt = `Generate ${isThread ? 'a 5-tweet thread' : '5 distinct tweet variations'} based on this topic/idea: "${topic}".
             Tone: ${tone}
             Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
             
@@ -39,16 +38,7 @@ const TweetGenerator = () => {
             Format the response as a JSON array of strings. Each string is one tweet.
             Do not include any other text except the JSON array.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setTweets(results);
             toast.success(isThread ? 'Thread generated!' : 'Tweets generated!');

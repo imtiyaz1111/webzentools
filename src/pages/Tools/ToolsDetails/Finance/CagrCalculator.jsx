@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaChartLine, FaHistory, FaCalculator, FaLightbulb } from 'react-icons/fa';
 import './CagrCalculator.css';
@@ -8,13 +8,7 @@ const CagrCalculator = () => {
     const [finalValue, setFinalValue] = useState(25000);
     const [years, setYears] = useState(5);
 
-    const [results, setResults] = useState({
-        cagr: 0,
-        totalReturns: 0,
-        absoluteGrowth: 0
-    });
-
-    const calculateCAGR = () => {
+    const results = useMemo(() => {
         const BV = parseFloat(initialValue);
         const EV = parseFloat(finalValue);
         const n = parseFloat(years);
@@ -24,18 +18,13 @@ const CagrCalculator = () => {
             const absoluteGrowthValue = ((EV - BV) / BV) * 100;
             const totalReturnsValue = EV - BV;
 
-            setResults({
+            return {
                 cagr: cagrValue.toFixed(2),
                 totalReturns: totalReturnsValue.toFixed(0),
                 absoluteGrowth: absoluteGrowthValue.toFixed(2)
-            });
-        } else {
-            setResults({ cagr: 0, totalReturns: 0, absoluteGrowth: 0 });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateCAGR();
+        return { cagr: 0, totalReturns: 0, absoluteGrowth: 0 };
     }, [initialValue, finalValue, years]);
 
     const handleReset = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { 
   FaSearch, FaCopy, FaTrash, FaExclamationTriangle, 
-  FaCheck, FaCode, FaKeyboard, FaListOl, FaInfoCircle
+  FaKeyboard, FaInfoCircle
 } from "react-icons/fa";
 import "./RegexTester.css";
 
@@ -79,8 +79,8 @@ const RegexTester = () => {
       html += escapeHtml(tempText.substring(lastIndex));
       setHighlightedHtml(html);
 
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
       setMatches([]);
       setHighlightedHtml(escapeHtml(text));
     }

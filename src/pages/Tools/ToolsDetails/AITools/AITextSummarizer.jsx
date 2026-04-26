@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Form, Button, Spinner, Alert, ProgressBar } from 'react-bootstrap';
 import { 
     FaAlignLeft, FaListOl, FaBolt, FaHistory, FaCopy, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './AITextSummarizer.css';
+import aiService from '../../../../services/aiService.js';
 
 const AITextSummarizer = () => {
     const [text, setText] = useState('');
@@ -26,8 +26,7 @@ const AITextSummarizer = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Summarize the following text in ${format} format. 
+                        const prompt = `Summarize the following text in ${format} format. 
             The length should be ${length}.
             Text: "${text}"
             
@@ -40,16 +39,7 @@ const AITextSummarizer = () => {
             }
             Do not include any other text except the JSON object.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const summaryData = JSON.parse(jsonStr);
+            const summaryData = await aiService.generateContent(prompt, 'json');
             
             setResult(summaryData);
             toast.success('Summary generated!');

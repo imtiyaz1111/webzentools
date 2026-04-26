@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { Row, Col, Form, Button, Table, Badge, Spinner, Alert } from 'react-bootstrap';
+import { Row, Col, Form, Button, Badge, Spinner, Alert } from 'react-bootstrap';
 import { FaSearch, FaGlobe, FaCalendarAlt, FaServer, FaUserAlt, FaInfoCircle, FaShieldAlt, FaHistory, FaCheck, FaCopy } from 'react-icons/fa';
 
 const WhoisLookup = () => {

@@ -75,7 +75,6 @@ const NodeJsEditor = () => {
         };
 
         const module = { exports: {} };
-        const exports = module.exports;
 
         // Override console.log
         const originalLog = console.log;
@@ -89,7 +88,7 @@ const NodeJsEditor = () => {
             // Execute the code with Node context
             // eslint-disable-next-line no-new-func
             const executeCode = new Function('process', 'module', 'exports', code);
-            executeCode(process, module, exports);
+            executeCode(process, module, module.exports);
             setLogs([...tempLogs, { type: 'success', content: '>>> Process exited with code 0', time: new Date().toLocaleTimeString() }]);
         } catch (err) {
             setLogs([...tempLogs, { type: 'error', content: err.message, time: new Date().toLocaleTimeString() }]);

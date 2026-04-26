@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { 
     FaColumns, FaExchangeAlt, FaTrash, FaPlus, FaMinus, FaEquals
@@ -7,10 +7,7 @@ import {
 const DiffChecker = () => {
     const [original, setOriginal] = useState('');
     const [changed, setChanged] = useState('');
-    const [diffResult, setDiffResult] = useState([]);
-    const [stats, setStats] = useState({ additions: 0, deletions: 0 });
-
-    const computeDiff = () => {
+    const { diffResult, stats } = React.useMemo(() => {
         const oldLines = original.split(/\r?\n/);
         const newLines = changed.split(/\r?\n/);
         
@@ -26,16 +23,9 @@ const DiffChecker = () => {
                 i++;
                 j++;
             } else {
-                // Check if oldLines[i] exists later in newLines (deletion)
-                // Or if newLines[j] exists later in oldLines (addition)
-                // For simplicity in a tool like this without a heavy library, 
-                // we'll mark as deletion then addition if they don't match.
-                
-                // Advanced: Look ahead to find matches
                 let foundMatch = false;
                 for (let k = 1; k < 10; k++) {
                     if (i + k < oldLines.length && oldLines[i+k] === newLines[j]) {
-                        // Lines from i to i+k-1 were deleted
                         for(let m = 0; m < k; m++) {
                             result.push({ type: 'deleted', old: oldLines[i+m], new: '', lineOld: i + m + 1, lineNew: '' });
                             dels++;
@@ -45,7 +35,6 @@ const DiffChecker = () => {
                         break;
                     }
                     if (j + k < newLines.length && newLines[j+k] === oldLines[i]) {
-                        // Lines from j to j+k-1 were added
                         for(let m = 0; m < k; m++) {
                             result.push({ type: 'added', old: '', new: newLines[j+m], lineOld: '', lineNew: j + m + 1 });
                             adds++;
@@ -76,12 +65,7 @@ const DiffChecker = () => {
                 }
             }
         }
-        setDiffResult(result);
-        setStats({ additions: adds, deletions: dels });
-    };
-
-    useEffect(() => {
-        computeDiff();
+        return { diffResult: result, stats: { additions: adds, deletions: dels } };
     }, [original, changed]);
 
     const handleSwap = () => {

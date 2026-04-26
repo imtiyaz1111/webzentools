@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaPercentage, FaCalculator, FaInfoCircle, FaFileInvoice } from 'react-icons/fa';
 import './GstCalculator.css';
@@ -9,15 +9,7 @@ const GstCalculator = () => {
     const [isInclusive, setIsInclusive] = useState(false); // false = Exclusive, true = Inclusive
 
     // Calculated states
-    const [results, setResults] = useState({
-        netAmount: 0,
-        gstAmount: 0,
-        cgst: 0,
-        sgst: 0,
-        totalAmount: 0
-    });
-
-    const calculateGst = () => {
+    const results = useMemo(() => {
         const rate = parseFloat(gstRate) || 0;
         const baseAmount = parseFloat(amount) || 0;
 
@@ -35,17 +27,13 @@ const GstCalculator = () => {
             total = net + gst;
         }
 
-        setResults({
+        return {
             netAmount: net.toFixed(2),
             gstAmount: gst.toFixed(2),
             cgst: (gst / 2).toFixed(2),
             sgst: (gst / 2).toFixed(2),
             totalAmount: total.toFixed(2)
-        });
-    };
-
-    useEffect(() => {
-        calculateGst();
+        };
     }, [amount, gstRate, isInclusive]);
 
     const handleReset = () => {

@@ -22,11 +22,10 @@ const FillAndSign = () => {
     const [elements, setElements] = useState({}); // { pageIndex: [elements] }
     const [activeTool, setActiveTool] = useState('select'); // select, text, signature, check, cross
     const [isProcessing, setIsProcessing] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const [showSignModal, setShowSignModal] = useState(false);
     
     // Signature State
-    const [savedSignatures, setSavedSignatures] = useState([]);
+    // signature state simplified
     
     const editorRef = useRef(null);
     const canvasRef = useRef(null);
@@ -42,7 +41,6 @@ const FillAndSign = () => {
         }
 
         setFile(selectedFile);
-        setIsLoading(true);
         setElements({});
         setCurrentPage(1);
         
@@ -60,15 +58,15 @@ const FillAndSign = () => {
             setNumPages(pdf.numPages);
             setPdfDoc(pdf);
             toast.success('PDF loaded successfully!');
-        } catch (error) {
-            console.error('Error loading PDF:', error);
-            toast.error(`Failed to read PDF: ${error.message}`);
+        } catch (err) {
+            console.error('Error loading PDF:', err);
+            toast.error(`Failed to read PDF: ${err.message}`);
         } finally {
-            setIsLoading(false);
+            // Loading done
         }
     };
 
-    const renderPage = async () => {
+    const renderPage = useCallback(async () => {
         if (!pdfDoc || !canvasRef.current) return;
         try {
             const page = await pdfDoc.getPage(currentPage);
@@ -78,14 +76,14 @@ const FillAndSign = () => {
             canvas.height = viewport.height;
             canvas.width = viewport.width;
             await page.render({ canvasContext: context, viewport }).promise;
-        } catch (error) {
-            console.error('Render Error:', error);
+        } catch (err) {
+            console.error('Render Error:', err);
         }
-    };
+    }, [pdfDoc, currentPage, scale]);
 
     useEffect(() => {
         if (pdfDoc) renderPage();
-    }, [pdfDoc, currentPage, scale]);
+    }, [pdfDoc, renderPage]);
 
     const handleCanvasClick = (e) => {
         if (activeTool === 'select') return;
@@ -275,8 +273,8 @@ const FillAndSign = () => {
             link.download = `signed_${file.name}`;
             link.click();
             toast.success('Signed PDF downloaded!');
-        } catch (error) {
-            console.error('Save Error:', error);
+        } catch (err) {
+            console.error('Save Error:', err);
             toast.error('Failed to save document.');
         } finally {
             setIsProcessing(false);

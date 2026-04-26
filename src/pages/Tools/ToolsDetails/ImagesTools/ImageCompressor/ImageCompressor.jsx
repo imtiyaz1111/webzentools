@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-hot-toast";
 import { 
-  FaCloudUploadAlt, FaDownload, FaTrash, FaInfoCircle, 
+  FaCloudUploadAlt, FaDownload, FaTrash, 
   FaCheckCircle, FaExclamationTriangle, FaImage, FaUndo,
   FaFileImage, FaArrowRight, FaPercent
 } from "react-icons/fa";
@@ -103,8 +103,7 @@ const ImageCompressor = () => {
             }));
 
             toast.success("Image compressed successfully!");
-        } catch (error) {
-            console.error(error);
+        } catch {
             toast.error("Compression failed. Try adjusting the settings.");
         } finally {
             setIsProcessing(false);

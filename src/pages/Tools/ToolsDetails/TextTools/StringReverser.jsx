@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaExchangeAlt, FaArrowsAltH, FaTrash, FaCopy, 
@@ -7,44 +7,28 @@ import {
 
 const StringReverser = () => {
     const [inputText, setInputText] = useState('');
-    const [outputText, setOutputText] = useState('');
     const [mode, setMode] = useState('character'); // character, word, line
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
 
-    const [stats, setStats] = useState({
-        chars: 0,
-        words: 0,
-        lines: 0
-    });
+    let outputText = '';
+    let stats = { chars: 0, words: 0, lines: 0 };
 
-    const handleProcess = () => {
-        if (!inputText) {
-            setOutputText('');
-            return;
-        }
-
-        let result = '';
+    if (inputText) {
         if (mode === 'character') {
-            result = inputText.split('').reverse().join('');
+            outputText = inputText.split('').reverse().join('');
         } else if (mode === 'word') {
-            result = inputText.split(/\s+/).reverse().join(' ');
+            outputText = inputText.split(/\s+/).reverse().join(' ');
         } else if (mode === 'line') {
-            result = inputText.split(/\r?\n/).reverse().join('\n');
+            outputText = inputText.split(/\r?\n/).reverse().join('\n');
         }
-        setOutputText(result);
 
-        // Update Stats
-        setStats({
+        stats = {
             chars: inputText.length,
             words: inputText.trim() ? inputText.trim().split(/\s+/).length : 0,
             lines: inputText.trim() ? inputText.split(/\n/).length : 0
-        });
-    };
-
-    useEffect(() => {
-        handleProcess();
-    }, [inputText, mode]);
+        };
+    }
 
     const handleCopy = () => {
         if (!outputText) return;

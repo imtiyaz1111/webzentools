@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert, ProgressBar } from 'react-bootstrap';
 import { 
     FaCheckCircle, FaExclamationTriangle, FaMagic, FaSyncAlt, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './AIGrammarChecker.css';
+import aiService from '../../../../services/aiService.js';
 
 const AIGrammarChecker = () => {
     const [text, setText] = useState('');
@@ -27,8 +27,7 @@ const AIGrammarChecker = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Analyze this text for grammar, spelling, and punctuation errors. 
+                        const prompt = `Analyze this text for grammar, spelling, and punctuation errors. 
             Provide a list of issues and a fully corrected version.
             Text: "${text}"
             
@@ -43,16 +42,7 @@ const AIGrammarChecker = () => {
             }
             Do not include any other text except the JSON object.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const result = JSON.parse(jsonStr);
+            const result = await aiService.generateContent(prompt, 'json');
             
             setResults(result);
             toast.success('Analysis complete!');

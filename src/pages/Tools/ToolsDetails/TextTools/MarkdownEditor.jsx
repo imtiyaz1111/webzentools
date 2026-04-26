@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Form, Row, Col, Button, ButtonGroup, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaBold, FaItalic, FaHeading, FaQuoteLeft, FaLink, 
@@ -8,7 +8,6 @@ import {
 
 const MarkdownEditor = () => {
     const [markdown, setMarkdown] = useState('# Hello Markdown\n\nType your content here and see the magic on the right!');
-    const [previewHtml, setPreviewHtml] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
 
@@ -29,12 +28,11 @@ const MarkdownEditor = () => {
         return html;
     };
 
-    useEffect(() => {
-        setPreviewHtml(parseMarkdown(markdown));
-    }, [markdown]);
+    const previewHtml = useMemo(() => parseMarkdown(markdown), [markdown]);
 
     const insertText = (before, after = '') => {
         const textarea = document.getElementById('md-textarea');
+        if (!textarea) return;
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = markdown.substring(start, end);

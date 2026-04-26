@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { 
   FaFingerprint, FaCopy, FaDownload, FaSync, 
-  FaPlus, FaTrash, FaCheck, FaSortNumericDown, FaKeyboard
+  FaTrash, FaCheck, FaSortNumericDown
 } from "react-icons/fa";
 import "./UuidGenerator.css";
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaCalculator, FaUndo } from 'react-icons/fa';
 
@@ -6,25 +6,20 @@ const EmiCalculator = () => {
     const [loanAmount, setLoanAmount] = useState(1000000);
     const [interestRate, setInterestRate] = useState(8.5);
     const [loanTenure, setLoanTenure] = useState(20);
-    const [emi, setEmi] = useState(0);
-    const [totalInterest, setTotalInterest] = useState(0);
-    const [totalPayment, setTotalPayment] = useState(0);
-
-    const calculateEmi = () => {
+    const { emi, totalInterest, totalPayment } = useMemo(() => {
         const r = interestRate / 12 / 100;
         const n = loanTenure * 12;
-        const emiValue = (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        if (r === 0) return { emi: loanAmount / n, totalInterest: 0, totalPayment: loanAmount };
         
+        const emiValue = (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
         const totalPayable = emiValue * n;
         const totalInt = totalPayable - loanAmount;
 
-        setEmi(Math.round(emiValue));
-        setTotalInterest(Math.round(totalInt));
-        setTotalPayment(Math.round(totalPayable));
-    };
-
-    useEffect(() => {
-        calculateEmi();
+        return {
+            emi: Math.round(emiValue) || 0,
+            totalInterest: Math.round(totalInt) || 0,
+            totalPayment: Math.round(totalPayable) || 0
+        };
     }, [loanAmount, interestRate, loanTenure]);
 
     const handleReset = () => {

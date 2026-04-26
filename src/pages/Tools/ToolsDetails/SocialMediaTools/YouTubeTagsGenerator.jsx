@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import { 
     FaYoutube, FaMagic, FaCopy, FaRedo, 
     FaSearch, FaCheckCircle, FaTrashAlt 
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService.js';
 
 const YouTubeTagsGenerator = () => {
     const [topic, setTopic] = useState('');
@@ -24,8 +24,7 @@ const YouTubeTagsGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Generate ${tagCount} highly relevant, SEO-optimized YouTube tags for a video about: "${topic}".
+                        const prompt = `Generate ${tagCount} highly relevant, SEO-optimized YouTube tags for a video about: "${topic}".
             Language: ${language}
             
             The tags should:
@@ -36,16 +35,7 @@ const YouTubeTagsGenerator = () => {
             Format the response as a JSON array of strings. Each string is one tag.
             Do not include any other text except the JSON array.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setTags(results);
             toast.success('Optimized tags generated!');

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner } from 'react-bootstrap';
 import { 
     FaYoutube, FaMagic, FaCopy, FaRedo, 
     FaBullseye, FaLightbulb, FaPlayCircle 
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService.js';
 
 const YouTubeTitleGenerator = () => {
     const [topic, setTopic] = useState('');
@@ -25,8 +25,7 @@ const YouTubeTitleGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Generate 10 catchy, high-CTR YouTube title variations based on this topic/description: "${topic}".
+                        const prompt = `Generate 10 catchy, high-CTR YouTube title variations based on this topic/description: "${topic}".
             Target Audience: ${audience}
             Title Style: ${style}
             
@@ -38,16 +37,7 @@ const YouTubeTitleGenerator = () => {
             Format the response as a JSON array of strings. Each string is one title.
             Do not include any other text except the JSON array.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setTitles(results);
             toast.success('Viral titles generated!');

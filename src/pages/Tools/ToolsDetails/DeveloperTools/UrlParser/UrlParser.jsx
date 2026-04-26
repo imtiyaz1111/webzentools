@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { 
   FaLink, FaCopy, FaTrash, FaExclamationTriangle, 
-  FaCheck, FaCode, FaKeyboard, FaGlobe, FaSearch,
-  FaLevelDownAlt, FaPuzzlePiece, FaInfoCircle
+  FaCode, FaKeyboard, FaGlobe, FaSearch,
+  FaLevelDownAlt, FaPuzzlePiece, FaInfoCircle, FaCheck
 } from "react-icons/fa";
 import "./UrlParser.css";
 
@@ -40,7 +40,7 @@ const UrlParser = () => {
         params: params,
         pathSegments: url.pathname.split("/").filter(s => s)
       };
-    } catch (e) {
+    } catch {
       throw new Error("Invalid URL format");
     }
   }, []);
@@ -56,8 +56,8 @@ const UrlParser = () => {
       const data = parseURL(input);
       setParsed(data);
       setError("");
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
       setParsed(null);
     }
   }, [input, parseURL]);

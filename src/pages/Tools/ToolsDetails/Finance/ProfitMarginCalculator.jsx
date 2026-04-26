@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaChartBar, FaMoneyBillWave, FaLightbulb } from 'react-icons/fa';
 import './ProfitMarginCalculator.css';
@@ -8,13 +8,7 @@ const ProfitMarginCalculator = () => {
     const [cost, setCost] = useState(100);
     const [revenue, setRevenue] = useState(150);
 
-    const [results, setResults] = useState({
-        grossProfit: 0,
-        profitMargin: 0,
-        markup: 0
-    });
-
-    const calculateProfit = () => {
+    const results = useMemo(() => {
         const C = parseFloat(cost) || 0;
         const R = parseFloat(revenue) || 0;
 
@@ -23,18 +17,13 @@ const ProfitMarginCalculator = () => {
             const profitMargin = (grossProfit / R) * 100;
             const markup = C > 0 ? (grossProfit / C) * 100 : 0;
 
-            setResults({
+            return {
                 grossProfit: grossProfit.toFixed(2),
                 profitMargin: profitMargin.toFixed(2),
                 markup: markup.toFixed(2)
-            });
-        } else {
-            setResults({ grossProfit: 0, profitMargin: 0, markup: 0 });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateProfit();
+        return { grossProfit: 0, profitMargin: 0, markup: 0 };
     }, [cost, revenue]);
 
     const handleReset = () => {

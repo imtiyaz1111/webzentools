@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Form, Button, Spinner, Alert, ProgressBar } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaSyncAlt, FaEraser, FaRegFileAlt, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './AIParaphraser.css';
+import aiService from '../../../../services/aiService.js';
 
 const AIParaphraser = () => {
     const [inputText, setInputText] = useState('');
@@ -39,21 +39,13 @@ const AIParaphraser = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
             const prompt = `Paraphrase the following text using ${mode} mode. 
             Synonym intensity level: ${getIntensityLabel(intensity)}.
             Text to paraphrase: "${inputText}"
             
             Provide ONLY the paraphrased text in the response. Maintain the original language.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const result = data.candidates[0].content.parts[0].text.trim();
+            const result = await aiService.generateContent(prompt, 'text');
             setOutputText(result);
             toast.success('Text paraphrased successfully!');
         } catch (err) {

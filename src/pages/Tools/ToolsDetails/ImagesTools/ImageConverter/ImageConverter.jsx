@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { 
   FaCloudUploadAlt, FaDownload, FaTrash, FaImage, FaExchangeAlt,
-  FaFileImage, FaArrowRight, FaCheckCircle, FaCogs, FaInfoCircle
+  FaFileImage, FaCheckCircle, FaCogs, FaInfoCircle
 } from "react-icons/fa";
 import "./ImageConverter.css";
 

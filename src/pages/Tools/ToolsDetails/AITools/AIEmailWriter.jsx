@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { 
     FaEnvelope, FaUser, FaTag, FaMagic, FaCopy, 
@@ -8,11 +7,11 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './AIEmailWriter.css';
+import aiService from '../../../../services/aiService.js';
 
 const AIEmailWriter = () => {
     const [scenario, setScenario] = useState('Job Application');
     const [recipient, setRecipient] = useState('');
-    const [subject, setSubject] = useState('');
     const [keyPoints, setKeyPoints] = useState('');
     const [tone, setTone] = useState('Formal');
     const [loading, setLoading] = useState(false);
@@ -37,8 +36,7 @@ const AIEmailWriter = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Write a professional email for a ${scenario} scenario.
+                        const prompt = `Write a professional email for a ${scenario} scenario.
             Recipient Name: ${recipient || 'Recruiter/Manager'}
             Key Points to include: ${keyPoints}
             Tone: ${tone}
@@ -50,16 +48,7 @@ const AIEmailWriter = () => {
             }
             Do not include any other text except the JSON object.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const result = JSON.parse(jsonStr);
+            const result = await aiService.generateContent(prompt, 'json');
             
             setEmailResult(result);
             toast.success('Email drafted!');

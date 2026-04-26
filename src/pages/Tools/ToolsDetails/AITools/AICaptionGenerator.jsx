@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { 
     FaInstagram, FaTiktok, FaLinkedin, FaTwitter, FaFacebook, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './AICaptionGenerator.css';
+import aiService from '../../../../services/aiService.js';
 
 const AICaptionGenerator = () => {
     const [description, setDescription] = useState('');
@@ -35,8 +35,7 @@ const AICaptionGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Generate 4 distinct social media captions for ${platform} based on this description: "${description}".
+                        const prompt = `Generate 4 distinct social media captions for ${platform} based on this description: "${description}".
             Tone: ${tone}
             Include Emojis: ${includeEmojis ? 'Yes' : 'No'}
             Hashtag Count: ${hashtagsCount}
@@ -45,17 +44,7 @@ const AICaptionGenerator = () => {
             Make them engaging and optimized for ${platform}. 
             Do not include any other text except the JSON array.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            // Clean up possible markdown code blocks
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setCaptions(results);
             toast.success('Captions generated!');

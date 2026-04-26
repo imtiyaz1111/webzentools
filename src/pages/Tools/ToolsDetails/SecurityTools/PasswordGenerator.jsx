@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Row, Col, Form, Button, OverlayTrigger, Tooltip, Badge } from 'react-bootstrap';
+import { Row, Col, Form, Button, Badge } from 'react-bootstrap';
 import { FaCopy, FaSyncAlt, FaShieldAlt, FaHistory, FaCheck, FaTimes, FaLock, FaKey, FaShieldVirus, FaHashtag } from 'react-icons/fa';
 
 const PasswordGenerator = () => {

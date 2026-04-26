@@ -21,8 +21,8 @@ const HTMLMinifier = () => {
         .replace(/\s+/g, " ") // Collapse whitespace
         .replace(/>\s+</g, "><") // Remove whitespace between tags
         .trim();
-    } catch (e) {
-      throw new Error("Minification failed: " + e.message);
+    } catch (err) {
+      throw new Error("Minification failed: " + err.message);
     }
   }, []);
 
@@ -54,14 +54,14 @@ const HTMLMinifier = () => {
 
         formatted += step.repeat(Math.max(0, indent)) + line + "\n";
 
-        if (line.match(/^<\w[^>]*[^\/]>$/) && !line.match(/^<(area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)/)) {
+        if (line.match(/^<\w[^>]*[^/]>$/) && !line.match(/^<(area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)/)) {
           indent++;
         }
       }
 
       return formatted.trim();
-    } catch (e) {
-      throw new Error("Beautification failed: " + e.message);
+    } catch (err) {
+      throw new Error("Beautification failed: " + err.message);
     }
   }, []);
 
@@ -79,8 +79,8 @@ const HTMLMinifier = () => {
       } else {
         setOutput(beautifyHTML(input));
       }
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
       setOutput("");
     }
   }, [input, mode, minifyHTML, beautifyHTML]);

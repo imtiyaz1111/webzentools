@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaTrash, FaCopy, FaDownload, FaFilter, FaListUl, 
@@ -7,7 +7,6 @@ import {
 
 const DuplicateLineRemover = () => {
     const [inputText, setInputText] = useState('');
-    const [outputText, setOutputText] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
     
@@ -18,16 +17,9 @@ const DuplicateLineRemover = () => {
         removeEmptyLines: true
     });
 
-    const [stats, setStats] = useState({
-        original: 0,
-        unique: 0,
-        removed: 0
-    });
-
-    const handleProcess = () => {
+    const { outputText, stats } = React.useMemo(() => {
         if (!inputText) {
-            setOutputText('');
-            return;
+            return { outputText: '', stats: { original: 0, unique: 0, removed: 0 } };
         }
 
         let lines = inputText.split(/\r?\n/);
@@ -57,18 +49,15 @@ const DuplicateLineRemover = () => {
         });
 
         const result = uniqueLines.join('\n');
-        setOutputText(result);
         
-        setStats({
-            original: originalCount,
-            unique: uniqueLines.length,
-            removed: originalCount - uniqueLines.length
-        });
-    };
-
-    // Auto-process when input or options change
-    useEffect(() => {
-        handleProcess();
+        return {
+            outputText: result,
+            stats: {
+                original: originalCount,
+                unique: uniqueLines.length,
+                removed: originalCount - uniqueLines.length
+            }
+        };
     }, [inputText, options]);
 
     const handleCopy = () => {

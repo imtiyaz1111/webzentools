@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaPercentage, FaClock, FaCalendarAlt, FaInfoCircle } from 'react-icons/fa';
 import './SimpleInterestCalculator.css';
@@ -9,14 +9,7 @@ const SimpleInterestCalculator = () => {
     const [time, setTime] = useState(1);
     const [timeUnit, setTimeUnit] = useState('years'); // years, months, days
 
-    const [results, setResults] = useState({
-        interest: 0,
-        totalAmount: 0,
-        principalPercent: 0,
-        interestPercent: 0
-    });
-
-    const calculateSI = () => {
+    const results = useMemo(() => {
         const P = parseFloat(principal) || 0;
         const R = parseFloat(rate) || 0;
         let T = parseFloat(time) || 0;
@@ -30,17 +23,14 @@ const SimpleInterestCalculator = () => {
             const interest = (P * R * timeInYears) / 100;
             const totalAmount = P + interest;
 
-            setResults({
+            return {
                 interest: Math.round(interest),
                 totalAmount: Math.round(totalAmount),
                 principalPercent: totalAmount > 0 ? (P / totalAmount) * 100 : 100,
                 interestPercent: totalAmount > 0 ? (interest / totalAmount) * 100 : 0
-            });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateSI();
+        return { interest: 0, totalAmount: 0, principalPercent: 0, interestPercent: 0 };
     }, [principal, rate, time, timeUnit]);
 
     const handleReset = () => {

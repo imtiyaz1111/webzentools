@@ -20,17 +20,25 @@ const VideoDownloader = () => {
     // Settings
     const [targetFormat, setTargetFormat] = useState('mp4');
     const [targetResolution, setTargetResolution] = useState('720'); // height
-    const [quality, setQuality] = useState('23'); // CRF: lower is better quality (18-28 is typical)
+    const [quality] = useState('23'); // CRF: lower is better quality (18-28 is typical)
 
     const fileInputRef = useRef(null);
 
     useEffect(() => {
         loadFFmpeg();
+    }, []);
+
+    useEffect(() => {
         return () => {
             if (videoPreview) URL.revokeObjectURL(videoPreview);
+        };
+    }, [videoPreview]);
+
+    useEffect(() => {
+        return () => {
             if (outputUrl) URL.revokeObjectURL(outputUrl);
         };
-    }, []);
+    }, [outputUrl]);
 
     const loadFFmpeg = async () => {
         try {

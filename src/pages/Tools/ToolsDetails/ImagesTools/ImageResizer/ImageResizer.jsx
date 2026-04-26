@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-hot-toast";
 import { 
   FaCloudUploadAlt, FaDownload, FaTrash, FaImage, FaUndo,
   FaFileImage, FaExpandArrowsAlt, FaLink, FaUnlink, FaInstagram, 
-  FaFacebook, FaTwitter, FaYoutube, FaLinkedin, FaHdd, FaCogs,
+  FaFacebook, FaYoutube, FaHdd, FaCogs,
   FaArrowRight, FaCheckCircle
 } from "react-icons/fa";
 import "./ImageResizer.css";
@@ -127,8 +127,7 @@ const ImageResizer = () => {
             }));
 
             toast.success("Image processed successfully!");
-        } catch (error) {
-            console.error(error);
+        } catch {
             toast.error("Processing failed. Try adjusting settings.");
         } finally {
             setIsProcessing(false);

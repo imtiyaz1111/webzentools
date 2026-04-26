@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { 
-    FaInstagram, FaMagic, FaCopy, FaSmile, FaRedo, 
-    FaUserCircle, FaHashtag, FaRocket 
+    FaInstagram, FaUserCircle, FaRocket, FaSmile, 
+    FaHashtag, FaMagic, FaRedo, FaCopy 
 } from 'react-icons/fa';
-import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService';
 
 const InstagramBioGenerator = () => {
     const [keywords, setKeywords] = useState('');
@@ -27,7 +27,6 @@ const InstagramBioGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
             const prompt = `Generate 5 distinct Instagram bio variations based on these keywords/description: "${keywords}".
             Niche/Category: ${niche}
             Style: ${style}
@@ -42,26 +41,17 @@ const InstagramBioGenerator = () => {
             Format the response as a JSON array of strings. Each string is one bio.
             Do not include any other text except the JSON array.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const results = JSON.parse(jsonStr);
+            const results = await aiService.generateContent(prompt, 'json');
             
             setBios(results);
             toast.success('Stunning bios generated!');
-        } catch (err) {
-            console.error(err);
-            toast.error('Failed to generate bios. Please try again.');
+        } catch {
+            toast.error('Failed to generate bios.');
         } finally {
             setLoading(false);
         }
     };
+
 
     const copyBio = (text) => {
         navigator.clipboard.writeText(text);

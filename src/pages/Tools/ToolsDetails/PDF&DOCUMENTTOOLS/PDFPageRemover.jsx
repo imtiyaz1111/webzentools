@@ -13,7 +13,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLi
 
 const PDFPageRemover = () => {
     const [file, setFile] = useState(null);
-    const [pdfDoc, setPdfDoc] = useState(null);
     const [thumbnails, setThumbnails] = useState([]);
     const [selectedPages, setSelectedPages] = useState(new Set());
     const [isProcessing, setIsProcessing] = useState(false);
@@ -56,8 +55,7 @@ const PDFPageRemover = () => {
             }
             setThumbnails(thumbs);
             toast.success(`PDF Loaded: ${pdf.numPages} pages`);
-        } catch (error) {
-            console.error('Error loading PDF:', error);
+        } catch {
             toast.error('Failed to read PDF file.');
         } finally {
             setIsLoading(false);
@@ -102,8 +100,7 @@ const PDFPageRemover = () => {
             
             setResultPdfUrl(url);
             toast.success(`${selectedPages.size} pages removed successfully!`);
-        } catch (error) {
-            console.error('Removal Error:', error);
+        } catch {
             toast.error('An error occurred during page removal.');
         } finally {
             setIsProcessing(false);

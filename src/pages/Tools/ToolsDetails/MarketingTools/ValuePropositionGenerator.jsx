@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert, Card } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaDownload, FaSyncAlt, FaRegLightbulb, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './ValuePropositionGenerator.css';
+import aiService from '../../../../services/aiService.js';
 
 const ValuePropositionGenerator = () => {
     const [loading, setLoading] = useState(false);
@@ -24,21 +24,6 @@ const ValuePropositionGenerator = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const callGeminiAI = async (prompt) => {
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
-            throw new Error('Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
-        }
-
-        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-            contents: [{ parts: [{ text: prompt }] }]
-        });
-
-        const data = response.data;
-        if (data.error) throw new Error(data.error.message);
-        return data.candidates[0].content.parts[0].text;
     };
 
     const generateValueProp = async () => {
@@ -68,12 +53,7 @@ const ValuePropositionGenerator = () => {
         Provide only the JSON object.`;
 
         try {
-            const responseText = await callGeminiAI(prompt);
-            const jsonStart = responseText.indexOf('{');
-            const jsonEnd = responseText.lastIndexOf('}') + 1;
-            const jsonStr = responseText.substring(jsonStart, jsonEnd);
-            const data = JSON.parse(jsonStr);
-            
+            const data = await aiService.generateContent(prompt, 'json');
             setResult(data);
             toast.success('Value propositions crafted!');
         } catch (err) {

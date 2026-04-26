@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaUndo, FaFileInvoiceDollar, FaCalendarAlt, FaPercentage, FaWallet } from 'react-icons/fa';
 import './LoanCalculator.css';
@@ -10,15 +10,7 @@ const LoanCalculator = () => {
     const [tenureType, setTenureType] = useState('years'); // 'years' or 'months'
 
     // Calculated states
-    const [results, setResults] = useState({
-        emi: 0,
-        totalInterest: 0,
-        totalPayment: 0,
-        principalPercent: 0,
-        interestPercent: 0
-    });
-
-    const calculateLoan = () => {
+    const results = useMemo(() => {
         const P = loanAmount;
         const R = interestRate / 12 / 100;
         const N = tenureType === 'years' ? loanTenure * 12 : loanTenure;
@@ -28,18 +20,21 @@ const LoanCalculator = () => {
             const totalPayable = emiValue * N;
             const totalInt = totalPayable - P;
 
-            setResults({
+            return {
                 emi: Math.round(emiValue),
                 totalInterest: Math.round(totalInt),
                 totalPayment: Math.round(totalPayable),
                 principalPercent: (P / totalPayable) * 100,
                 interestPercent: (totalInt / totalPayable) * 100
-            });
+            };
         }
-    };
-
-    useEffect(() => {
-        calculateLoan();
+        return {
+            emi: 0,
+            totalInterest: 0,
+            totalPayment: 0,
+            principalPercent: 0,
+            interestPercent: 0
+        };
     }, [loanAmount, interestRate, loanTenure, tenureType]);
 
     const handleReset = () => {

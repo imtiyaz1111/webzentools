@@ -7,7 +7,6 @@ const JSONFormatterValidator = () => {
   const [rawJson, setRawJson] = useState("");
   const [formattedJson, setFormattedJson] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleFormat = () => {
     setErrorMsg("");
@@ -16,9 +15,9 @@ const JSONFormatterValidator = () => {
       const pretty = JSON.stringify(parsed, null, 2);
       setFormattedJson(pretty);
       toast.success("JSON formatted successfully!");
-    } catch (e) {
-      setErrorMsg(e.message);
-      toast.error(`Invalid JSON: ${e.message}`);
+    } catch (err) {
+      setErrorMsg(err.message);
+      toast.error(`Invalid JSON: ${err.message}`);
     }
   };
 
@@ -74,7 +73,6 @@ const JSONFormatterValidator = () => {
                 <button
                     className="btn btn-primary rounded-pill px-4 py-2 fw-bold"
                     onClick={handleFormat}
-                    disabled={loading}
                 >
                     <FaEdit className="me-2" /> Format / Validate
                 </button>

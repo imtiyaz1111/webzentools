@@ -88,7 +88,7 @@ const XMLEditor = () => {
                 pad += indent;
             });
             setXml(formattedXml.trim());
-        } catch (e) {
+        } catch {
             alert("Cannot beautify invalid XML");
         }
     };

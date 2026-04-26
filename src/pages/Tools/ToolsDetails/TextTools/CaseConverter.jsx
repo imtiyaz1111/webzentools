@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { 
     FaCopy, FaTrash, FaDownload, FaFont, FaAlignLeft, 
@@ -9,18 +9,10 @@ const CaseConverter = () => {
     const [text, setText] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
-    const [stats, setStats] = useState({
-        characters: 0,
-        words: 0,
-        lines: 0
-    });
-
-    useEffect(() => {
-        const characters = text.length;
-        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-        const lines = text.trim() ? text.split(/\n/).length : 0;
-        setStats({ characters, words, lines });
-    }, [text]);
+    const characters = text.length;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const lines = text.trim() ? text.split(/\n/).length : 0;
+    const stats = { characters, words, lines };
 
     const handleCopy = () => {
         if (!text) return;

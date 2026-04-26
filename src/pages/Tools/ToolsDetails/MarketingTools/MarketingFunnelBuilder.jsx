@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Alert, Card, Accordion } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaDownload, FaSyncAlt, FaRegLightbulb, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './MarketingFunnelBuilder.css';
+import aiService from '../../../../services/aiService.js';
 
 const MarketingFunnelBuilder = () => {
     const [loading, setLoading] = useState(false);
@@ -36,11 +36,7 @@ const MarketingFunnelBuilder = () => {
     };
 
     const callGeminiAI = async (prompt) => {
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
-            throw new Error('Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
-        }
-
+                
         const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
             contents: [{ parts: [{ text: prompt }] }]
         });

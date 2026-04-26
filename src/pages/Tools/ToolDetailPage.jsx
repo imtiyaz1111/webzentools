@@ -322,8 +322,6 @@ const ToolDetailPage = () => {
                 return <XMLEditor />;
             case 'TypeScriptEditor':
                 return <TypeScriptEditor />;
-            case 'MarkdownEditor':
-                return <MarkdownEditor />;
             case 'PythonEditor':
                 return <PythonEditor />;
             case 'JavaEditor':

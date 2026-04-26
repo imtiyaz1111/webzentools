@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AdSection = ({ slot, format = 'auto', responsive = true, style = {} }) => {
+const AdSection = ({ slot, style = {} }) => {
     // In a real application, you would load the AdSense script here or in index.html
     // and use <ins className="adsbygoogle" ... />
     

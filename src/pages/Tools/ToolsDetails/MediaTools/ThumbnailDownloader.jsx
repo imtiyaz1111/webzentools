@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaYoutube, FaDownload, FaSearch, FaTimes, FaImage, FaCheckCircle, FaExclamationCircle, FaClipboard } from 'react-icons/fa';
+import { FaYoutube, FaDownload, FaSearch, FaTimes, FaImage, FaExclamationCircle, FaClipboard } from 'react-icons/fa';
 import { saveAs } from 'file-saver';
 import toast from 'react-hot-toast';
 
@@ -46,8 +46,7 @@ const ThumbnailDownloader = () => {
             const blob = await response.blob();
             saveAs(blob, `youtube_thumbnail_${quality}_${videoId}.jpg`);
             toast.success(`Downloading ${quality} thumbnail...`);
-        } catch (err) {
-            console.error('Download error:', err);
+        } catch {
             toast.error('Failed to download image.');
         }
     };
@@ -57,7 +56,7 @@ const ThumbnailDownloader = () => {
             const text = await navigator.clipboard.readText();
             setVideoUrl(text);
             toast.success('Pasted from clipboard');
-        } catch (err) {
+        } catch {
             toast.error('Clipboard access denied');
         }
     };

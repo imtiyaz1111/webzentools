@@ -27,7 +27,6 @@ const StatsItem = ({ icon: Icon, target, label, suffix = "", duration = 2000 }) 
     useEffect(() => {
         if (!hasStarted) return;
 
-        let startValue = 0;
         const totalFrames = Math.round(duration / 16); // ~60fps
         const increment = target / totalFrames;
 

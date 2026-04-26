@@ -11,7 +11,6 @@ const AudioCutter = () => {
     const [ffmpeg, setFfmpeg] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [audioFile, setAudioFile] = useState(null);
-    const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
     const [status, setStatus] = useState('idle'); // idle, loading, processing, finished, error
     const [isPlaying, setIsPlaying] = useState(false);
@@ -19,7 +18,6 @@ const AudioCutter = () => {
     const [duration, setDuration] = useState(0);
     const [region, setRegion] = useState({ start: 0, end: 0 });
     const [outputUrl, setOutputUrl] = useState(null);
-    const [logs, setLogs] = useState([]);
 
     const waveformRef = useRef(null);
     const wavesurfer = useRef(null);
@@ -29,9 +27,14 @@ const AudioCutter = () => {
         loadFFmpeg();
         return () => {
             if (wavesurfer.current) wavesurfer.current.destroy();
-            if (outputUrl) URL.revokeObjectURL(outputUrl);
         };
     }, []);
+
+    useEffect(() => {
+        return () => {
+            if (outputUrl) URL.revokeObjectURL(outputUrl);
+        };
+    }, [outputUrl]);
 
     const loadFFmpeg = async () => {
         try {
@@ -39,8 +42,8 @@ const AudioCutter = () => {
             const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
             const ffmpegInstance = new FFmpeg();
             
-            ffmpegInstance.on('log', ({ message }) => {
-                setLogs(prev => [...prev.slice(-5), message]);
+            ffmpegInstance.on('log', () => {
+                // console.log(message);
             });
 
             ffmpegInstance.on('progress', ({ progress }) => {
@@ -131,7 +134,6 @@ const AudioCutter = () => {
         if (!audioFile || !ffmpeg) return;
 
         try {
-            setIsProcessing(true);
             setStatus('processing');
             setProgress(0);
 
@@ -167,7 +169,7 @@ const AudioCutter = () => {
             setStatus('error');
             toast.error('An error occurred during trimming.');
         } finally {
-            setIsProcessing(false);
+            // Processing done
         }
     };
 
@@ -201,7 +203,6 @@ const AudioCutter = () => {
         setOutputUrl(null);
         setProgress(0);
         setStatus('idle');
-        setLogs([]);
     };
 
     return (
@@ -318,8 +319,6 @@ const AudioCutter = () => {
                                         <hr className="my-5 border-secondary-subtle" />
 
                                         <div className="text-center">
-                                            {status === 'idle' && (
-                                                <div className="d-flex gap-3 justify-content-center">
                                                     <button 
                                                         className="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg"
                                                         onClick={cutAudio}

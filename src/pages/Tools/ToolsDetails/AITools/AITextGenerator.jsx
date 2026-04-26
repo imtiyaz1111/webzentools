@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import { FaRobot, FaMagic, FaCopy } from 'react-icons/fa';
+import { useState } from 'react';
+import aiService from '../../../../services/aiService';
+import { Form, Button, Spinner, Alert } from 'react-bootstrap';
+import { FaMagic, FaCopy, FaRobot } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 const AITextGenerator = () => {
@@ -21,36 +21,16 @@ const AITextGenerator = () => {
         setResult('');
 
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            
-            if (!apiKey) {
-                throw new Error('Gemini API key is not configured in environment variables.');
-            }
-
-            // Simple axios call to Gemini API
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{
-                    parts: [{ text: prompt }]
-                }]
-            });
-
-            const data = response.data;
-            
-            if (data.error) {
-                throw new Error(data.error.message || 'Failed to generate text.');
-            }
-
-            const generatedText = data.candidates[0].content.parts[0].text;
+            const generatedText = await aiService.generateContent(prompt, 'text');
             setResult(generatedText);
             toast.success('Text generated successfully!');
         } catch (err) {
-            console.error('AI Generation Error:', err);
             setError(err.message || 'Something went wrong while generating text.');
-            toast.error('Generation failed.');
         } finally {
             setLoading(false);
         }
     };
+
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(result);

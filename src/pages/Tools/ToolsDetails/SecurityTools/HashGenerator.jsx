@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Row, Col, Form, Button, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { FaHashtag, FaCopy, FaTrash, FaShieldAlt, FaInfoCircle, FaCheck, FaLock, FaKey, FaFingerprint } from 'react-icons/fa';
+import { Row, Col, Form, Button, Badge } from 'react-bootstrap';
+import { FaHashtag, FaCopy, FaTrash, FaShieldAlt, FaCheck, FaLock, FaKey, FaFingerprint } from 'react-icons/fa';
 
 // Lightweight MD5 Implementation
 const md5 = (string) => {
@@ -60,7 +60,7 @@ const HashGenerator = () => {
                 const hashBuffer = await crypto.subtle.digest(algo, msgUint8);
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
                 newHashes[algo] = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            } catch (e) { newHashes[algo] = 'Not Supported'; }
+            } catch (err) { newHashes[algo] = 'Not Supported'; }
         }
         setHashes(newHashes);
     }, []);

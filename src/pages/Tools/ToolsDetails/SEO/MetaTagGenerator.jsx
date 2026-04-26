@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FaCode, FaGlobe, FaFacebook, FaTwitter, FaCopy, FaCheck, FaInfoCircle } from 'react-icons/fa';
 import './MetaTagGenerator.css';
@@ -21,7 +21,6 @@ const MetaTagGenerator = () => {
         twitterCreator: ''
     });
 
-    const [generatedCode, setGeneratedCode] = useState('');
     const [copied, setCopied] = useState(false);
 
     const handleInputChange = (e) => {
@@ -29,7 +28,7 @@ const MetaTagGenerator = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const generateTags = () => {
+    const generatedCode = useMemo(() => {
         let code = `<!-- Primary Meta Tags -->\n`;
         if (formData.title) code += `<title>${formData.title}</title>\n`;
         code += `<meta name="title" content="${formData.title || ''}">\n`;
@@ -55,11 +54,7 @@ const MetaTagGenerator = () => {
         code += `<meta property="twitter:image" content="${formData.ogImage || ''}">\n`;
         if (formData.twitterCreator) code += `<meta property="twitter:creator" content="${formData.twitterCreator}">\n`;
 
-        setGeneratedCode(code);
-    };
-
-    useEffect(() => {
-        generateTags();
+        return code;
     }, [formData]);
 
     const handleCopy = () => {
@@ -69,7 +64,6 @@ const MetaTagGenerator = () => {
     };
 
     const renderCodePreview = () => {
-        // Simple syntax highlighting simulation
         const lines = generatedCode.split('\n');
         return lines.map((line, i) => {
             if (line.startsWith('<!--')) {

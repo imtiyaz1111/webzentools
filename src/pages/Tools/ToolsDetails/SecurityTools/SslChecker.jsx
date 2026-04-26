@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { Row, Col, Form, Button, Card, Badge, Spinner, Alert, ProgressBar } from 'react-bootstrap';
+import { Row, Col, Form, Button, Badge, Spinner, Alert } from 'react-bootstrap';
 import { FaSearch, FaShieldAlt, FaLock, FaCalendarAlt, FaIdCard, FaGlobe, FaCheckCircle, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 
 const SslChecker = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Row, Col, Form, Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import { FaLink, FaCopy, FaCheck, FaInfoCircle, FaFileCode, FaListUl, FaTrash } from 'react-icons/fa';
 import './CanonicalGenerator.css';
@@ -7,19 +7,18 @@ const CanonicalGenerator = () => {
     const [url, setUrl] = useState('https://example.com/page');
     const [bulkUrls, setBulkUrls] = useState('');
     const [activeTab, setActiveTab] = useState('single');
-    const [generatedCode, setGeneratedCode] = useState('');
     const [copied, setCopied] = useState(false);
 
-    useEffect(() => {
+    const generatedCode = useMemo(() => {
         if (activeTab === 'single') {
             const cleanUrl = url.trim() || 'https://example.com/page';
-            setGeneratedCode(`<link rel="canonical" href="${cleanUrl}" />`);
+            return `<link rel="canonical" href="${cleanUrl}" />`;
         } else {
             const lines = bulkUrls.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             if (lines.length === 0) {
-                setGeneratedCode('<!-- Paste URLs above to generate tags -->');
+                return '<!-- Paste URLs above to generate tags -->';
             } else {
-                setGeneratedCode(lines.map(l => `<link rel="canonical" href="${l}" />`).join('\n'));
+                return lines.map(l => `<link rel="canonical" href="${l}" />`).join('\n');
             }
         }
     }, [url, bulkUrls, activeTab]);

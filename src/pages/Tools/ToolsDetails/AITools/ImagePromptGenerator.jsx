@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { 
     FaMagic, FaCopy, FaSyncAlt, FaImage, FaLightbulb, 
@@ -7,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import './ImagePromptGenerator.css';
+import aiService from '../../../../services/aiService.js';
 
 const ImagePromptGenerator = () => {
     const [subject, setSubject] = useState('');
@@ -46,11 +46,7 @@ const ImagePromptGenerator = () => {
 
     const aspectRatios = ['1:1', '16:9', '9:16', '4:3', '21:9'];
 
-    useEffect(() => {
-        updatePrompt(false);
-    }, [subject, style, lighting, camera, artist, ratio]);
-
-    const updatePrompt = (isAI = false) => {
+    const updatePrompt = useCallback((isAI = false) => {
         if (isAI) return; // Handled by AI function
         
         let prompt = subject || 'A beautiful landscape';
@@ -61,7 +57,11 @@ const ImagePromptGenerator = () => {
         if (ratio) prompt += ` --ar ${ratio}`;
         
         setGeneratedPrompt(prompt);
-    };
+    }, [subject, style, lighting, camera, artist, ratio]);
+
+    useEffect(() => {
+        updatePrompt(false);
+    }, [updatePrompt]);
 
     const expandWithAI = async () => {
         if (!subject) {
@@ -71,7 +71,6 @@ const ImagePromptGenerator = () => {
 
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
             const promptRequest = `Expand this image prompt into a highly detailed, descriptive, and artistic masterpiece prompt for Midjourney/DALL-E. 
             Subject: ${subject}
             Style: ${style}
@@ -81,15 +80,8 @@ const ImagePromptGenerator = () => {
             Aspect Ratio: ${ratio}
             Include descriptive adjectives, textures, and technical details. Output ONLY the final prompt.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: promptRequest }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const expandedPrompt = data.candidates[0].content.parts[0].text.trim();
-            setGeneratedPrompt(expandedPrompt);
+            const result = await aiService.generateContent(promptRequest, 'text');
+            setGeneratedPrompt(result);
             toast.success('AI Expansion complete!');
         } catch (err) {
             toast.error('AI Expansion failed: ' + err.message);

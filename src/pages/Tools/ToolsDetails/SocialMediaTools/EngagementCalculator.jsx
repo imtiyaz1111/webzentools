@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Spinner, Row, Col } from 'react-bootstrap';
 import { 
     FaChartPie, FaMagic, FaUsers, FaHeart, 
     FaComment, FaShare, FaLightbulb 
 } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import aiService from '../../../../services/aiService.js';
 
 const EngagementCalculator = () => {
     const [followers, setFollowers] = useState('');
@@ -30,8 +30,7 @@ const EngagementCalculator = () => {
         
         setLoading(true);
         try {
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            const prompt = `Analyze this social media engagement rate: ${engagementRate.toFixed(2)}%.
+                        const prompt = `Analyze this social media engagement rate: ${engagementRate.toFixed(2)}%.
             Data: Followers: ${f}, Likes: ${l}, Comments: ${c}, Shares: ${s}.
             Provide:
             1. rating (Poor, Average, Good, Excellent)
@@ -42,16 +41,7 @@ const EngagementCalculator = () => {
             Format the response as a valid JSON object.
             Do not include any other text except the JSON object.`;
 
-            const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                contents: [{ parts: [{ text: prompt }] }]
-            });
-
-            const data = response.data;
-            if (data.error) throw new Error(data.error.message);
-            
-            const rawText = data.candidates[0].content.parts[0].text;
-            const jsonStr = rawText.replace(/```json|```/g, '').trim();
-            const analysis = JSON.parse(jsonStr);
+            const analysis = await aiService.generateContent(prompt, 'json');
             
             setResult({
                 rate: engagementRate.toFixed(2),

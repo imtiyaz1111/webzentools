@@ -12,6 +12,7 @@ const JwtDecoder = () => {
   const [header, setHeader] = useState(null);
   const [payload, setPayload] = useState(null);
   const [error, setError] = useState("");
+  const currentTime = Date.now() / 1000;
 
   const decodeTokenPart = (part) => {
     try {
@@ -20,7 +21,7 @@ const JwtDecoder = () => {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
       }).join(''));
       return JSON.parse(json);
-    } catch (e) {
+    } catch {
       return null;
     }
   };
@@ -178,12 +179,19 @@ const JwtDecoder = () => {
                        <label className="small text-muted d-flex align-items-center mb-2">
                           <FaCalendarAlt className="me-2" /> EXPIRATION TIME
                        </label>
-                       <div className={`fw-bold ${payload.exp && payload.exp < Date.now()/1000 ? 'text-danger' : 'text-success'}`}>
-                          {formatDate(payload.exp)}
-                       </div>
-                       {payload.exp && payload.exp < Date.now()/1000 && (
-                          <div className="small text-danger mt-1">Token has expired</div>
-                       )}
+                       {(() => {
+                         const isExpired = payload.exp && payload.exp < currentTime;
+                         return (
+                           <>
+                             <div className={`fw-bold ${isExpired ? 'text-danger' : 'text-success'}`}>
+                                {formatDate(payload.exp)}
+                             </div>
+                             {isExpired && (
+                                <div className="small text-danger mt-1">Token has expired</div>
+                             )}
+                           </>
+                         );
+                       })()}
                     </div>
 
                     <div className="insight-item mb-4">

@@ -107,7 +107,11 @@ const Contact = () => {
             }
         } catch (error) {
             console.error("Submission error:", error);
-            toast.error("Connection error. Please ensure your Vercel environment variables (SMTP) are configured.");
+            if (error.response && (error.response.status === 404 || error.response.status === 502)) {
+                toast.error("API Gateway error. If you are developing locally, please use 'vercel dev' instead of 'npm run dev' to enable serverless functions.");
+            } else {
+                toast.error(error.response?.data?.message || "Connection error. Please check your internet or configuration.");
+            }
         } finally {
             setIsSubmitting(false);
         }
