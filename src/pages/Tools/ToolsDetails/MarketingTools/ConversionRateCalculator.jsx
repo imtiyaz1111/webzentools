@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, Row, Col, Alert } from 'react-bootstrap';
 import { 
-    FaPercent, FaCalculator, FaChartLine, FaArrowTrendUp, 
+    FaPercent, FaCalculator, FaChartLine, 
     FaDollarSign, FaUsers, FaMousePointer, FaSyncAlt, FaRegLightbulb,
     FaInfoCircle
 } from 'react-icons/fa';
+import { FaArrowTrendUp } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import './ConversionRateCalculator.css';
 
