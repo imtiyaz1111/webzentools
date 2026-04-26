@@ -70,7 +70,7 @@
 .issue-label {
     font-size: 0.7rem;
     font-weight: 800;
-    text-uppercase;
+    text-transform: uppercase;
     color: #64748b;
     margin-bottom: 0.25rem;
 }

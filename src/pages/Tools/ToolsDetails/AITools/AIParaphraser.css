@@ -26,7 +26,7 @@
 .editor-label {
     font-size: 0.8rem;
     font-weight: 700;
-    text-uppercase;
+    text-transform: uppercase;
     letter-spacing: 1px;
     color: #64748b;
 }
