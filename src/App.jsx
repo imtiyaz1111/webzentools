@@ -3,6 +3,7 @@ import Layouts from "./layout/Layouts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 // Lazy load page components for better performance
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -51,6 +52,7 @@ function App() {
               <Route path="/cookie-policy" element={<CookiePolicy />} />
             </Routes>
           </Suspense>
+          <Chatbot />
         </Layouts>
       </Router>
     </HelmetProvider>

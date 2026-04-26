@@ -34,6 +34,36 @@ const aiService = {
             toast.error(errorMsg);
             throw new Error(errorMsg);
         }
+    },
+
+    /**
+     * Sends a chat message to the AI and maintains history.
+     * @param {Array} history - Array of previous messages [{ role: 'user'|'model', text: '...' }]
+     * @param {string} message - The new message from the user.
+     * @returns {Promise<string>} - The AI's reply.
+     */
+    async sendChatMessage(history, message) {
+        try {
+            const response = await axios.post('/api/chat', { history, message });
+            
+            if (response.data && response.data.success) {
+                return response.data.reply;
+            } else {
+                throw new Error(response.data.message || 'Failed to get chat response.');
+            }
+        } catch (error) {
+            console.error('Chat Service Error:', error);
+            
+            if (error.response && (error.response.status === 404 || error.response.status === 502)) {
+                const msg = "Chat API Gateway error. If developing locally, please use 'vercel dev'.";
+                toast.error(msg);
+                throw new Error(msg);
+            }
+
+            const errorMsg = error.response?.data?.message || error.message || 'An error occurred during chat.';
+            toast.error(errorMsg);
+            throw new Error(errorMsg);
+        }
     }
 };
 

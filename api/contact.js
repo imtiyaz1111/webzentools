@@ -47,7 +47,7 @@ export default async function handler(req, res) {
             from: `"WebzenTools System" <${process.env.SMTP_USER || 'webzentools@gmail.com'}>`,
             to: recipientEmail,
             replyTo: email,
-            subject: `🔥 New Contact: ${subject || 'No Subject'}`,
+            subject: `New Contact: ${subject || 'No Subject'}`,
             html: `
                 <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
                     <div style="background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%); color: #fff; padding: 20px; text-align: center;">
