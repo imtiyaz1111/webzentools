@@ -47,7 +47,8 @@ const aiService = {
             const response = await axios.post('/api/chat', { history, message });
             
             if (response.data && response.data.success) {
-                return response.data.reply;
+                // Return the whole object which includes { reply, suggestions }
+                return response.data;
             } else {
                 throw new Error(response.data.message || 'Failed to get chat response.');
             }
