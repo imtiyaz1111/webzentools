@@ -318,54 +318,54 @@ const AudioCutter = () => {
 
                                         <hr className="my-5 border-secondary-subtle" />
 
-                                        <div className="text-center">
+                                        {status === 'idle' && (
+                                            <div className="text-center">
+                                                <button 
+                                                    className="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg"
+                                                    onClick={cutAudio}
+                                                >
+                                                    <FaCut className="me-2" /> Cut Audio
+                                                </button>
+                                                <button className="btn btn-outline-secondary btn-lg rounded-pill px-4" onClick={reset}>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        )}
+
+                                        {status === 'processing' && (
+                                            <div className="max-width-500 mx-auto">
+                                                <div className="progress mb-4 rounded-pill" style={{ height: '15px', background: 'rgba(255, 255, 255, 0.1)' }}>
+                                                    <div 
+                                                        className="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                                                        role="progressbar" 
+                                                        style={{ width: `${progress}%` }}
+                                                    ></div>
+                                                </div>
+                                                <h3 className="fw-bold mb-2">{progress}%</h3>
+                                                <p className="text-muted">Extracting audio segment... Hold on.</p>
+                                            </div>
+                                        )}
+
+                                        {status === 'finished' && (
+                                            <div className="max-width-500 mx-auto">
+                                                <div className="p-4 rounded-4 text-center mb-4" style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                                                    <FaCheckCircle className="text-success display-4 mb-3" />
+                                                    <h4 className="fw-bold mb-2 text-white">Cut Complete!</h4>
+                                                    <p className="text-muted">Your audio clip is ready for download.</p>
+                                                </div>
+                                                <div className="d-grid gap-3">
                                                     <button 
-                                                        className="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg"
-                                                        onClick={cutAudio}
+                                                        className="btn btn-success btn-lg rounded-pill py-3 fw-bold d-flex align-items-center justify-content-center shadow-lg"
+                                                        onClick={downloadAudio}
                                                     >
-                                                        <FaCut className="me-2" /> Cut Audio
+                                                        <FaDownload className="me-2" /> Download Trimmed Audio
                                                     </button>
-                                                    <button className="btn btn-outline-secondary btn-lg rounded-pill px-4" onClick={reset}>
-                                                        Cancel
+                                                    <button className="btn btn-outline-secondary rounded-pill py-2" onClick={reset}>
+                                                        Trim Another Clip
                                                     </button>
                                                 </div>
-                                            )}
-
-                                            {status === 'processing' && (
-                                                <div className="max-width-500 mx-auto">
-                                                    <div className="progress mb-4 rounded-pill" style={{ height: '15px', background: 'rgba(255, 255, 255, 0.1)' }}>
-                                                        <div 
-                                                            className="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
-                                                            role="progressbar" 
-                                                            style={{ width: `${progress}%` }}
-                                                        ></div>
-                                                    </div>
-                                                    <h3 className="fw-bold mb-2">{progress}%</h3>
-                                                    <p className="text-muted">Extracting audio segment... Hold on.</p>
-                                                </div>
-                                            )}
-
-                                            {status === 'finished' && (
-                                                <div className="max-width-500 mx-auto">
-                                                    <div className="p-4 rounded-4 text-center mb-4" style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                                                        <FaCheckCircle className="text-success display-4 mb-3" />
-                                                        <h4 className="fw-bold mb-2 text-white">Cut Complete!</h4>
-                                                        <p className="text-muted">Your audio clip is ready for download.</p>
-                                                    </div>
-                                                    <div className="d-grid gap-3">
-                                                        <button 
-                                                            className="btn btn-success btn-lg rounded-pill py-3 fw-bold d-flex align-items-center justify-content-center shadow-lg"
-                                                            onClick={downloadAudio}
-                                                        >
-                                                            <FaDownload className="me-2" /> Download Trimmed Audio
-                                                        </button>
-                                                        <button className="btn btn-outline-secondary rounded-pill py-2" onClick={reset}>
-                                                            Trim Another Clip
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
